@@ -28,6 +28,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.tmd.render.Textures;
+import org.tmd.render.gui.Mouse;
+import org.tmd.render.scenes.Scene;
 import org.tmd.xfg.*;
 
 /**
@@ -36,13 +38,19 @@ import org.tmd.xfg.*;
  */
 public class Main {
 
+    private static boolean exit;
     private static XFG conf;
     private static Image logo;
+    public static Graphics g = new Graphics();
     public static FontRender defaultFont;
 
     public static void main(String[] args) {
         setUpNatives();
         setUpDisplay();
+    }
+    
+    public static void exit(){
+        exit = true;
     }
 
     public static void setUpDisplay() {
@@ -116,10 +124,8 @@ public class Main {
         }
         int displayWidth = Display.getWidth(), displayHeight = Display.getHeight();
         float allTasks = LoadTask.tasks.size();
-        Graphics g = new Graphics();
         try {
             while (LoadTask.tasks.size() > 0) {
-                long beforeRender = System.currentTimeMillis();
                 glMatrixMode(GL_PROJECTION);
                 glLoadIdentity();
                 if (displayWidth != Display.getWidth() || displayHeight != Display.getHeight()) {
@@ -139,7 +145,7 @@ public class Main {
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
                 logo.draw((Display.getWidth() - logo.getWidth()) / 2, (Display.getHeight() - logo.getHeight()) / 2);
-                defaultFont.drawString(LoadTask.tasks.get(0).text, 10, displayHeight - 75, Color.white);
+                defaultFont.drawString(LoadTask.tasks.get(0).text, 16, displayHeight - 60, Color.white);
                 g.setColor(new Color(154, 185, 233));
                 g.fillRect(16, displayHeight - 27, (float) (displayWidth - 32), 14);
                 g.setColor(new Color(6, 18, 39));
@@ -154,9 +160,9 @@ public class Main {
             JOptionPane.showMessageDialog(null, "Error!\n" + e);
             System.exit(1);
         }
+        Declaration.mainMenu.set();
         try {
-            while (!Display.isCloseRequested()) {
-                long beforeRender = System.currentTimeMillis();
+            while (!(Display.isCloseRequested() | exit)) {
                 glMatrixMode(GL_PROJECTION);
                 glLoadIdentity();
                 if (displayWidth != Display.getWidth() || displayHeight != Display.getHeight()) {
@@ -164,10 +170,8 @@ public class Main {
                     displayHeight = Display.getHeight();
                     glViewport(0, 0, Display.getWidth(), Display.getHeight());
                 }
-                gluPerspective((float) 90, displayWidth / displayHeight, 0.001f, 1000);
                 glMatrixMode(GL_MODELVIEW);
                 glLoadIdentity();
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 glEnable(GL11.GL_BLEND);
                 glEnable(GL11.GL_TEXTURE_2D);
@@ -175,9 +179,17 @@ public class Main {
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
                 glClearColor(0, 0, 0, 0);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
+                if(Scene.currentScene != null){
+                    Mouse.update();
+                    Scene.currentScene.handleScene();
+                    Scene.currentScene.renderScene();
+                }
                 Display.update();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error!\n" + e);
         }
         conf.set("x", Display.getX());

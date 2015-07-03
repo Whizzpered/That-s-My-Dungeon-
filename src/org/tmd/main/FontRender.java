@@ -227,4 +227,12 @@ public final class FontRender {
         }
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+    
+    public void drawStringRight(String text, int x, int y, Color color){
+        drawString(text, x - getWidth(text), y, color);
+    }
+    
+    public void drawStringAtCenter(String text, int x, int y, Color color){
+        drawString(text, x - getWidth(text) / 2, y, color);
+    }
 }

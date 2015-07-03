@@ -12,6 +12,8 @@ import org.tmd.render.Image;
  * @author yew_mentzaki
  */
 public class Frame {
+    
+    public static Frame defaultFrame = new Frame("frame");
 
     Image center;
     Image angle;

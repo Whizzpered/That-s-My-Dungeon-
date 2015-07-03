@@ -1,19 +1,19 @@
 locale_name = de_DE
-continue: Weiter
-newgame: Neuessiel
-settings: Einstellung
-exit: Ausgang
-pause: Pausen
-shop: Shopen
-reinit: Wiederholung
-ability: Fahigkeit
-inventory: Inventar
-fullscreen: Vollbild
-keyboard: tastatur
-apply: Antworten
-welcome: Willkommen in
-times: mal
-next: Next
+continue = Weiter
+newgame = Neuesspiel
+settings = Einstellung
+exit = Ausgang
+pause = Pausen
+shop = Shopen
+reinit = Wiederholung
+ability = Fahigkeit
+inventory = Inventar
+fullscreen = Vollbild
+keyboard = tastatur
+apply = Antworten
+welcome = Willkommen in
+times = mal
+next = Next
 h1 = Press arrows keys and Space to change camera's focus
 h2 = All interactions with the left mouse button
 h3 = To use the abilities, press button of it and if its need press right mouse button

@@ -77,8 +77,10 @@ public class XFG extends ArrayList<XObject> {
 
     public XObject get(String name) {
         for (int i = 0; i < size(); i++) {
-            if (get(i).name.equals(name)) {
-                return get(i);
+            if (get(i).name != null) {
+                if (get(i).name.equals(name)) {
+                    return get(i);
+                }
             }
         }
         XObject o = new XObject(name);
