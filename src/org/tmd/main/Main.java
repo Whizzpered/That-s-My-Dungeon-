@@ -7,6 +7,7 @@ package org.tmd.main;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.font.FontRenderContext;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,6 +37,8 @@ import org.tmd.xfg.*;
 public class Main {
 
     private static XFG conf;
+    private static Image logo;
+    public static FontRender defaultFont;
 
     public static void main(String[] args) {
         setUpNatives();
@@ -92,14 +95,13 @@ public class Main {
             glClearColor(0, 0, 0, 0);
             glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
             try {
-                Image i = new Image("res/textures/gui/logo.png");
-                i.draw((Display.getWidth() - i.getWidth()) / 2, (Display.getHeight() - i.getHeight()) / 2);
+                logo = new Image("res/textures/gui/logo.png");
+                logo.draw((Display.getWidth() - logo.getWidth()) / 2, (Display.getHeight() - logo.getHeight()) / 2);
 
             } catch (SlickException ex) {
                 Logger.getLogger(Main.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-
             Display.update();
         } catch (LWJGLException e) {
             Display.destroy();
@@ -108,11 +110,50 @@ public class Main {
         }
         try {
             Textures.load();
+            defaultFont = FontRender.getTextRender("sans cherif", 0, 18);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Graphics g = new Graphics();
         int displayWidth = Display.getWidth(), displayHeight = Display.getHeight();
+        float allTasks = LoadTask.tasks.size();
+        Graphics g = new Graphics();
+        try {
+            while (LoadTask.tasks.size() > 0) {
+                long beforeRender = System.currentTimeMillis();
+                glMatrixMode(GL_PROJECTION);
+                glLoadIdentity();
+                if (displayWidth != Display.getWidth() || displayHeight != Display.getHeight()) {
+                    displayWidth = Display.getWidth();
+                    displayHeight = Display.getHeight();
+                    glViewport(0, 0, Display.getWidth(), Display.getHeight());
+                }
+                glMatrixMode(GL_MODELVIEW);
+                glLoadIdentity();
+                glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                glEnable(GL11.GL_BLEND);
+                glEnable(GL11.GL_TEXTURE_2D);
+                glEnable(GL_ALPHA_TEST);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+                glClearColor(0, 0, 0, 0);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
+                logo.draw((Display.getWidth() - logo.getWidth()) / 2, (Display.getHeight() - logo.getHeight()) / 2);
+                defaultFont.drawString(LoadTask.tasks.get(0).text, 10, displayHeight - 75, Color.white);
+                g.setColor(new Color(154, 185, 233));
+                g.fillRect(16, displayHeight - 26, (float) (displayWidth - 32), 12);
+                g.setColor(new Color(6, 18, 39));
+                g.fillRect(18, displayHeight - 23, (float) (displayWidth - 36), 6);
+                g.setColor(Color.white);
+                g.fillRect(19, displayHeight - 22, (float) (displayWidth - 38) * (1 - (float) LoadTask.tasks.size() / allTasks), 4);
+                Display.update();
+                LoadTask.tasks.get(0).load();
+                LoadTask.tasks.remove(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error!\n" + e);
+            System.exit(1);
+        }
         try {
             while (!Display.isCloseRequested()) {
                 long beforeRender = System.currentTimeMillis();

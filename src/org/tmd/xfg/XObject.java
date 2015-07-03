@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.tmd.xfg;
 
 /**
@@ -55,7 +54,11 @@ public class XObject extends XFG {
     }
 
     public String getString() {
-        return value.toString();
+        if (value == null) {
+            return "";
+        } else {
+            return value.toString();
+        }
     }
 
     public int getInteger() {
@@ -74,7 +77,6 @@ public class XObject extends XFG {
         return 0;
     }
 
-    
     public double getDouble() {
         if (value instanceof String) {
             return Double.parseDouble(value.toString());
@@ -90,7 +92,7 @@ public class XObject extends XFG {
         }
         return 0;
     }
-    
+
     public float getFloat() {
         if (value instanceof String) {
             return Float.parseFloat(value.toString());
@@ -106,7 +108,7 @@ public class XObject extends XFG {
         }
         return 0;
     }
-    
+
     public XObject(String name, Object value) {
         this.name = name;
         this.value = value;

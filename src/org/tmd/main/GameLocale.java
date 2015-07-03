@@ -43,8 +43,8 @@ public class GameLocale {
     }
 
     public static String get(String key) {
-        String o = currentLocale.get(key).getString();
-        if (o == null || o.length() < 0) {
+        String o = currentLocale.get(key.toLowerCase()).getString();
+        if (o.equals("")) {
             return key;
         } else {
             return o;

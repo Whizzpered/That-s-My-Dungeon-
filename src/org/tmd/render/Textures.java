@@ -32,7 +32,7 @@ public class Textures {
         Image image;
 
         public Tex(String name, File file) {
-            super(GameLocale.get("load") + GameLocale.get("texture") + name);
+            super(GameLocale.get("loading") + " " + GameLocale.get("texture") + " \"" + name + "\"...");
             this.name = name;
             this.file = file;
         }
