@@ -141,11 +141,11 @@ public class Main {
                 logo.draw((Display.getWidth() - logo.getWidth()) / 2, (Display.getHeight() - logo.getHeight()) / 2);
                 defaultFont.drawString(LoadTask.tasks.get(0).text, 10, displayHeight - 75, Color.white);
                 g.setColor(new Color(154, 185, 233));
-                g.fillRect(16, displayHeight - 26, (float) (displayWidth - 32), 12);
+                g.fillRect(16, displayHeight - 27, (float) (displayWidth - 32), 14);
                 g.setColor(new Color(6, 18, 39));
-                g.fillRect(18, displayHeight - 23, (float) (displayWidth - 36), 6);
+                g.fillRect(20, displayHeight - 23, (float) (displayWidth - 40), 6);
                 g.setColor(Color.white);
-                g.fillRect(19, displayHeight - 22, (float) (displayWidth - 38) * (1 - (float) LoadTask.tasks.size() / allTasks), 4);
+                g.fillRect(21, displayHeight - 22, (float) (displayWidth - 42) * (1 - (float) LoadTask.tasks.size() / allTasks), 4);
                 Display.update();
                 LoadTask.tasks.get(0).load();
                 LoadTask.tasks.remove(0);
