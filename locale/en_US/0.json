@@ -1,0 +1,34 @@
+{
+    "action": "subreplic",
+    "replics": [
+        {
+            "question": "Hello!",
+            "answer": "Hello! How r u?",
+            "action": "subreplic",
+            "replics": [
+                {
+                    "question": "Fine, thx. Let's go teaching?",
+                    "answer": "",
+                    "action": "totraining"
+                },
+                {
+                    "question": "Everything sux, dude. :C",
+                    "answer": "Oh, why? :C",
+                    "action": "subreplic",
+                    "replics": [
+                        {
+                            "question": "Fuck it, teach me",
+                            "answer": "Little piece of shit, go",
+                            "action": "totraining"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "question": "Good bye!",
+            "answer": "Bye bye!",
+            "action": "exit"
+        }
+    ]
+}
