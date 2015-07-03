@@ -171,6 +171,7 @@ public class Main {
             JOptionPane.showMessageDialog(null, "Error!\n" + e);
             System.exit(1);
         }
+        logo.getTexture().release();
         Declaration.mainMenu.set();
         try {
             while (!(Display.isCloseRequested() | exit)) {

@@ -29,8 +29,8 @@ public class Button extends Element{
     @Override
     public void render() {
         Frame.defaultFrame.render(getX(), getY() + (hover?1:-1), width, height);
-        Main.defaultFont.drawStringAtCenter(getText(), (int)getX() + (int)width / 2, (int)getY() + (int)height / 2 - 18, Color.black);
-        Main.defaultFont.drawStringAtCenter(getText(), (int)getX() + (int)width / 2, (int)getY() + (int)height / 2 - 20, Color.white);
+        Main.defaultFont.drawStringAtCenter(getText(), (int)getX() + (int)width / 2, (int)getY() + (int)height / 2 - 20 + (hover?1:-1), Color.black);
+        Main.defaultFont.drawStringAtCenter(getText(), (int)getX() + (int)width / 2, (int)getY() + (int)height / 2 - 22 + (hover?1:-1), Color.white);
     }
     
 }

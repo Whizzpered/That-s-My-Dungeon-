@@ -24,6 +24,7 @@ public class Declaration {
      */
 
     public static MainMenu mainMenu = new MainMenu();
+    public static Dungeon dungeon = null;
     
     /*
     *   Blocks:
