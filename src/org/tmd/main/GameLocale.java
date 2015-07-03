@@ -37,6 +37,7 @@ public class GameLocale {
         for (XFG l : locales) {
             if (l.get("locale_name").getString().equals(currentLocale)) {
                 GameLocale.currentLocale = l;
+                Main.conf.set("locale", currentLocale);
                 return;
             }
         }

@@ -38,8 +38,8 @@ import org.tmd.xfg.*;
  */
 public class Main {
 
+    public static XFG conf;
     private static boolean exit;
-    private static XFG conf;
     private static Image logo;
     public static Graphics g = new Graphics();
     public static FontRender defaultFont;
