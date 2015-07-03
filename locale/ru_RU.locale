@@ -1,4 +1,8 @@
 locale_name = ru_RU
+loading = Загрузка
+texture = текстуры
+sound = звука
+music = музыки
 continue = Prodoljit
 newgame = Новая игра
 settings = Настройки

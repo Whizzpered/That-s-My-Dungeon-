@@ -1,4 +1,8 @@
 locale_name = de_DE
+loading = Laden
+texture = Texture
+sound = Klang
+music = Musik
 continue = Weiter
 newgame = Neuesspiel
 settings = Einstellungen
