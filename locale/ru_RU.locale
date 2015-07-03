@@ -1,21 +1,22 @@
-continue: Prodoljit
-newgame: Novaya igra
-settings: Nastroyki
-exit: Vihod
-pause: Pausa
-shop: Magazin
-reinit: Perezapuskay
-ability: Abilochki
-inventory: Inventar
-fullscreen: Jirniy ekran
-keyboard: Klavishi
-apply: Primenit'
-welcome: Perewedeno Fargus - wellkome v
-times: raz!
-next: Next
-h1: Najmite strelki, chtoby smenit' cameru na rederov
-h2: Vse osnovnye deistviya proishodyat po nazhatiyu levoi knopki myshi
-h3: Snizy intuitivno ponyatnaya instrukciya. Udachi! :)
+locale_name = ru_RU
+continue = Prodoljit
+newgame = Novaya igra
+settings = Nastroyki
+exit = Vihod
+pause = Pausa
+shop = Magazin
+reinit = Perezapuskay
+ability = Abilochki
+inventory = Inventar
+fullscreen = Jirniy ekran
+keyboard = Klavishi
+apply = Primenit'
+welcome = Perewedeno Fargus - wellkome v
+times = raz!
+next = Next
+h1 = Najmite strelki, chtoby smenit' cameru na rederov
+h2 = Vse osnovnye deistviya proishodyat po nazhatiyu levoi knopki myshi
+h3 = Snizy intuitivno ponyatnaya instrukciya. Udachi! :)
 item_arms = Arms - the best thing for brutal man, yeah!\nBe cool.
 item_braces = Braces
 item_hat = Hat

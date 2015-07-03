@@ -35,7 +35,7 @@ import org.tmd.xfg.*;
  */
 public class Main {
 
-    private static XFG windowXFG;
+    private static XFG conf;
 
     public static void main(String[] args) {
         setUpNatives();
@@ -46,9 +46,9 @@ public class Main {
         try {
             try {
                 if (new File("cfg/conf.xfg").exists()) {
-                    windowXFG = new XFG(new File("cfg/conf.xfg"));
+                    conf = new XFG(new File("cfg/conf.xfg"));
                 } else {
-                    windowXFG = new XFG();
+                    conf = new XFG();
                     int maxWidth = 0;
                     GraphicsDevice gdd = null;
                     for (GraphicsDevice gd : GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()) {
@@ -61,11 +61,12 @@ public class Main {
                         System.err.println("No graphic device found!");
                         System.exit(1);
                     } else {
-                        windowXFG.set("x", gdd.getDefaultConfiguration().getBounds().x);
-                        windowXFG.set("y", gdd.getDefaultConfiguration().getBounds().y);
-                        windowXFG.set("width", gdd.getDisplayMode().getWidth());
-                        windowXFG.set("height", gdd.getDisplayMode().getHeight());
-                        windowXFG.writeToFile(new File("cfg/conf.xfg"));
+                        conf.set("x", gdd.getDefaultConfiguration().getBounds().x);
+                        conf.set("y", gdd.getDefaultConfiguration().getBounds().y);
+                        conf.set("width", gdd.getDisplayMode().getWidth());
+                        conf.set("height", gdd.getDisplayMode().getHeight());
+                        conf.set("locale", "en_US");
+                        conf.writeToFile(new File("cfg/conf.xfg"));
                     }
                 }
             } catch (FileNotFoundException ex) {
@@ -73,10 +74,11 @@ public class Main {
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
+            GameLocale.load(conf.get("locale").getString());
 
-            Display.setDisplayMode(new DisplayMode(windowXFG.get("width").getInteger(), windowXFG.get("height").getInteger()));
+            Display.setDisplayMode(new DisplayMode(conf.get("width").getInteger(), conf.get("height").getInteger()));
             Display.setTitle("That's My Dungeon!");
-            Display.setLocation(windowXFG.get("x").getInteger(), windowXFG.get("y").getInteger());
+            Display.setLocation(conf.get("x").getInteger(), conf.get("y").getInteger());
             Display.setResizable(true);
             Display.create();
             glMatrixMode(GL_PROJECTION);
@@ -137,12 +139,12 @@ public class Main {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error!\n" + e);
         }
-        windowXFG.set("x", Display.getX());
-        windowXFG.set("y", Display.getY());
-        windowXFG.set("width", Display.getWidth());
-        windowXFG.set("height", Display.getHeight());
+        conf.set("x", Display.getX());
+        conf.set("y", Display.getY());
+        conf.set("width", Display.getWidth());
+        conf.set("height", Display.getHeight());
         try {
-            windowXFG.writeToFile(new File("cfg/conf.xfg"));
+            conf.writeToFile(new File("cfg/conf.xfg"));
         } catch (FileNotFoundException ex) {
             System.out.println("Configuration doesn't saved!");
         } catch (IOException ex) {
