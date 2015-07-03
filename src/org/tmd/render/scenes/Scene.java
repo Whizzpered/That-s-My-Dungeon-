@@ -33,10 +33,7 @@ public class Scene {
     }
 
     public void render() {
-        if (!loaded) {
-            init();
-            loaded = true;
-        }
+
     }
 
     public void renderGUI() {
@@ -56,12 +53,18 @@ public class Scene {
         }
         return false;
     }
-    
-    public final void handleScene(){
-        if(!handleGUI())handle();
+
+    public final void handleScene() {
+        if (!handleGUI()) {
+            handle();
+        }
     }
-    
-    public final void renderScene(){
+
+    public final void renderScene() {
+        if (!loaded) {
+            init();
+            loaded = true;
+        }
         render();
         renderGUI();
     }

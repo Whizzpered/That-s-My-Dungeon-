@@ -5,29 +5,196 @@
  */
 package org.tmd.environment;
 
+import static java.lang.Math.PI;
 import org.tmd.render.Image;
+import org.tmd.render.scenes.Dungeon;
 
 /**
  *
  * @author yew_mentzaki
  */
 public class Block {
-    
-    public static Block[] blocks = new Block[256];
 
-    char symbol;
-    Image wall;
-    Image top;
-    boolean solid;
-    boolean enemyZone;
-    boolean restZone;
+    public static final double BLOCK_WIDTH = 128, BLOCK_HEIGHT = 128;
 
-    public Block(char symbol, String wall, String top, boolean solid, boolean enemyZone, boolean restZone) {
+    public static Block[] blocks = new Block[Byte.MAX_VALUE];
+
+    final int index;
+    final char symbol;
+    final Image wall;
+    final Image top;
+    final Image border;
+    final Image borderAngle;
+    final Image borderAngleInside;
+    final boolean solid;
+    final boolean enemyZone;
+    final boolean restZone;
+
+    private static boolean r(int a, int b) {
+        return (a & b) != b;
+    }
+
+    public Block(int index, char symbol, String wall, boolean solid, boolean enemyZone, boolean restZone) {
+        this.index = index;
         this.symbol = symbol;
-        this.wall = new Image(wall);
-        this.top = new Image(top);
+        if (wall != null) {
+            this.wall = new Image("tiles/" + wall);
+        } else {
+            this.wall = null;
+        }
+        this.top = null;
+        this.border = null;
+        this.borderAngle = null;
+        this.borderAngleInside = null;
         this.solid = solid;
         this.enemyZone = enemyZone;
         this.restZone = restZone;
+        Block.blocks[index] = this;
+    }
+
+    public Block(int index, char symbol, String wall, String top, boolean solid, boolean enemyZone, boolean restZone) {
+        this.index = index;
+        this.symbol = symbol;
+        if (wall != null) {
+            this.wall = new Image("tiles/" + wall);
+        } else {
+            this.wall = null;
+        }
+        if (top != null) {
+            this.top = new Image("tiles/" + top);
+        } else {
+            this.top = null;
+        }
+        this.border = null;
+        this.borderAngle = null;
+        this.borderAngleInside = null;
+        this.solid = solid;
+        this.enemyZone = enemyZone;
+        this.restZone = restZone;
+        Block.blocks[index] = this;
+    }
+
+    public Block(int index, char symbol, String wall, String top, String border, String borderAngle, String borderAngleInside, boolean solid, boolean enemyZone, boolean restZone) {
+        this.index = index;
+        this.symbol = symbol;
+        if (wall != null) {
+            this.wall = new Image("tiles/" + wall);
+        } else {
+            this.wall = null;
+        }
+        if (top != null) {
+            this.top = new Image("tiles/" + top);
+        } else {
+            this.top = null;
+        }
+        if (border != null) {
+            this.border = new Image("tiles/" + border);
+            this.borderAngle = new Image("tiles/" + borderAngle);
+            this.borderAngleInside = new Image("tiles/" + borderAngleInside);
+        } else {
+            this.border = null;
+            this.borderAngle = null;
+            this.borderAngleInside = null;
+        }
+        this.solid = solid;
+        this.enemyZone = enemyZone;
+        this.restZone = restZone;
+        Block.blocks[index] = this;
+    }
+
+    public void render(int border) {
+        if (wall != null) {
+            wall.draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
+        }
+        if (this.border != null && top == null) {
+            if (r(border, 1)) {
+                this.border.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_HEIGHT, 0);
+            }
+            if (r(border, 2)) {
+                this.border.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2);
+            }
+            if (r(border, 4)) {
+                this.border.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI);
+            }
+            if (r(border, 8)) {
+                this.border.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2 * 3);
+            }
+
+            if ((r(border, 1) & r(border, 2))) {
+                this.borderAngle.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_HEIGHT, 0);
+            }
+            if ((r(border, 2) & r(border, 4))) {
+                this.borderAngle.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2);
+            }
+            if ((r(border, 4) & r(border, 8))) {
+                this.borderAngle.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI);
+            }
+            if ((r(border, 8) & r(border, 1))) {
+                this.borderAngle.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2 * 3);
+            }
+
+            if (!(r(border, 16))) {
+                this.borderAngleInside.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_HEIGHT, 0);
+            }
+            if (!(r(border, 32))) {
+                this.borderAngleInside.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2);
+            }
+            if (!(r(border, 64))) {
+                this.borderAngleInside.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI);
+            }
+            if (!(r(border, 128))) {
+                this.borderAngleInside.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2 * 3);
+            }
+        }
+    }
+
+    public void renderTop(int border) {
+        if (top != null) {
+            top.draw(0, -BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+            if (this.border != null) {
+                if (r(border, 1)) {
+                    this.border.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT, 0);
+                }
+                if (r(border, 2)) {
+                    this.border.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2);
+                }
+                if (r(border, 4)) {
+                    this.border.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI);
+                }
+                if (r(border, 8)) {
+                    this.border.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2 * 3);
+                }
+
+                if ((r(border, 1) & r(border, 2))) {
+                    this.borderAngle.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT, 0);
+                }
+                if ((r(border, 2) & r(border, 4))) {
+                    this.borderAngle.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2);
+                }
+                if ((r(border, 4) & r(border, 8))) {
+                    this.borderAngle.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI);
+                }
+                if ((r(border, 8) & r(border, 1))) {
+                    this.borderAngle.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2 * 3);
+                }
+
+                if (!(r(border, 16))) {
+                    this.borderAngleInside.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT, 0);
+                }
+                if (!(r(border, 32))) {
+                    this.borderAngleInside.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2);
+                }
+                if (!(r(border, 64))) {
+                    this.borderAngleInside.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI);
+                }
+                if (!(r(border, 128))) {
+                    this.borderAngleInside.draw(BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2 - BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_WIDTH, PI / 2 * 3);
+                }
+            }
+        }
+    }
+
+    public void parserAction(Dungeon dungeon, double x, double y) {
+
     }
 }

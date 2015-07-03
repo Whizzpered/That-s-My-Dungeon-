@@ -5,10 +5,12 @@
  */
 package org.tmd.render.scenes;
 
+import static java.lang.Math.*;
 import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
+import org.tmd.render.gui.Frame;
 
 /**
  *
@@ -94,5 +96,13 @@ public class MainMenu extends Scene {
         gui.add(en_US);
         gui.add(de_DE);
     }
+    
+    double a;
 
+    @Override
+    public void render() {
+        a += 0.02;
+        Frame.defaultFrame.render(400, 200, abs(200*sin(a)) + 100,  abs(200*cos(a)) + 100);
+    }
+    
 }

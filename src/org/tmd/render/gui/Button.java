@@ -28,9 +28,8 @@ public class Button extends Element{
     
     @Override
     public void render() {
-        Main.g.setColor(Color.darkGray);
-        if(hover)Main.g.setColor(Color.gray);
-        Main.g.fillRect((float)getX(), (float)getY(), (float)width, (float)height);
+        Frame.defaultFrame.render(getX(), getY() + (hover?1:-1), width, height);
+        Main.defaultFont.drawStringAtCenter(getText(), (int)getX() + (int)width / 2, (int)getY() + (int)height / 2 - 18, Color.black);
         Main.defaultFont.drawStringAtCenter(getText(), (int)getX() + (int)width / 2, (int)getY() + (int)height / 2 - 20, Color.white);
     }
     

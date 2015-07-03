@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.lwjgl.opengl.GL11;
+import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -38,10 +40,15 @@ public class Textures {
         }
 
         @Override
-        public void load() {      
+        public void load() {
             try {
                 this.texture = TextureLoader.getTexture(name.split("\\.")[0].toUpperCase(), new FileInputStream(file));
                 this.image = new Image(this.texture);
+                this.image.setFilter(GL11.GL_NEAREST);
+                this.image.bind();
+                glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+                glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+                glBindTexture(GL_TEXTURE_2D, 0);
                 System.out.println("Texture \"" + name + "\" is loaded!");
             } catch (IOException ex) {
                 Logger.getLogger(Textures.class.getName()).log(Level.SEVERE, null, ex);
