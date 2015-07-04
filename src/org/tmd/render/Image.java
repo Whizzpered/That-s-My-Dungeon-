@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 public class Image {
 
     public final String path;
-    private org.newdawn.slick.Image subimage;
+    private transient org.newdawn.slick.Image subimage;
     public final int width, height;
 
     public Image(String path) {
@@ -22,6 +22,13 @@ public class Image {
         this.subimage = Textures.image(path);
         this.width = subimage.getWidth();
         this.height = subimage.getHeight();
+    }
+    
+    Image(Textures.Tex tex){
+        this.path = tex.name;
+        this.subimage = tex.image;
+        this.width = 1;
+        this.height = 1;
     }
 
     public Image getNxCopy(float n) {
