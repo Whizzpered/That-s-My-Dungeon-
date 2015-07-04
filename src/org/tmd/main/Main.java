@@ -17,6 +17,8 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.FloatBuffer;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -173,6 +175,33 @@ public class Main {
         }
         logo.getTexture().release();
         Declaration.mainMenu.set();
+        new Timer("First short scene timer").schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if(Scene.currentScene != null){
+                    Scene.currentScene.tick();
+                }
+            }
+        }, 5, 10);
+        new Timer("Second short scene timer").schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if(Scene.currentScene != null){
+                    Scene.currentScene.tick();
+                }
+            }
+        }, 10, 10);
+        new Timer("Long scene timer").schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if(Scene.currentScene != null){
+                    Scene.currentScene.longTick();
+                }
+            }
+        }, 10, 10);
         try {
             while (!(Display.isCloseRequested() | exit)) {
                 glMatrixMode(GL_PROJECTION);

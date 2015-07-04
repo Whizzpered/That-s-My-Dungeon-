@@ -19,16 +19,16 @@ public class Block {
 
     public static Block[] blocks = new Block[Byte.MAX_VALUE];
 
-    final int index;
-    final char symbol;
-    final Image wall;
-    final Image top;
-    final Image border;
-    final Image borderAngle;
-    final Image borderAngleInside;
-    final boolean solid;
-    final boolean enemyZone;
-    final boolean restZone;
+    public final int index;
+    public final char symbol;
+    public final Image wall;
+    public final Image top;
+    public final Image border;
+    public final Image borderAngle;
+    public final Image borderAngleInside;
+    public final boolean solid;
+    public final boolean enemyZone;
+    public final boolean restZone;
 
     private static boolean r(int a, int b) {
         return (a & b) != b;
