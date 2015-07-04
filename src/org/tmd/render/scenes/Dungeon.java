@@ -5,7 +5,12 @@
  */
 package org.tmd.render.scenes;
 
+import java.awt.Point;
 import java.util.ArrayList;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+import org.tmd.environment.Block;
 import org.tmd.environment.Terrain;
 import org.tmd.environment.entities.Entity;
 import org.tmd.main.Declaration;
@@ -20,6 +25,7 @@ public class Dungeon extends Scene {
 
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
     public ArrayList<Entity> entities = new ArrayList<Entity>();
+    public Point cam = new Point();
 
     public Entity[] getEntities() {
         ArrayList<Entity> i = new ArrayList<Entity>(entities.size());
@@ -70,18 +76,25 @@ public class Dungeon extends Scene {
 
     @Override
     public void tick() {
-        for(Entity e : getEntities()){
+        for (Entity e : getEntities()) {
             e.tick();
         }
+        camUpdate();
+    }
+
+    public void camUpdate() {
+        int mx = Mouse.getX(), my = Display.getHeight() - Mouse.getY();
+        cam.x = (int) (Block.BLOCK_WIDTH / 2) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
+        cam.y = (int) (Block.BLOCK_HEIGHT / 2) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
     }
 
     @Override
     public void longTick() {
-        for(Entity e : getEntities()){
+        for (Entity e : getEntities()) {
             e.longTick();
         }
     }
-    
+
     @Override
     public void init() {
         gui.add(menuButton);
@@ -92,11 +105,15 @@ public class Dungeon extends Scene {
 
     @Override
     public void render() {
-        terrain.render(null);
-        for (Entity e : getEntitiesForRender()) {
-            e.render();
+        GL11.glTranslatef(cam.x, cam.y, 0);
+        {
+            terrain.render(null);
+            for (Entity e : getEntitiesForRender()) {
+                e.render();
+            }
         }
         terrain.renderTops(null);
+        GL11.glTranslatef(-cam.x, -cam.y, 0);
     }
 
 }
