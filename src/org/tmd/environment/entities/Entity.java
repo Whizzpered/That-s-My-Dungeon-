@@ -45,13 +45,17 @@ public class Entity {
         if (Mouse.left) {
             move(cos(atan2(Mouse.y - dungeon.cam.y - y, Mouse.x - dungeon.cam.x - x)) * speed, sin(atan2(Mouse.y - dungeon.cam.y - y, Mouse.x - dungeon.cam.x - x)) * speed);
         }
-
-        for (Entity e : dungeon.getEntities()) {
-            double d = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
-            if (d < (e.size + size) / 2) {
-                double a = atan2(e.y - y, e.x - x);
-                e.move(cos(a) * e.speed / 2, sin(a) * e.speed / 2);
-                move(-cos(a) * speed / 2, -sin(a) * speed / 2);
+        if (!phantom) {
+            for (Entity e : dungeon.getEntities()) {
+                if (e == null || e.phantom) {
+                    continue;
+                }
+                double d = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
+                if (d < (e.size + size) / 2) {
+                    double a = atan2(e.y - y, e.x - x);
+                    e.move(cos(a) * e.speed / 2, sin(a) * e.speed / 2);
+                    move(-cos(a) * speed / 2, -sin(a) * speed / 2);
+                }
             }
         }
     }

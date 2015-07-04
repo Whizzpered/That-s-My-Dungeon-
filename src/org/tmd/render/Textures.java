@@ -58,6 +58,7 @@ public class Textures {
     }
 
     private static Tex[] textures;
+    private static ArrayList<Animation> animations = new ArrayList<Animation>();
 
     public static void load() {
         ArrayList<Tex> textureList = new ArrayList<Tex>();
@@ -87,6 +88,20 @@ public class Textures {
         }
         return null;
     }
+    
+    public static Animation animation(String name){
+        for (Animation a : animations) {
+            if (a.name.equals(name)){
+                return a;
+            }
+        }
+        try {
+            throw new FileNotFoundException("Image \"" + name + "\" requested but not loaded!");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Textures.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public static Texture texture(String name) {
         for (Tex t : textures) {
@@ -106,6 +121,7 @@ public class Textures {
                 textures.add(new Tex(names + "/" + f.getName(), f));
             }
         }
+        animations.add(new Animation(names, textures));
         return textures;
     }
 }
