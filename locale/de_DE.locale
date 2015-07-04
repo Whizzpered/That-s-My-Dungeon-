@@ -1,32 +1,28 @@
-locale_name = de_DE
-loading = Laden
-texture = Texture
-sound = Klang
-music = Musik
-continue = Weiter
-newgame = Neuesspiel
-settings = Einstellungen
-exit = Ausgang
-menu = Menu
-shop = Shopen
-reinit = Wiederholung
-ability = Fahigkeit
-inventory = Inventar
-fullscreen = Vollbild
-keyboard = tastatur
-apply = Antworten
-welcome = Willkommen in
-times = mal
-next = Next
-h1 = Press arrows keys and Space to change camera's focus
-h2 = All interactions with the left mouse button
-h3 = To use the abilities, press button of it and if its need press right mouse button
-item_arms = Arms - the best thing for brutal man, yeah!\nBe cool.
-item_braces = Braces
-item_hat = Hat
-item_pants = Pants
-abil_aoe = Area of energy
-abil_regen = Regeneration
-abil_throw = Throw
-abil_roar = Waaagh!
-abil_summon = Summon
+locale_name: de_DE
+continue: Weiter
+newgame: Neüssiel
+settings: Einstellung
+exit: Ausgang
+pause: Pausen
+shop: Shopen
+reinit: Wiederholung
+ability: Fahigkeit
+inventory: Inventar
+fullscreen: Vollbild
+keyboard: tastatur
+apply: Antworten
+welcome: Willkommen in
+times: mal
+next: Next
+h1: Zu Kamerafokuswechsel die Pfeiltasten drücken.
+h2: Alle Interaktionen mit der linke Maustaste.
+h3: Zum Verwenden Sie die Fähigkeiten dieser Taste drücken. Oder drücken der Rechte Maustaste auf das Symbol.
+item_arms: Die Schulternkleide sind das Beste für brutalen Mann, ei ja!\n Max LP +10 und +10 pro jeden Level.
+item_braces: Die Handschuhe werden einfach toeten alle diese Schwanzlutscheren!\n Attack +3 und +10 pro jeden Level.
+item_hat: Der Hut - de facto es ist Teppich, aber das geht mir am A...\n Scheller +0.3 Pixele pro Tick 
+item_pants: Die Hosen für Ihre kleinen Freund Versteck. \n Max LP +10 und +10 pro jeden Level.
+abil_aoe: Bereich der Bier\nDurchführung großen Kreis von Liebe und Glück.
+abil_regen: Regeneration \n Für einen beliebigen Wert in einer Sekunde eilt sich!
+abil_throw: Werfen \n DIESES GROSSE STEIN STÜCK SCHEISSE ZU DIESE SCHWUCHTEL GESICHT WERFEN!
+abil_roar: RRAAAAAAH! \n Sie ausführen lautes Gebrüll, bricht alle missbrauchen Effekte und fügt allen Feinden.
+abil_summon: Laden \n Laden einer kleinen Hündin. Sie ist Mädchen, aber sie kann jemand ficken.

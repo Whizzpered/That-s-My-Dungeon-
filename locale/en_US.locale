@@ -1,32 +1,28 @@
-locale_name = en_US
-loading = Loading
-texture = texture
-sound = sound
-music = music
-continue = Continue
-newgame = New game
-settings = Settings
-menu = Menu
-exit = Exit 
-shop = Shop
-reinit = Replay
-ability = Ability
-inventory = Inventory
-fullscreen = Fullscreen
-keyboard = Keyboard
-apply = Apply
-welcome = Welcome in
-times = times 
-next = Next
-h1 = Press arrows keys and Space to change camera's focus
-h2 = All interactions with the left mouse button
-h3 = To use the abilities, press button of it and if its need press right mouse button
-item_arms = Arms - the best thing for brutal man, yeah!\nBe cool.
-item_braces = Braces
-item_hat = Hat
-item_pants = Pants
-abil_aoe = Area of energy
-abil_regen = Regeneration
-abil_throw = Throw
-abil_roar = Waaagh!
-abil_summon = Summon
+locale_name = en_US 
+continue: Continue
+newgame: New game
+settings: Settings
+pause: Pause
+exit: Exit 
+shop: Shop
+reinit: Replay
+ability: Ability
+inventory: Inventory
+fullscreen: Fullscreen
+keyboard: Keyboard
+apply: Apply
+welcome: Welcome in
+times: times 
+next: Next
+h1: Press arrows keys and Space to change camera's focus
+h2: All interactions with the left mouse button
+h3: To use the abilities, press button of it and if its need press right mouse button
+item_arms: Arms - the best thing for brutal man, yeah!\n Max HP: +10*Level
+item_braces: Braces - just kill of this motherfckrs! \n DMG: +3*Level
+item_hat: Hat - actually that's carpet, but i dont give a... \n Speed: +0.3*level
+item_pants: Pants - for hiding your "mini-cooper" \n Max HP: +10*Level
+abil_aoe: Area of energy \n performing big circle of Satan and damages all near this circle
+abil_regen: Regeneration \n heals up for some value per second
+abil_throw: Throw \n THROW THIS BIG STONE TO THIS INGURIAT FAG!!! 
+abil_roar: Waaagh! \n You performing big roar, cancels all agro effects and damaging all enemies nearby;
+abil_summon: Summon \n Summoning a liitle bitch. No. Really female dog.

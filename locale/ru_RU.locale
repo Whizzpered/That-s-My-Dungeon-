@@ -8,25 +8,25 @@ newgame = Новая игра
 settings = Настройки
 exit = Выход
 menu = Меню
-shop = Magazin
-reinit = Perezapuskay
-ability = Abilochki
-inventory = Inventar
-fullscreen = Jirniy ekran
-keyboard = Klavishi
-apply = Primenit'
-welcome = Perewedeno Fargus - wellkome v
-times = raz!
-next = Next
-h1 = Najmite strelki, chtoby smenit' cameru na rederov
-h2 = Vse osnovnye deistviya proishodyat po nazhatiyu levoi knopki myshi
-h3 = Snizy intuitivno ponyatnaya instrukciya. Udachi! :)
-item_arms = Arms - the best thing for brutal man, yeah!\nBe cool.
-item_braces = Braces
-item_hat = Hat
-item_pants = Pants
-abil_aoe = Area of energy
-abil_regen = Regeneration
-abil_throw = Throw
-abil_roar = Waaagh!
-abil_summon = Summon
+shop = Магазин
+reinit = Перезапуск
+ability = Способности
+inventory = Инвентарь
+fullscreen = В весь экран
+keyboard = Клавиатура
+apply = Применить
+welcome = Приветствуем в 
+times = раз!
+next = Дальше
+h1 = Нажмите клавиши стрелок для переключения цели камеры
+h2 = Основные действия производятся с помощью левой кнопки мыши
+h3 = Снизу интуитивно понятная инструкция по применению способностей. Удачи! :)
+item_arms = Наплечники - для настоящих мужЫков!\n Будь крутым!
+item_braces: Перчи - для того, чтобы убить этих мазафакеров! \n Урон: +3*Уровень
+item_hat: Шлем - на самом деле ковер, но всем наср... \n Скорость: +0.3*Уровень
+item_pants: Штаны - чтобы прикрыть свой "мини-купер" \n Max HP: +10*Уровень
+abil_aoe: Area of energy \n performing big circle of Satan and damages all near this circle
+abil_regen: Regeneration \n heals up for some value per second
+abil_throw: Throw \n THROW THIS BIG STONE TO THIS INGURIAT FAG!!! 
+abil_roar: Waaagh! \n You performing big roar, cancels all agro effects and damaging all enemies nearby;
+abil_summon: Summon \n Summoning a liitle bitch. No. Really female dog.
