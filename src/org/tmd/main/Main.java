@@ -5,14 +5,20 @@
  */
 package org.tmd.main;
 
+import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.font.FontRenderContext;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.FloatBuffer;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -37,6 +43,8 @@ import org.tmd.xfg.*;
  * @author yew_mentzaki
  */
 public class Main {
+    
+    public static final Random RANDOM = new Random();
 
     public static XFG conf;
     private static boolean exit;
@@ -118,9 +126,14 @@ public class Main {
         }
         try {
             Textures.load();
-            defaultFont = FontRender.getTextRender("sans cherif", 0, 18);
+            Font f = null;
+            InputStream in = new FileInputStream(new File("res/fonts/dejavusans.ttf"));
+            f = Font.createFont(Font.TRUETYPE_FONT, in);
+            f = f.deriveFont(18f);
+            defaultFont = FontRender.getTextRender(f);
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(1);
         }
         int displayWidth = Display.getWidth(), displayHeight = Display.getHeight();
         float allTasks = LoadTask.tasks.size();
@@ -160,7 +173,35 @@ public class Main {
             JOptionPane.showMessageDialog(null, "Error!\n" + e);
             System.exit(1);
         }
+        logo.getTexture().release();
         Declaration.mainMenu.set();
+        new Timer("First short scene timer").schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if(Scene.currentScene != null){
+                    Scene.currentScene.tick();
+                }
+            }
+        }, 5, 10);
+        new Timer("Second short scene timer").schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if(Scene.currentScene != null){
+                    Scene.currentScene.tick();
+                }
+            }
+        }, 10, 10);
+        new Timer("Long scene timer").schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if(Scene.currentScene != null){
+                    Scene.currentScene.longTick();
+                }
+            }
+        }, 10, 10);
         try {
             while (!(Display.isCloseRequested() | exit)) {
                 glMatrixMode(GL_PROJECTION);

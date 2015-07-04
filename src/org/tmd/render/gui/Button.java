@@ -13,25 +13,27 @@ import org.tmd.main.Main;
  *
  * @author yew_mentzaki
  */
-public class Button extends Element{
-    
+public class Button extends Element {
+
     public String text;
-    
+
     public Button(String text, double x, double y, double width, double height) {
         super(x, y, width, height);
         this.text = text;
     }
-    
-    public String getText(){
+
+    public String getText() {
         return GameLocale.get(text);
     }
-    
+
     @Override
     public void render() {
-        Main.g.setColor(Color.darkGray);
-        if(hover)Main.g.setColor(Color.gray);
-        Main.g.fillRect((float)getX(), (float)getY(), (float)width, (float)height);
-        Main.defaultFont.drawStringAtCenter(getText(), (int)getX() + (int)width / 2, (int)getY() + (int)height / 2 - 20, Color.white);
+        if (!visible) {
+            return;
+        }
+        Frame.defaultFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
+        Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 2, (int) getY() + (int) height / 2 - 20 + (hover ? 1 : -1), Color.black);
+        Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 2, (int) getY() + (int) height / 2 - 22 + (hover ? 1 : -1), Color.white);
     }
-    
+
 }

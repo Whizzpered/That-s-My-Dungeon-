@@ -12,9 +12,9 @@ import org.lwjgl.opengl.Display;
  * @author yew_mentzaki
  */
 public class Mouse {
-    static double x, y;
-    static boolean left, middle, right;
-    static boolean leftReleased, middleReleased, rightReleased;
+    public static double x, y;
+    public static boolean left, middle, right;
+    public static boolean leftReleased, middleReleased, rightReleased;
     public static void update(){
         x = org.lwjgl.input.Mouse.getX();
         y = Display.getHeight() - org.lwjgl.input.Mouse.getY();
