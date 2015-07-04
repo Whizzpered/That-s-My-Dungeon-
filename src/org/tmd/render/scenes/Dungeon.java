@@ -7,7 +7,6 @@ package org.tmd.render.scenes;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.tmd.environment.Block;
@@ -16,10 +15,11 @@ import org.tmd.environment.entities.Entity;
 import org.tmd.main.Declaration;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
+import org.tmd.render.gui.Mouse;
 
 /**
  *
- * @author yew_mentzaki
+ * @author yew_mentzaki & Whizzpered
  */
 public class Dungeon extends Scene {
 
@@ -83,7 +83,7 @@ public class Dungeon extends Scene {
     }
 
     public void camUpdate() {
-        int mx = Mouse.getX(), my = Display.getHeight() - Mouse.getY();
+        int mx = (int)Mouse.x, my = (int)Mouse.y;
         cam.x = (int) (Block.BLOCK_WIDTH / 2) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
         cam.y = (int) (Block.BLOCK_HEIGHT / 2) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
     }
