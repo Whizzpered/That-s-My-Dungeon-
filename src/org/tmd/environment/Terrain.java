@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import static org.tmd.environment.Block.BLOCK_WIDTH;
 import static org.tmd.environment.Block.BLOCK_HEIGHT;
@@ -93,21 +94,21 @@ public class Terrain {
     }
 
     public void render(Point camera) {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                GL11.glTranslated(i * BLOCK_WIDTH, j * BLOCK_HEIGHT, 0);
-                get(i, j).render(getBorder(i, j));
-                GL11.glTranslated(-i * BLOCK_WIDTH, -j * BLOCK_HEIGHT, 0);
+        for (int x = (int)((camera.x) / BLOCK_WIDTH - 1); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
+            for (int y = (int)((camera.y) / BLOCK_HEIGHT - 1); y < (camera.y + Display.getHeight()) / BLOCK_HEIGHT + 1; y++) {
+                GL11.glTranslated(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, 0);
+                get(x, y).render(getBorder(x, y));
+                GL11.glTranslated(-x * BLOCK_WIDTH, -y * BLOCK_HEIGHT, 0);
             }
         }
     }
 
     public void renderTops(Point camera) {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                GL11.glTranslated(i * BLOCK_WIDTH, j * BLOCK_HEIGHT, 0);
-                get(i, j).renderTop(getBorder(i, j));
-                GL11.glTranslated(-i * BLOCK_WIDTH, -j * BLOCK_HEIGHT, 0);
+        for (int x = (int)((camera.x) / BLOCK_WIDTH - 1); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
+            for (int y = (int)((camera.y) / BLOCK_HEIGHT - 1); y < (camera.y + Display.getHeight()) / BLOCK_HEIGHT + 1; y++) {
+                GL11.glTranslated(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, 0);
+                get(x, y).renderTop(getBorder(x, y));
+                GL11.glTranslated(-x * BLOCK_WIDTH, -y * BLOCK_HEIGHT, 0);
             }
         }
     }

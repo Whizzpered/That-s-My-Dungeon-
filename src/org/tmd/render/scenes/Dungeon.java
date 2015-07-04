@@ -24,7 +24,7 @@ import org.tmd.render.gui.Mouse;
 public class Dungeon extends Scene {
 
     public ArrayList<Entity> entities = new ArrayList<Entity>();
-    public Point cam = new Point();
+    public Point cam = new Point(), floor = new Point();
     public Entity cameraTarget;
     public Point playerRespawnPoint, raidersRespawnPoint;
     public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
@@ -85,16 +85,13 @@ public class Dungeon extends Scene {
     }
 
     public void camUpdate() {
-        int mx = (int)Mouse.x, my = (int)Mouse.y;
-        if (cameraTarget != null) {
-            cam.x = -cameraTarget.x;
-            cam.y = -cameraTarget.y;
-        } else {
-            cam.x = 0;
-            cam.y = 0;
-        }
-        cam.x += (int) (Block.BLOCK_WIDTH / 2) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
-        cam.y += (int) (Block.BLOCK_HEIGHT / 2) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
+        int mx = (int) Mouse.x, my = (int) Mouse.y;
+
+        cam.x = (int) (-cameraTarget.x) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
+        cam.y = (int) (-cameraTarget.y) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
+        floor.x = (int) cameraTarget.x + mx - Display.getWidth();
+        floor.y = (int) cameraTarget.y + my - Display.getHeight();
+
     }
 
     @Override
@@ -117,14 +114,13 @@ public class Dungeon extends Scene {
         camUpdate();
         GL11.glTranslated(cam.x, cam.y, 0);
         {
-            terrain.render(null);
+            terrain.render(floor);
             for (Entity e : getEntitiesForRender()) {
                 e.render();
             }
         }
-        terrain.renderTops(null);
+        terrain.renderTops(floor);
         GL11.glTranslated(-cam.x, -cam.y, 0);
     }
 
-    
 }
