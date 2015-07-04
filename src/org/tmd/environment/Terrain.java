@@ -156,26 +156,26 @@ public class Terrain {
     }
 
     public Block get(double x, double y) {
-        return get((int) (x / BLOCK_WIDTH), (int) (x / BLOCK_HEIGHT));
+        return get((int) (x / BLOCK_WIDTH), (int) (y / BLOCK_HEIGHT));
     }
 
     public int getIndex(double x, double y) {
-        return getIndex((int) (x / BLOCK_WIDTH), (int) (x / BLOCK_HEIGHT));
+        return getIndex((int) (x / BLOCK_WIDTH), (int) (y / BLOCK_HEIGHT));
     }
 
     public int getBorder(double x, double y) {
-        return getBorder((int) (x / BLOCK_WIDTH), (int) (x / BLOCK_HEIGHT));
+        return getBorder((int) (x / BLOCK_WIDTH), (int) (y / BLOCK_HEIGHT));
     }
 
     public void set(double x, double y, Block block) {
-        set((int) (x / BLOCK_WIDTH), (int) (x / BLOCK_HEIGHT), block);
+        set((int) (x / BLOCK_WIDTH), (int) (y / BLOCK_HEIGHT), block);
     }
 
     public void setIndex(double x, double y, int index) {
-        setIndex((int) (x / BLOCK_WIDTH), (int) (x / BLOCK_HEIGHT), index);
+        setIndex((int) (x / BLOCK_WIDTH), (int) (y / BLOCK_HEIGHT), index);
     }
     
     public void setBorder(double x, double y, int index) {
-        setBorder((int) (x / BLOCK_WIDTH), (int) (x / BLOCK_HEIGHT), index);
+        setBorder((int) (x / BLOCK_WIDTH), (int) (y / BLOCK_HEIGHT), index);
     }
 }
