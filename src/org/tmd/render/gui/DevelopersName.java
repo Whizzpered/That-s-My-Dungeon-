@@ -18,10 +18,6 @@ public class DevelopersName extends Label {
     public String description;
     Color second;
 
-    public boolean isMoused() {
-        return ((Mouse.x - this.x < this.width / 2) && (Mouse.y - this.y < this.height));
-    }
-
     public DevelopersName(String str, double x, double y, Color first, String desc, Color sec) {
         super(str, x, y, first);
         description = desc;
@@ -30,7 +26,7 @@ public class DevelopersName extends Label {
 
     @Override
     public void render(Graphics g) {
-        if(isMoused()){
+        if(hover){
             Main.defaultFont.drawString(description, (int)x, (int)y, second);
         } else {
             Main.defaultFont.drawString(string, (int)x, (int)y, color);
