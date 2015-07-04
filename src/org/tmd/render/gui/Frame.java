@@ -5,6 +5,7 @@
  */
 package org.tmd.render.gui;
 
+import org.lwjgl.opengl.GL11;
 import org.tmd.render.Image;
 
 /**
@@ -12,7 +13,7 @@ import org.tmd.render.Image;
  * @author yew_mentzaki
  */
 public class Frame {
-    
+
     public static Frame defaultFrame = new Frame("frame");
 
     Image center;
@@ -24,9 +25,9 @@ public class Frame {
         angle = new Image("gui/" + frame + "/angle");
         line = new Image("gui/" + frame + "/line");
     }
+
+    public void render(int x, int y, int width, int height) {
     
-    public void render() {
-        
     }
 
 }
