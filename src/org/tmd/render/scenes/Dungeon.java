@@ -105,7 +105,8 @@ public class Dungeon extends Scene {
 
     @Override
     public void render() {
-        GL11.glTranslatef(cam.x, cam.y, 0);
+        double camx = cam.x, camy = cam.y;
+        GL11.glTranslated(camx, camy, 0);
         {
             terrain.render(null);
             for (Entity e : getEntitiesForRender()) {
@@ -113,7 +114,7 @@ public class Dungeon extends Scene {
             }
         }
         terrain.renderTops(null);
-        GL11.glTranslatef(-cam.x, -cam.y, 0);
+        GL11.glTranslated(-camx, -camy, 0);
     }
 
 }
