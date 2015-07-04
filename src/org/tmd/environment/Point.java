@@ -19,5 +19,5 @@ public class Point {
     public Point() {
     }
     
-    double x, y;
+    public double x, y;
 }

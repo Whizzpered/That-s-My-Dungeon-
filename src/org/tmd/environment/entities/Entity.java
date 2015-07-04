@@ -19,12 +19,12 @@ import org.tmd.render.scenes.Dungeon;
  */
 public class Entity {
 
-    Dungeon dungeon = Declaration.dungeon;
-    double x, y, size = 100, hp;
+    public Dungeon dungeon = Declaration.dungeon;
+    public double x, y, size = 100, hp;
     public Side side = Side.FRONT;
-    double speed = 2;
-    int faction;
-    boolean phantom = false;
+    public double speed = 2;
+    public int faction;
+    public boolean phantom = false;
 
     private int sign(double a) {
         if (a > 0) {
@@ -42,8 +42,10 @@ public class Entity {
     }
 
     public void tick() {
-        move(cos(atan2(Mouse.y - y, Mouse.x - x)) * speed, sin(atan2(Mouse.y - y, Mouse.x - x)) * speed);
-        
+        if (Mouse.left) {
+            move(cos(atan2(Mouse.y - dungeon.cam.y - y, Mouse.x - dungeon.cam.x - x)) * speed, sin(atan2(Mouse.y - dungeon.cam.y - y, Mouse.x - dungeon.cam.x - x)) * speed);
+        }
+
         for (Entity e : dungeon.getEntities()) {
             double d = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
             if (d < (e.size + size) / 2) {
@@ -63,10 +65,9 @@ public class Entity {
         } else if (!dungeon.terrain.get(this.x * size / 2, this.y + y).solid) {
             this.y += y;
         }
-        
-        
+
     }
-    
+
     public void longTick() {
 
     }

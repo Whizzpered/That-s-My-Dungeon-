@@ -15,7 +15,7 @@ import org.tmd.render.scenes.Dungeon;
  */
 public class Block {
 
-    public static final double BLOCK_WIDTH = 128, BLOCK_HEIGHT = 128;
+    public static final double BLOCK_WIDTH = 96, BLOCK_HEIGHT = 96;
 
     public static Block[] blocks = new Block[Byte.MAX_VALUE];
 

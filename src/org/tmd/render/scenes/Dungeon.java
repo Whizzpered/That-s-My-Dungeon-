@@ -5,11 +5,11 @@
  */
 package org.tmd.render.scenes;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.tmd.environment.Block;
+import org.tmd.environment.Point;
 import org.tmd.environment.Terrain;
 import org.tmd.environment.entities.Entity;
 import org.tmd.main.Declaration;
@@ -23,9 +23,12 @@ import org.tmd.render.gui.Mouse;
  */
 public class Dungeon extends Scene {
 
-    public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
     public ArrayList<Entity> entities = new ArrayList<Entity>();
     public Point cam = new Point();
+    public Entity cameraTarget;
+    public Point playerRespawnPoint, raidersRespawnPoint;
+    public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
+    public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
 
     public Entity[] getEntities() {
         ArrayList<Entity> i = new ArrayList<Entity>(entities.size());
@@ -79,13 +82,19 @@ public class Dungeon extends Scene {
         for (Entity e : getEntities()) {
             e.tick();
         }
-        camUpdate();
     }
 
     public void camUpdate() {
         int mx = (int)Mouse.x, my = (int)Mouse.y;
-        cam.x = (int) (Block.BLOCK_WIDTH / 2) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
-        cam.y = (int) (Block.BLOCK_HEIGHT / 2) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
+        if (cameraTarget != null) {
+            cam.x = -cameraTarget.x;
+            cam.y = -cameraTarget.y;
+        } else {
+            cam.x = 0;
+            cam.y = 0;
+        }
+        cam.x += (int) (Block.BLOCK_WIDTH / 2) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
+        cam.y += (int) (Block.BLOCK_HEIGHT / 2) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
     }
 
     @Override
@@ -98,15 +107,15 @@ public class Dungeon extends Scene {
     @Override
     public void init() {
         gui.add(menuButton);
-        for (int i = 0; i < 35; i++) {
-            entities.add(new Entity(450, 300));
-        }
+        cameraTarget = new Entity(playerRespawnPoint.x, playerRespawnPoint.y);
+        entities.add(cameraTarget);
+
     }
 
     @Override
     public void render() {
-        double camx = cam.x, camy = cam.y;
-        GL11.glTranslated(camx, camy, 0);
+        camUpdate();
+        GL11.glTranslated(cam.x, cam.y, 0);
         {
             terrain.render(null);
             for (Entity e : getEntitiesForRender()) {
@@ -114,7 +123,8 @@ public class Dungeon extends Scene {
             }
         }
         terrain.renderTops(null);
-        GL11.glTranslated(-camx, -camy, 0);
+        GL11.glTranslated(-cam.x, -cam.y, 0);
     }
 
+    
 }
