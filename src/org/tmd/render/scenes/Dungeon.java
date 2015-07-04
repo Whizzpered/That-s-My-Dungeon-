@@ -21,7 +21,7 @@ public class Dungeon extends Scene {
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
     public ArrayList<Entity> entities = new ArrayList<Entity>();
 
-    Entity[] getEntities() {
+    public Entity[] getEntities() {
         ArrayList<Entity> i = new ArrayList<Entity>(entities.size());
         for (int j = 0; j < entities.size(); j++) {
             i.add(entities.get(j));
@@ -33,7 +33,7 @@ public class Dungeon extends Scene {
         return e;
     }
 
-    Entity[] getEntitiesForRender() {
+    public Entity[] getEntitiesForRender() {
         Entity[] en = getEntities();
         int[] in = new int[en.length];
         for (int i = 0; i < en.length; i++) {
