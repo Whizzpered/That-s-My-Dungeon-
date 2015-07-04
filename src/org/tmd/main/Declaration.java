@@ -5,13 +5,8 @@
  */
 package org.tmd.main;
 
-import static org.lwjgl.opengl.GL11.*;
 import org.tmd.environment.Block;
-import static org.tmd.environment.Block.BLOCK_HEIGHT;
-import static org.tmd.environment.Block.BLOCK_WIDTH;
 import org.tmd.environment.WaterBlock;
-import static org.tmd.main.Main.RANDOM;
-import org.tmd.render.Image;
 import org.tmd.render.scenes.*;
 
 /**

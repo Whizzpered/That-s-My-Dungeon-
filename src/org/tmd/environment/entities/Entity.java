@@ -9,6 +9,7 @@ import static java.lang.Math.*;
 import org.newdawn.slick.Color;
 import org.tmd.main.Declaration;
 import org.tmd.main.Main;
+import org.tmd.render.Side;
 import org.tmd.render.gui.Mouse;
 import org.tmd.render.scenes.Dungeon;
 
@@ -20,6 +21,7 @@ public class Entity {
 
     Dungeon dungeon = Declaration.dungeon;
     double x, y, size = 100, hp;
+    public Side side = Side.FRONT;
     double speed = 2;
     int faction;
     boolean phantom = false;
@@ -61,8 +63,14 @@ public class Entity {
         } else if (!dungeon.terrain.get(this.x * size / 2, this.y + y).solid) {
             this.y += y;
         }
+        
+        
     }
 
+    public void rotate() {
+        int cos = (int)()
+    }
+    
     public void longTick() {
 
     }

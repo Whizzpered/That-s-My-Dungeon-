@@ -1,9 +1,5 @@
-<#if licenseFirst??>
-${licenseFirst}
-</#if>
-${licensePrefix} Authors:
-${licensePrefix}    Whizzpered,
-${licensePrefix}    Yew_Mentzaki.
-<#if licenseLast??>
-${licenseLast}
-</#if>
+/*
+ *  Authors:
+ *     Whizzpered,
+ *     Yew_Mentzaki.
+ */

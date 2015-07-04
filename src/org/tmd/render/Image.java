@@ -24,6 +24,18 @@ public class Image {
         this.height = subimage.getHeight();
     }
 
+    public Image getNxCopy(float n) {
+        subimage = subimage.getScaledCopy(n);
+        subimage.setFilter(GL11.GL_NEAREST);
+        return this;
+    }
+    
+    public Image getFlipped(boolean horizontal, boolean vertical) {
+        subimage = subimage.getFlippedCopy(horizontal, vertical);
+        subimage.setFilter(GL11.GL_NEAREST);
+        return this;
+    }
+    
     public void draw() {
         if(subimage == null)
         this.subimage = Textures.image(path);
