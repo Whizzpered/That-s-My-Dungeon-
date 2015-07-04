@@ -28,7 +28,6 @@ public class Frame {
         line = new Image("gui/" + frame + "/line.png");
     }
 
-    public void render(int x, int y, int width, int height) {
     
     public void render(double x, double y, double width, double height) {
         glColor3f(1, 1, 1);
