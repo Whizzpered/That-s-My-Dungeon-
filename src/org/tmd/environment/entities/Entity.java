@@ -66,10 +66,6 @@ public class Entity {
         
         
     }
-
-    public void rotate() {
-        int cos = (int)()
-    }
     
     public void longTick() {
 
