@@ -13,6 +13,7 @@ public class Gate extends Entity{
 
     public Gate(double x, double y) {
         super(x, y);
+        phantom = true;
     }
 
     @Override

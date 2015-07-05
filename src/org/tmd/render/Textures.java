@@ -89,7 +89,6 @@ public class Textures {
         return null;
     }
     
-    
     public static Animation animation(String name){
         for (Animation a : animations) {
             if (a.name.equals(name)){

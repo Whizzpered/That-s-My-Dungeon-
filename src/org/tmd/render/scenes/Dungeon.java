@@ -12,6 +12,7 @@ import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.environment.Terrain;
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.entities.Player;
 import org.tmd.main.Declaration;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
@@ -85,7 +86,7 @@ public class Dungeon extends Scene {
     }
 
     public void camUpdate() {
-        int mx = (int)Mouse.x, my = (int)Mouse.y;
+        int mx = (int) Mouse.x, my = (int) Mouse.y;
         if (cameraTarget != null) {
             cam.x = -cameraTarget.x;
             cam.y = -cameraTarget.y;
@@ -107,9 +108,8 @@ public class Dungeon extends Scene {
     @Override
     public void init() {
         gui.add(menuButton);
-        cameraTarget = new Entity(playerRespawnPoint.x, playerRespawnPoint.y);
+        cameraTarget = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         entities.add(cameraTarget);
-
     }
 
     @Override
@@ -126,5 +126,11 @@ public class Dungeon extends Scene {
         GL11.glTranslated(-cam.x, -cam.y, 0);
     }
 
-    
+    @Override
+    public void handle() {
+        for (Entity e : getEntities()) {
+            e.handle();
+        }
+    }
+
 }

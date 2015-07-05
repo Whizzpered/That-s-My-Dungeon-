@@ -18,28 +18,28 @@ public class Sprite {
     public Image back = null, front = null, left = null, right = null;
 
     public Sprite(String s) {
-        back = new Image(s + "back.png").getNxCopy(2f);
-        front = new Image(s + "front.png").getNxCopy(2f);
-        left = new Image(s + "left.png").getNxCopy(2f);
-        if (Textures.image(s + "right.png") != null) {
-            right = new Image(s + "right.png").getNxCopy(2f);
+        back = new Image(s + "/back.png");
+        front = new Image(s + "/front.png");
+        left = new Image(s + "/left.png");
+        if (Textures.image(s + "/right.png") != null) {
+            right = new Image(s + "/right.png");
         } else {
-            right = left.getFlipped(true, false);
+            right = left;
         }
     }
 
-    public void render(Graphics g, Side side, int x, int y) {
+    public void render(Side side, double x, double y) {
         if (side == Side.FRONT) {
-            front.draw(x, y);
+            front.draw(x - front.width, y - front.height * 2, front.width * 2, front.height * 2);
         }
         if (side == Side.BACK) {
-            back.draw(x, y);
+            back.draw(x - back.width, y - back.height * 2, back.width * 2, back.height * 2);
         }
         if (side == Side.RIGHT) {
-            right.draw(x, y);
+            right.draw(x - right.width, y - right.height * 2, right.width * 2, right.height * 2);
         }
         if (side == Side.LEFT) {
-            left.draw(x, y);
+            left.draw(x - left.width, y - left.height * 2, left.width * 2, left.height * 2);
         }
     }
 }
