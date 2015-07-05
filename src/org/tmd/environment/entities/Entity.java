@@ -34,7 +34,7 @@ public class Entity {
     public int faction;
     public boolean phantom = false;
 
-    private int sign(double a) {
+    protected int sign(double a) {
         if (a > 0) {
             return 1;
         }
