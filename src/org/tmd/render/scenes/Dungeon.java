@@ -12,6 +12,7 @@ import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.environment.Terrain;
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.entities.Player;
 import org.tmd.main.Declaration;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
@@ -80,33 +81,46 @@ public class Dungeon extends Scene {
     @Override
     public void tick() {
         for (Entity e : getEntities()) {
-            e.tick();
+            try {
+                e.tick();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
     public void camUpdate() {
         int mx = (int) Mouse.x, my = (int) Mouse.y;
+        if (cameraTarget != null) {
+            cam.x = -cameraTarget.x;
+            cam.y = -cameraTarget.y;
+        } else {
+            cam.x = 0;
+            cam.y = 0;
+        }
+        cam.x += (int) (Block.BLOCK_WIDTH / 2) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
+        cam.y += (int) (Block.BLOCK_HEIGHT / 2) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
 
-        cam.x = (int) (-cameraTarget.x) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
-        cam.y = (int) (-cameraTarget.y) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
         floor.x = (int) cameraTarget.x + mx - Display.getWidth();
         floor.y = (int) cameraTarget.y + my - Display.getHeight();
-
     }
 
     @Override
     public void longTick() {
         for (Entity e : getEntities()) {
-            e.longTick();
+            try {
+                e.longTick();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
     @Override
     public void init() {
         gui.add(menuButton);
-        cameraTarget = new Entity(playerRespawnPoint.x, playerRespawnPoint.y);
+        cameraTarget = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         entities.add(cameraTarget);
-
     }
 
     @Override
@@ -116,11 +130,26 @@ public class Dungeon extends Scene {
         {
             terrain.render(floor);
             for (Entity e : getEntitiesForRender()) {
-                e.render();
+                try {
+                    e.render();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         terrain.renderTops(floor);
         GL11.glTranslated(-cam.x, -cam.y, 0);
+    }
+
+    @Override
+    public void handle() {
+        for (Entity e : getEntities()) {
+            try {
+                e.handle();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 }

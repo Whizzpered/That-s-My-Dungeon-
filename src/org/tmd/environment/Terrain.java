@@ -22,7 +22,7 @@ import org.tmd.render.scenes.Dungeon;
  */
 public class Terrain {
 
-    int width, height;
+    public int width, height;
     byte[][] blocks;
     byte[][] borders;
 
