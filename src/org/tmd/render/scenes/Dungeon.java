@@ -81,7 +81,11 @@ public class Dungeon extends Scene {
     @Override
     public void tick() {
         for (Entity e : getEntities()) {
-            e.tick();
+            try {
+                e.tick();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -101,7 +105,11 @@ public class Dungeon extends Scene {
     @Override
     public void longTick() {
         for (Entity e : getEntities()) {
-            e.longTick();
+            try {
+                e.longTick();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -119,7 +127,11 @@ public class Dungeon extends Scene {
         {
             terrain.render(null);
             for (Entity e : getEntitiesForRender()) {
-                e.render();
+                try {
+                    e.render();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         terrain.renderTops(null);
@@ -129,7 +141,11 @@ public class Dungeon extends Scene {
     @Override
     public void handle() {
         for (Entity e : getEntities()) {
-            e.handle();
+            try {
+                e.handle();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

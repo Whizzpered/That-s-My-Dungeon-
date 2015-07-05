@@ -22,7 +22,6 @@ import org.tmd.render.gui.Frame;
  */
 public class MainMenu extends Scene {
 
-    double a;
     Image background = new Image("gui/background.jpg");
     Image logo = new Image("gui/small_logo.png");
 
@@ -131,8 +130,6 @@ public class MainMenu extends Scene {
             background.draw(0, 0, Display.getWidth(), Display.getHeight());
         }
         logo.draw(Display.getWidth() / 2, logo.height / 2 + 40, 0);
-        a += 0.02;
-        Frame.defaultFrame.render(400, 200, abs(200 * sin(a)) + 100, abs(200 * cos(a)) + 100);
     }
 
 }

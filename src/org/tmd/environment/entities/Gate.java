@@ -5,6 +5,8 @@
  */
 package org.tmd.environment.entities;
 
+import org.tmd.render.Image;
+
 /**
  *
  * @author yew_mentzaki
@@ -15,11 +17,18 @@ public class Gate extends Entity{
         super(x, y);
         phantom = true;
     }
+    
+    Image open = new Image("creatures/door/open.png");
+    Image close = new Image("creatures/door/close.png");
+    
 
     @Override
-    public void move(double x, double y) {
-        
+    public void render() {
+        open.draw(x, y-150, open.width * 2, open.height * 2);
     }
-    
-    
+
+    @Override
+    public int getRenderQueuePriority() {
+        return 0;
+    }
 }
