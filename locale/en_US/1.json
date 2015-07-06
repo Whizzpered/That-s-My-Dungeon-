@@ -1,0 +1,35 @@
+{
+    "action": "subreplic",
+    "replics": [
+        {
+            "question": "Hello!",
+            "question": "Hello!",
+            "answer": "Hello! Pay me some for good things",
+            "action": "subreplic",
+            "replics": [
+                {
+                    "question": "OK bro, i will pay you",
+                    "answer": "wtf",
+                    "action": "toshop"
+                },
+                {
+                    "question": "Why do i pay to u?",
+                    "answer": "Cause its my things",
+                    "action": "subreplic",
+                    "replics": [
+                        {
+                            "question": "Fuck it, i will buy",
+                            "answer": "Little piece of shit, go",
+                            "action": "toshop"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "question": "Good bye!",
+            "answer": "Bye bye!",
+            "action": "exit"
+        }
+    ]
+}
