@@ -23,6 +23,7 @@ public class Gate extends Entity{
         phantom = true;
         width = 40;
         height = 300;
+        minimapIcon = null;
     }
 
     @Override

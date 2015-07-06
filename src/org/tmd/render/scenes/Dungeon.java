@@ -16,6 +16,7 @@ import org.tmd.environment.entities.Player;
 import org.tmd.main.Declaration;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
+import org.tmd.render.gui.MiniMap;
 import org.tmd.render.gui.Mouse;
 
 /**
@@ -30,6 +31,16 @@ public class Dungeon extends Scene {
     public Point playerRespawnPoint, raidersRespawnPoint;
     public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
+    
+    public MiniMap miniMap = new MiniMap(0, 0, 256, 256, this){
+
+        @Override
+        public void init() {
+            horisontalAlign = Align.RIGHT;
+            verticalAlign = Align.DOWN;
+        }
+        
+    };
 
     public Entity[] getEntities() {
         ArrayList<Entity> i = new ArrayList<Entity>(entities.size());
@@ -119,6 +130,7 @@ public class Dungeon extends Scene {
     @Override
     public void init() {
         gui.add(menuButton);
+        gui.add(miniMap);
         cameraTarget = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         entities.add(cameraTarget);
     }

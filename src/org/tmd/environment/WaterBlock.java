@@ -7,6 +7,7 @@ package org.tmd.environment;
 
 import static java.lang.Math.*;
 import static org.lwjgl.opengl.GL11.*;
+import org.newdawn.slick.Color;
 import static org.tmd.environment.Block.BLOCK_HEIGHT;
 import static org.tmd.environment.Block.BLOCK_WIDTH;
 import static org.tmd.main.Main.RANDOM;
@@ -22,7 +23,7 @@ public class WaterBlock extends Block {
     final Image water;
 
     public WaterBlock(int index, char symbol, String water, String border, String borderAngle, String borderAngleInside, boolean solid, boolean enemyZone, boolean restZone) {
-        super(index, symbol, null, null, border, borderAngle, borderAngleInside, solid, enemyZone, restZone);
+        super(index, symbol, new Color(0, 0, 255, 100), null, null, border, borderAngle, borderAngleInside, solid, enemyZone, restZone);
         this.water = new Image("tiles/" + water);
     }
 

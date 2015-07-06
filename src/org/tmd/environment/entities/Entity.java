@@ -12,6 +12,7 @@ import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.main.Declaration;
 import org.tmd.main.Main;
+import org.tmd.render.Image;
 import org.tmd.render.Side;
 import org.tmd.render.Sprite;
 import org.tmd.render.gui.Mouse;
@@ -29,6 +30,7 @@ public class Entity {
     private Point[] way;
     private int currentWaypoint;
     public Sprite spriteStanding = new Sprite("creatures/player");
+    public Image minimapIcon = new Image("minimap/entity.png");
     public Side side = Side.FRONT;
     public double speed = 2;
     public int faction;

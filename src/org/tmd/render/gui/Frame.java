@@ -17,6 +17,7 @@ import org.tmd.render.Image;
 public class Frame {
 
     public static Frame defaultFrame = new Frame("frame");
+    public static Frame glassFrame = new Frame("glass_frame");
 
     Image center;
     Image angle;

@@ -15,7 +15,6 @@ import org.tmd.render.Image;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
 import org.tmd.render.gui.Frame;
-import static org.tmd.render.scenes.Scene.currentScene;
 
 /**
  *
@@ -54,7 +53,7 @@ public class MainMenu extends Scene {
 
         @Override
         public void click() {
-            currentScene = Declaration.settings = new Settings();
+            currentScene = Declaration.settings;
         }
 
     };
@@ -64,48 +63,6 @@ public class MainMenu extends Scene {
         @Override
         public void click() {
             Main.exit();
-        }
-
-    };
-
-    Button ru_RU = new Button("ru_RU", 0, 300, 300, 50) {
-
-        @Override
-        public void init() {
-            horisontalAlign = Align.RIGHT;
-        }
-
-        @Override
-        public void click() {
-            GameLocale.setCurrentLocale(text);
-        }
-
-    };
-
-    Button en_US = new Button("en_US", 0, 370, 300, 50) {
-
-        @Override
-        public void init() {
-            horisontalAlign = Align.RIGHT;
-        }
-
-        @Override
-        public void click() {
-            GameLocale.setCurrentLocale(text);
-        }
-
-    };
-
-    Button de_DE = new Button("de_DE", 0, 440, 300, 50) {
-
-        @Override
-        public void init() {
-            horisontalAlign = Align.RIGHT;
-        }
-
-        @Override
-        public void click() {
-            GameLocale.setCurrentLocale(text);
         }
 
     };

@@ -6,6 +6,7 @@
 package org.tmd.environment.entities;
 
 import static java.lang.Math.*;
+import org.tmd.render.Image;
 import org.tmd.render.gui.Mouse;
 
 /**
@@ -16,6 +17,7 @@ public class Player extends Entity {
 
     public Player(double x, double y) {
         super(x, y);
+        minimapIcon = new Image("minimap/player.png");
     }
 
     @Override

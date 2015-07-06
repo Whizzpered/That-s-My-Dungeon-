@@ -6,6 +6,7 @@
 package org.tmd.environment;
 
 import static java.lang.Math.PI;
+import org.newdawn.slick.Color;
 import org.tmd.render.Image;
 import org.tmd.render.scenes.Dungeon;
 
@@ -29,12 +30,13 @@ public class Block {
     public final boolean solid;
     public final boolean enemyZone;
     public final boolean restZone;
+    public final Color color;
 
     private static boolean r(int a, int b) {
         return (a & b) != b;
     }
 
-    public Block(int index, char symbol, String wall, boolean solid, boolean enemyZone, boolean restZone) {
+    public Block(int index, char symbol, Color color, String wall, boolean solid, boolean enemyZone, boolean restZone) {
         this.index = index;
         this.symbol = symbol;
         if (wall != null) {
@@ -50,9 +52,10 @@ public class Block {
         this.enemyZone = enemyZone;
         this.restZone = restZone;
         Block.blocks[index] = this;
+        this.color = color;
     }
 
-    public Block(int index, char symbol, String wall, String top, boolean solid, boolean enemyZone, boolean restZone) {
+    public Block(int index, char symbol, Color color, String wall, String top, boolean solid, boolean enemyZone, boolean restZone) {
         this.index = index;
         this.symbol = symbol;
         if (wall != null) {
@@ -72,9 +75,10 @@ public class Block {
         this.enemyZone = enemyZone;
         this.restZone = restZone;
         Block.blocks[index] = this;
+        this.color = color;
     }
 
-    public Block(int index, char symbol, String wall, String top, String border, String borderAngle, String borderAngleInside, boolean solid, boolean enemyZone, boolean restZone) {
+    public Block(int index, char symbol, Color color, String wall, String top, String border, String borderAngle, String borderAngleInside, boolean solid, boolean enemyZone, boolean restZone) {
         this.index = index;
         this.symbol = symbol;
         if (wall != null) {
@@ -100,6 +104,7 @@ public class Block {
         this.enemyZone = enemyZone;
         this.restZone = restZone;
         Block.blocks[index] = this;
+        this.color = color;
     }
 
     public void render(int border, int x, int y) {

@@ -53,13 +53,13 @@ public class Element {
         if (parent != null) {
             y += parent.getY();
         }
-        if (horisontalAlign == Align.TOP) {
+        if (verticalAlign == Align.TOP) {
             return y;
         }
-        if (horisontalAlign == Align.DOWN) {
+        if (verticalAlign == Align.DOWN) {
             return Display.getHeight() - height + y;
         }
-        if (horisontalAlign == Align.CENTER) {
+        if (verticalAlign == Align.CENTER) {
             return (Display.getHeight() - height) / 2 + y;
         }
         return y;
