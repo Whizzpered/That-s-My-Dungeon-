@@ -14,10 +14,7 @@ import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
 import org.tmd.render.Image;
-import org.tmd.render.gui.Align;
-import org.tmd.render.gui.Button;
-import org.tmd.render.gui.Frame;
-import static org.tmd.render.scenes.Scene.currentScene;
+import org.tmd.render.gui.*;
 
 /**
  *
@@ -28,7 +25,7 @@ public class Settings extends Scene{
     double a;
     Image background = new Image("gui/background.jpg");
 
-    Button musicButton = new Button("music", 0, 230, 300, 50) {
+    TrackBar musicButton = new TrackBar("music", 200, 230, 300, 50) {
         
         @Override
         public void click() {
@@ -37,7 +34,7 @@ public class Settings extends Scene{
 
     };
 
-    Button soundButton = new Button("sound", 0, 300, 300, 50) {
+    TrackBar soundButton = new TrackBar("sound", 200, 300, 300, 50) {
 
         @Override
         public void click() {
