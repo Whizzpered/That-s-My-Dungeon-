@@ -23,7 +23,6 @@ import static org.tmd.render.scenes.Scene.currentScene;
  */
 public class MainMenu extends Scene {
 
-    double a;
     Image background = new Image("gui/background.jpg");
     Image logo = new Image("gui/small_logo.png");
 
