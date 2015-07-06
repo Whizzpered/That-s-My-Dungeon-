@@ -15,6 +15,7 @@ import org.tmd.render.Image;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
 import org.tmd.render.gui.Frame;
+import static org.tmd.render.scenes.Scene.currentScene;
 
 /**
  *
@@ -54,6 +55,7 @@ public class MainMenu extends Scene {
 
         @Override
         public void click() {
+            currentScene = Declaration.settings = new Settings();
         }
 
     };
@@ -115,10 +117,6 @@ public class MainMenu extends Scene {
         gui.add(newGameButton);
         gui.add(settingsButton);
         gui.add(exitButton);
-
-        gui.add(ru_RU);
-        gui.add(en_US);
-        gui.add(de_DE);
     }
 
     @Override
@@ -131,8 +129,6 @@ public class MainMenu extends Scene {
             background.draw(0, 0, Display.getWidth(), Display.getHeight());
         }
         logo.draw(Display.getWidth() / 2, logo.height / 2 + 40, 0);
-        a += 0.02;
-        Frame.defaultFrame.render(400, 200, abs(200 * sin(a)) + 100, abs(200 * cos(a)) + 100);
     }
 
 }

@@ -5,7 +5,7 @@
  */
 package org.tmd.environment.entities;
 
-import static java.lang.Math.*;
+import org.tmd.environment.Point;
 import org.tmd.render.gui.Mouse;
 
 /**
@@ -21,8 +21,15 @@ public class Player extends Entity {
     @Override
     public void tick() {
         super.tick();
+        
     }
 
+    @Override
+    public void goTo(double x, double y){
+        super.goTo(x,y);
+        System.out.println(shearable(new Point((int)this.x,(int)this.y), new Point((int)x,(int)y)));
+    }
+    
     @Override
     public void handle() {
         if (Mouse.left) {

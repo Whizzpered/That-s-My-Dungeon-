@@ -71,6 +71,8 @@ public class Entity {
             int x, y;
             Waypoint parent;
 
+            
+
             public Waypoint(int x, int y, Waypoint parent) {
                 this.x = x;
                 this.y = y;
@@ -105,12 +107,12 @@ public class Entity {
             public Waypoint grow(ArrayList<Waypoint> w) {
                 if (growTo(1, 1, w)
                         || growTo(-1, 1, w)
+                        || growTo(0, 1, w)
                         || growTo(-1, -1, w)
                         || growTo(1, -1, w)
+                        || growTo(0, -1, w)
                         || growTo(1, 0, w)
-                        || growTo(-1, 0, w)
-                        || growTo(0, 1, w)
-                        || growTo(0, -1, w)) {
+                        || growTo(-1, 0, w)) {
                     return new Waypoint(fx, fy, this);
                 } else {
                     return null;
@@ -145,6 +147,24 @@ public class Entity {
         } while (i != 0);
     }
 
+    public boolean shearable(Point start, Point end)    {
+
+                int d = (int) Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)),
+                        s = (int) (Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / d);
+                double angle = Math.atan2(start.y-end.y,start.x-end.x);
+
+                for (int i = 1; i <= s; i++) {
+                    double l = (i * d * Math.cos(angle)),
+                            k = (i * d * Math.sin(angle));
+                    if (dungeon.terrain.get(start.x + l, start.y + k).solid) {
+                        
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+    
     public void tick() {
         if (way != null) {
             walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
