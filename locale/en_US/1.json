@@ -2,24 +2,23 @@
     "action": "subreplic",
     "replics": [
         {
-            "question": "Hello!",
-            "question": "Hello!",
-            "answer": "Hello! Pay me some for good things",
+            "question": "Привет!",
+            "answer": "Привет! У меня твои вещи! Заплати, чтобы их получить.",
             "action": "subreplic",
             "replics": [
                 {
-                    "question": "OK bro, i will pay you",
-                    "answer": "wtf",
+                    "question": "Да без проблем, бро",
+                    "answer": "Эм...",
                     "action": "toshop"
                 },
                 {
-                    "question": "Why do i pay to u?",
-                    "answer": "Cause its my things",
+                    "question": "Почему я должен тебе платить?",
+                    "answer": "Потому что теперь это мои вещи.",
                     "action": "subreplic",
                     "replics": [
                         {
-                            "question": "Fuck it, i will buy",
-                            "answer": "Little piece of shit, go",
+                            "question": "Пофиг, покупаю",
+                            "answer": "Да без проблем",
                             "action": "toshop"
                         }
                     ]
@@ -27,8 +26,8 @@
             ]
         },
         {
-            "question": "Good bye!",
-            "answer": "Bye bye!",
+            "question": "Прощай!",
+            "answer": "Пока!",
             "action": "exit"
         }
     ]

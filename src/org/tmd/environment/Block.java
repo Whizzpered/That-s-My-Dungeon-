@@ -102,7 +102,7 @@ public class Block {
         Block.blocks[index] = this;
     }
 
-    public void render(int border) {
+    public void render(int border, int x, int y) {
         if (wall != null) {
             wall.draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
         }
@@ -148,7 +148,7 @@ public class Block {
         }
     }
 
-    public void renderTop(int border) {
+    public void renderTop(int border, int x, int y) {
         if (top != null) {
             top.draw(0, -BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
             if (this.border != null) {

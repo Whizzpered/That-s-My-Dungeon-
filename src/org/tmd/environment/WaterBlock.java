@@ -5,6 +5,8 @@
  */
 package org.tmd.environment;
 
+import static java.lang.Math.*;
+import static org.lwjgl.opengl.GL11.*;
 import static org.tmd.environment.Block.BLOCK_HEIGHT;
 import static org.tmd.environment.Block.BLOCK_WIDTH;
 import static org.tmd.main.Main.RANDOM;
@@ -16,6 +18,7 @@ import org.tmd.render.Image;
  */
 public class WaterBlock extends Block {
 
+    private static float f;
     final Image water;
 
     public WaterBlock(int index, char symbol, String water, String border, String borderAngle, String borderAngleInside, boolean solid, boolean enemyZone, boolean restZone) {
@@ -23,11 +26,29 @@ public class WaterBlock extends Block {
         this.water = new Image("tiles/" + water);
     }
 
-    @Override
-    public void render(int border) {
-        water.draw(RANDOM.nextInt(3), 0, BLOCK_WIDTH, BLOCK_HEIGHT);
-        super.render(border);
+    private static float sign(int x, int y) {
+        return ((x % 2 == 0 ? 1 : -1) * (y % 2 == 0 ? 1 : -1)) * 0.1f;
     }
 
-    
+    public void render(int border, int x, int y) {
+        f += 0.001f;
+        water.bind();
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glBegin(GL_QUADS);
+        {
+            glTexCoord2d(sin(f) * sign(x, y), cos(f) * sign(x, y));
+            glVertex2d(0, 0);
+            glTexCoord2d(1 - sin(f) * sign(x, y), -cos(f) * sign(x, y));
+            glVertex2d(BLOCK_WIDTH, 0);
+            glTexCoord2d(1 + sin(f) * sign(x, y), 1 - cos(f) * sign(x, y));
+            glVertex2d(BLOCK_WIDTH, BLOCK_HEIGHT);
+            glTexCoord2d(-sin(f) * sign(x, y), 1 + cos(f) * sign(x, y));
+            glVertex2d(0, BLOCK_HEIGHT);
+        }
+        glEnd();
+        
+        super.render(border, x, y);
+    }
+
 }

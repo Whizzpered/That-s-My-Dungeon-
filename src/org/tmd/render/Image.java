@@ -31,14 +31,16 @@ public class Image {
         this.height = 1;
     }
 
-    public void getNxCopy(float n) {
+    public Image getNxCopy(float n) {
         subimage = subimage.getScaledCopy(n);
         subimage.setFilter(GL11.GL_NEAREST);
+        return this;
     }
     
-    public void getFlipped(boolean horizontal, boolean vertical) {
+    public Image getFlipped(boolean horizontal, boolean vertical) {
         subimage = subimage.getFlippedCopy(horizontal, vertical);
         subimage.setFilter(GL11.GL_NEAREST);
+        return this;
     }
     
     public void draw() {

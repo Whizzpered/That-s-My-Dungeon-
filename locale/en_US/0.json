@@ -2,32 +2,31 @@
     "action": "subreplic",
     "replics": [
         {
-            "question": "Hello!",
-            "answer": "Hello! How r u?",
-            "action": "subreplic",
-            "replics": [
-                {
-                    "question": "Fine, thx. Let's go teaching?",
-                    "answer": "",
+                    "question": "Обучите меня, сенсей!",
+                    "answer": "...",
                     "action": "totraining"
                 },
                 {
-                    "question": "Everything sux, dude. :C",
-                    "answer": "Oh, why? :C",
+                    "question": "Расскажите о себе",
+                    "answer": "Я сосу хуи за деньги. (Извините, просто факт из жизни одного разработчика)",
                     "action": "subreplic",
                     "replics": [
                         {
-                            "question": "Fuck it, teach me",
-                            "answer": "Little piece of shit, go",
-                            "action": "totraining"
-                        }
+                            "question": "Спасибо, учитель",
+                            "answer": "Всего доброго",
+                            "action": "exit"
+                        }, {
+						"question": "Обучите меня, сенсей!",
+                    "answer": "...",
+                    "action": "totraining"
+						}
                     ]
                 }
             ]
-        },
+        ,
         {
-            "question": "Good bye!",
-            "answer": "Bye bye!",
+            "question": "Прощайте!",
+            "answer": "Доброй охоты!",
             "action": "exit"
         }
     ]

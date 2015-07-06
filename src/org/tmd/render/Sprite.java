@@ -4,6 +4,11 @@
  *     Yew_Mentzaki.
  */
 package org.tmd.render;
+
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Graphics;
+import org.tmd.render.Side;
+
 /**
  *
  * @author Whizzpered
@@ -14,17 +19,12 @@ public class Sprite {
 
     public Sprite(String s) {
         back = new Image(s + "/back.png");
-        back.getNxCopy(2f);
         front = new Image(s + "/front.png");
-        front.getNxCopy(2f);
         left = new Image(s + "/left.png");
-        left.getNxCopy(2f);
         if (Textures.image(s + "/right.png") != null) {
             right = new Image(s + "/right.png");
-            right.getNxCopy(2f);
         } else {
             right = left;
-            right.getFlipped(true, false);
         }
     }
 

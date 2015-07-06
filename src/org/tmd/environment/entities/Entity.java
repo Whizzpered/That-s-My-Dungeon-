@@ -7,11 +7,14 @@ package org.tmd.environment.entities;
 
 import static java.lang.Math.*;
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.main.Declaration;
+import org.tmd.main.Main;
 import org.tmd.render.Side;
 import org.tmd.render.Sprite;
+import org.tmd.render.gui.Mouse;
 import org.tmd.render.scenes.Dungeon;
 
 /**
@@ -46,11 +49,39 @@ public class Entity {
         this.y = y;
     }
 
+    public boolean shearable(Point start, Point end) {
+        int d = (int) Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / 2,
+                s = (int) (Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / d);
+        double angle = Math.atan2(end.y - start.y, end.x - start.x);
+
+        for (int i = 1; i <= s; i++) {
+            double l = (i * d * Math.cos(angle)),
+                    k = (i * d * Math.sin(angle));
+            if (dungeon.terrain.get(start.x + l, start.y + k).solid) {
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public void goTo(double goToX, double goToY) {
         int tx = (int) (goToX / Block.BLOCK_WIDTH), ty = (int) (goToY / Block.BLOCK_HEIGHT);
         final int fx = (int) (this.x / Block.BLOCK_WIDTH), fy = (int) (this.y / Block.BLOCK_HEIGHT);
-        final boolean[][] dung = new boolean[dungeon.terrain.width][dungeon.terrain.height];
         boolean player = getClass() == Player.class;
+        if (player && dungeon.terrain.get(tx, ty).enemyZone) {
+            return;
+        }
+        if (way != null) {
+            int tx2 = (int) (way[way.length - 1].x / Block.BLOCK_WIDTH), ty2 = (int) (way[way.length - 1].y / Block.BLOCK_HEIGHT);
+            if (tx == tx2 && ty == ty2) {
+                way[way.length - 1].x = goToX;
+                way[way.length - 1].y = goToY;
+                return;
+            }
+        }
+        final boolean[][] dung = new boolean[dungeon.terrain.width][dungeon.terrain.height];
         if (tx < 0 || ty < 0 || tx >= dungeon.terrain.width || ty >= dungeon.terrain.height) {
             return;
         }
@@ -67,8 +98,6 @@ public class Entity {
 
             int x, y;
             Waypoint parent;
-
-            
 
             public Waypoint(int x, int y, Waypoint parent) {
                 this.x = x;
@@ -104,12 +133,12 @@ public class Entity {
             public Waypoint grow(ArrayList<Waypoint> w) {
                 if (growTo(1, 1, w)
                         || growTo(-1, 1, w)
-                        || growTo(0, 1, w)
                         || growTo(-1, -1, w)
                         || growTo(1, -1, w)
-                        || growTo(0, -1, w)
                         || growTo(1, 0, w)
-                        || growTo(-1, 0, w)) {
+                        || growTo(-1, 0, w)
+                        || growTo(0, 1, w)
+                        || growTo(0, -1, w)) {
                     return new Waypoint(fx, fy, this);
                 } else {
                     return null;
@@ -134,6 +163,8 @@ public class Entity {
                     for (int j = 0; j < p.length; j++) {
                         p[j] = new Point(wp.get(j).x * Block.BLOCK_WIDTH + Block.BLOCK_WIDTH / 2, wp.get(j).y * Block.BLOCK_HEIGHT + Block.BLOCK_HEIGHT / 2);
                     }
+                    p[p.length - 1].x = goToX;
+                    p[p.length - 1].y = goToY;
                     this.way = p;
                     this.currentWaypoint = 0;
                     return;
@@ -144,24 +175,6 @@ public class Entity {
         } while (i != 0);
     }
 
-    public boolean shearable(Point start, Point end)    {
-
-                int d = (int) Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)),
-                        s = (int) (Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / d);
-                double angle = Math.atan2(start.y-end.y,start.x-end.x);
-
-                for (int i = 1; i <= s; i++) {
-                    double l = (i * d * Math.cos(angle)),
-                            k = (i * d * Math.sin(angle));
-                    if (dungeon.terrain.get(start.x + l, start.y + k).solid) {
-                        
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-    
     public void tick() {
         if (way != null) {
             walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
@@ -169,6 +182,14 @@ public class Entity {
                 currentWaypoint++;
                 if (currentWaypoint == way.length) {
                     way = null;
+                } else {
+                    while (currentWaypoint + 1 < way.length) {
+                        if (shearable(new Point(x, y), new Point(way[currentWaypoint + 1].x, way[currentWaypoint + 1].y))) {
+                            currentWaypoint++;
+                        } else {
+                            break;
+                        }
+                    }
                 }
             }
         } else if (targetX != -1) {

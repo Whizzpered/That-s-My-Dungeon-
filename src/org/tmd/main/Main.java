@@ -201,7 +201,7 @@ public class Main {
                     Scene.currentScene.longTick();
                 }
             }
-        }, 10, 10);
+        }, 10, 1000);
         try {
             while (!(Display.isCloseRequested() | exit)) {
                 glMatrixMode(GL_PROJECTION);
