@@ -64,8 +64,8 @@ public class Entity {
         this.y = y;
     }
 
-    public boolean shearable(Point start, Point end) {
-        int d = (int) Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / 2,
+        public boolean shearable(Point start, Point end) {
+        int d = (int) Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / 4,
                 s = (int) (Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / d);
         double angle = Math.atan2(end.y - start.y, end.x - start.x);
 
@@ -191,12 +191,14 @@ public class Entity {
     }
 
     public void tick() {
-        if (way != null) {
+        Point[] way = this.way;
+        if (way != null && currentWaypoint < way.length) {
             walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
             if (sqrt(pow(x - way[currentWaypoint].x, 2) + pow(y - way[currentWaypoint].y, 2)) <= Block.BLOCK_WIDTH / 2) {
                 currentWaypoint++;
                 if (currentWaypoint == way.length) {
-                    way = null;
+                    this.way = null;
+                    currentWaypoint = 0;
                 } else {
                     while (currentWaypoint + 1 < way.length) {
                         if (shearable(new Point(x, y), new Point(way[currentWaypoint + 1].x, way[currentWaypoint + 1].y))) {
@@ -226,10 +228,6 @@ public class Entity {
                     move(-cos(a) * speed / 2, -sin(a) * speed / 2);
                 }
             }
-        }
-
-        if (hp <= 0) {
-            dead = true;
         }
     }
 
