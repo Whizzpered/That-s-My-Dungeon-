@@ -6,9 +6,7 @@
 package org.tmd.render.scenes;
 
 import java.util.ArrayList;
-import org.lwjgl.opengl.GL11;
 import org.tmd.render.gui.Element;
-import org.tmd.render.gui.Mouse;
 
 /**
  *
@@ -18,7 +16,7 @@ public class Scene {
 
     public static Scene currentScene;
 
-    protected ArrayList<Element> gui = new ArrayList<Element>();
+    public ArrayList<Element> gui = new ArrayList<Element>();
     private boolean loaded;
 
     public void init() {

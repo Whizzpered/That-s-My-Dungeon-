@@ -13,6 +13,7 @@ import org.tmd.environment.Point;
 import org.tmd.environment.Terrain;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Player;
+import org.tmd.environment.entities.Raider;
 import org.tmd.main.Declaration;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
@@ -31,15 +32,17 @@ public class Dungeon extends Scene {
     public Point playerRespawnPoint, raidersRespawnPoint;
     public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
-    
-    public MiniMap miniMap = new MiniMap(0, 0, 256, 256, this){
+    private int longtim = 0;
+    private boolean wavetimer;
+
+    public MiniMap miniMap = new MiniMap(0, 0, 256, 256, this) {
 
         @Override
         public void init() {
             horisontalAlign = Align.RIGHT;
             verticalAlign = Align.DOWN;
         }
-        
+
     };
 
     public Entity[] getEntities() {
@@ -98,6 +101,16 @@ public class Dungeon extends Scene {
                 ex.printStackTrace();
             }
         }
+
+        for (Entity e : getEntities()) {
+            if (e instanceof Raider) {
+                return;
+            }
+        }
+        if (!wavetimer) {
+            longtim = 5;
+            wavetimer = true;
+        }
     }
 
     public void camUpdate() {
@@ -125,6 +138,14 @@ public class Dungeon extends Scene {
                 ex.printStackTrace();
             }
         }
+        if (wavetimer) {
+            if (longtim > 0) {
+                longtim--;
+            } else {
+                entities.add(new Raider(400, 500));
+                wavetimer = false;
+            }
+        }
     }
 
     @Override
@@ -133,6 +154,7 @@ public class Dungeon extends Scene {
         gui.add(miniMap);
         cameraTarget = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         entities.add(cameraTarget);
+
     }
 
     @Override
@@ -152,7 +174,7 @@ public class Dungeon extends Scene {
         terrain.renderTops(floor);
         GL11.glTranslated(-cam.x, -cam.y, 0);
     }
-
+    
     @Override
     public void handle() {
         for (Entity e : getEntities()) {

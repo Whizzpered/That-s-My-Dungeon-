@@ -25,7 +25,8 @@ import org.tmd.render.scenes.Dungeon;
 public class Entity {
 
     public Dungeon dungeon = Declaration.dungeon;
-    public double x, y, size = 128, width = 128, height = 48, hp = 1;
+    public Entity focus;
+    public double x, y, size = 128, width = 128, height = 48, hp = 1, maxhp, dmg, armor;
     protected double targetX = -1, targetY = -1;
     private Point[] way;
     private int currentWaypoint;
@@ -34,7 +35,19 @@ public class Entity {
     public Side side = Side.FRONT;
     public double speed = 2;
     public int faction;
-    public boolean phantom = false;
+    public boolean phantom = false, dead;
+
+    public double getHP() {
+        return hp;
+    }
+
+    public double getDMG() {
+        return dmg;
+    }
+
+    public double getArmor() {
+        return armor;
+    }
 
     private int sign(double a) {
         if (a > 0) {
@@ -213,6 +226,10 @@ public class Entity {
                     move(-cos(a) * speed / 2, -sin(a) * speed / 2);
                 }
             }
+        }
+
+        if (hp <= 0) {
+            dead = true;
         }
     }
 

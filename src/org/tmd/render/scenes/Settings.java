@@ -5,9 +5,7 @@
  */
 package org.tmd.render.scenes;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
+import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.tmd.main.Declaration;
@@ -20,25 +18,36 @@ import org.tmd.render.gui.*;
  *
  * @author Whizzpered
  */
-public class Settings extends Scene{
-    
+public class Settings extends Scene {
+
     double a;
     Image background = new Image("gui/background.jpg");
 
-    TrackBar musicButton = new TrackBar("music", 200, 230, 300, 50) {
-        
+    public ArrayList<ValueButton> buttons() {
+        ArrayList<ValueButton> u = new ArrayList<ValueButton>();
+
+        for (Element el : gui) {
+            if (el instanceof ValueButton) {
+                u.add((ValueButton) el);
+            }
+        }
+        return u;
+    }
+
+    TrackBar musicButton = new TrackBar("music", 0, 230, 300, 50) {
+
         @Override
         public void click() {
-            
+
         }
 
     };
 
-    TrackBar soundButton = new TrackBar("sound", 200, 300, 300, 50) {
+    TrackBar soundButton = new TrackBar("sound", 0, 300, 300, 50) {
 
         @Override
         public void click() {
-            
+
         }
 
     };
@@ -99,7 +108,20 @@ public class Settings extends Scene{
         gui.add(musicButton);
         gui.add(soundButton);
         gui.add(applyButton);
-        
+
+        gui.add(new ValueButton("inventory", 0, 240, 300, 50) {
+
+            @Override
+            public void init() {
+                horisontalAlign = Align.CENTER;
+            }
+
+            @Override
+            public void changeSet() {
+                System.out.println("New key: "+this.value);
+            }
+        });
+
         gui.add(ru_RU);
         gui.add(en_US);
         gui.add(de_DE);
@@ -114,6 +136,7 @@ public class Settings extends Scene{
         } else {
             background.draw(0, 0, Display.getWidth(), Display.getHeight());
         }
+
     }
-    
+
 }
