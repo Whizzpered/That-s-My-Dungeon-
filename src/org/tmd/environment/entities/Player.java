@@ -39,9 +39,6 @@ public class Player extends Entity {
 
     @Override
     public void hit(double damage, Entity from) {
-        for (int i = 0; i < Main.RANDOM.nextInt(3); i++) {
-            dungeon.addParticle(new BloodParticle(x, y - 35));
-        }
         attack(from);
         super.hit(damage, from); //To change body of generated methods, choose Tools | Templates.
     }
