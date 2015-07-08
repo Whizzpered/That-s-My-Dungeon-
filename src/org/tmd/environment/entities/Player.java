@@ -22,17 +22,12 @@ public class Player extends Entity {
         super(x, y);
         minimapIcon = new Image("minimap/player.png");
         name = "Player";
+        attackType = "hit_clutches";
     }
 
     @Override
     public void tick() {
         super.tick();
-        if(Main.RANDOM.nextInt(100) == 0){
-            dungeon.addParticle(new Hit("hit_sword", x, y - 35));
-            for (int i = 0; i < Main.RANDOM.nextInt(3); i++) {
-                dungeon.addParticle(new BloodParticle(x, y - 35));
-            }
-        }
     }
 
     @Override
@@ -40,6 +35,15 @@ public class Player extends Entity {
         if (Mouse.left) {
             goTo(Mouse.x - dungeon.cam.x, Mouse.y - dungeon.cam.y);
         }
+    }
+
+    @Override
+    public void hit(double damage, Entity from) {
+        for (int i = 0; i < Main.RANDOM.nextInt(3); i++) {
+            dungeon.addParticle(new BloodParticle(x, y - 35));
+        }
+        attack(from);
+        super.hit(damage, from); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -5,6 +5,8 @@
  */
 package org.tmd.environment.entities;
 
+import static java.lang.Math.*;
+import org.tmd.environment.particles.Hit;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 
@@ -18,7 +20,16 @@ public class Raider extends Entity {
         super(x, y);
         spriteStanding = new Sprite("creatures/pries");
         minimapIcon = new Image("minimap/warrior.png");
-        goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
+        name = "raider";
     }
+
+    @Override
+    public void tick() {
+        goTo(dungeon.player.x, dungeon.player.y);
+        attack(dungeon.player);
+        super.tick();
+    }
+    
+    
 
 }

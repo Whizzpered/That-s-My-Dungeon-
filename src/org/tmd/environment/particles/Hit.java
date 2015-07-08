@@ -18,7 +18,7 @@ public class Hit extends Particle {
     boolean mirror = Main.RANDOM.nextBoolean();
 
     public Hit(String type, double x, double y) {
-        super(x, y);
+        super(x + (Main.RANDOM.nextInt(31) - 15), y + (Main.RANDOM.nextInt(31) - 15));
         for (int i = 0; i < 6; i++) {
             images[i] = new Image("effects/" + type + "/" + i + ".png");
         }

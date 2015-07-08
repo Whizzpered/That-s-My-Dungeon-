@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
+import org.tmd.environment.particles.Hit;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
@@ -28,7 +29,7 @@ public class Entity {
     public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
-    public double x, y, size = 128, width = 128, height = 48, hp = 1, maxhp, dmg, armor;
+    public double x, y, size = 75, width = 128, height = 48, hp = 1, maxhp, dmg, armor;
     protected double targetX = -1, targetY = -1;
     private Point[] way;
     private int currentWaypoint;
@@ -38,9 +39,24 @@ public class Entity {
     public double speed = 2;
     public int faction;
     public boolean phantom = false, dead;
-    
+    public int attackDamage = 0;
+    public int attackDistance = 128;
+    public String attackType = "hit_sword";
+    public int attackReloadTime = 35;
+    private int attackReload = 0;
+
     public String getName() {
         return GameLocale.get(name);
+    }
+
+    public void attack(Entity e) {
+        if (attackReload == 0) {
+            if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) < attackDistance) {
+                dungeon.addParticle(new Hit(attackType, e.x, e.y - 35));
+                e.hit(attackDamage, this);
+                attackReload = attackReloadTime;
+            }
+        }
     }
 
     public double getHP() {
@@ -70,7 +86,7 @@ public class Entity {
         this.y = y;
     }
 
-        public boolean shearable(Point start, Point end) {
+    public boolean shearable(Point start, Point end) {
         int d = (int) Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / 4,
                 s = (int) (Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / d);
         double angle = Math.atan2(end.y - start.y, end.x - start.x);
@@ -197,6 +213,9 @@ public class Entity {
     }
 
     public void tick() {
+        if (attackReload > 0) {
+            attackReload--;
+        }
         Point[] way = this.way;
         if (way != null && currentWaypoint < way.length) {
             walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
