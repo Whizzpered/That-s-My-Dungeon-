@@ -18,6 +18,7 @@ public class Player extends Entity {
     public Player(double x, double y) {
         super(x, y);
         minimapIcon = new Image("minimap/player.png");
+        name = "Player";
     }
 
     @Override

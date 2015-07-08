@@ -29,17 +29,20 @@ public class Element {
 
     public double getX() {
         double x = this.x;
+        double dw = Display.getWidth(), dh = Display.getHeight();
         if (parent != null) {
             x += parent.getX();
+            dw = parent.width;
+            dh = parent.height;
         }
         if (horisontalAlign == Align.LEFT) {
             return x;
         }
         if (horisontalAlign == Align.RIGHT) {
-            return Display.getWidth() - width + x;
+            return dw - width + x;
         }
         if (horisontalAlign == Align.CENTER) {
-            return (Display.getWidth() - width) / 2 + x;
+            return (dw - width) / 2 + x;
         }
         return x;
     }
@@ -50,17 +53,20 @@ public class Element {
 
     public double getY() {
         double y = this.y;
+        double dw = Display.getWidth(), dh = Display.getHeight();
         if (parent != null) {
             y += parent.getY();
+            dw = parent.width;
+            dh = parent.height;
         }
         if (verticalAlign == Align.TOP) {
             return y;
         }
         if (verticalAlign == Align.DOWN) {
-            return Display.getHeight() - height + y;
+            return dh - height + y;
         }
         if (verticalAlign == Align.CENTER) {
-            return (Display.getHeight() - height) / 2 + y;
+            return (dh - height) / 2 + y;
         }
         return y;
     }

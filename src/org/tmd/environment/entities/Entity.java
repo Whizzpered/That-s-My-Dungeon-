@@ -11,6 +11,7 @@ import org.newdawn.slick.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.main.Declaration;
+import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
 import org.tmd.render.Image;
 import org.tmd.render.Side;
@@ -24,6 +25,7 @@ import org.tmd.render.scenes.Dungeon;
  */
 public class Entity {
 
+    public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
     public double x, y, size = 128, width = 128, height = 48, hp = 1, maxhp, dmg, armor;
@@ -36,6 +38,10 @@ public class Entity {
     public double speed = 2;
     public int faction;
     public boolean phantom = false, dead;
+    
+    public String getName() {
+        return GameLocale.get(name);
+    }
 
     public double getHP() {
         return hp;

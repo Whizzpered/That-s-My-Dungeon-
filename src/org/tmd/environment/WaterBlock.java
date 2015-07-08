@@ -40,11 +40,11 @@ public class WaterBlock extends Block {
         {
             glTexCoord2d(sin(f) * sign(x, y), cos(f) * sign(x, y));
             glVertex2d(0, 0);
-            glTexCoord2d(1 - sin(f) * sign(x, y), -cos(f) * sign(x, y));
+            glTexCoord2d(1 + sin(f) * sign(x+1, y), cos(f) * sign(x+1, y));
             glVertex2d(BLOCK_WIDTH, 0);
-            glTexCoord2d(1 + sin(f) * sign(x, y), 1 - cos(f) * sign(x, y));
+            glTexCoord2d(1 + sin(f) * sign(x+1, y+1), 1 + cos(f) * sign(x+1, y+1));
             glVertex2d(BLOCK_WIDTH, BLOCK_HEIGHT);
-            glTexCoord2d(-sin(f) * sign(x, y), 1 + cos(f) * sign(x, y));
+            glTexCoord2d(sin(f) * sign(x, y+1), 1 + cos(f) * sign(x, y+1));
             glVertex2d(0, BLOCK_HEIGHT);
         }
         glEnd();

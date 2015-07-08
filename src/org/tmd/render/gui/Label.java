@@ -6,9 +6,10 @@
 package org.tmd.render.gui;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
+import org.tmd.main.GameLocale;
 
 import org.tmd.main.Main;
+import org.tmd.render.Image;
 
 /**
  *
@@ -16,25 +17,35 @@ import org.tmd.main.Main;
  */
 public class Label extends Element {
 
-    String string;
-    Color color;
+    public String string;
+    public Image icon;
+    public Color color;
 
     public Label(String str, double x, double y, Color color) {
         super(x, y, Main.defaultFont.getWidth(str), Main.defaultFont.getFont().getSize());
         string = str;
+        this.color = color;
     }
 
-    public void set(String s) {
-        string = s;
+    public Label(String icon, String str, double x, double y, Color color) {
+        super(x, y, Main.defaultFont.getWidth(str), Main.defaultFont.getFont().getSize());
+        string = str;
+        this.icon = new Image(icon);
+        this.color = color;
     }
     
-    public void set(double x, double y){
-        this.x = x;
-        this.y = y;
+    public String getText() {
+        return GameLocale.get(string);
     }
-    
-    public void render(Graphics g) {
-        Main.defaultFont.drawString(string, (int)x, (int)y, color);
+
+    public void render() {
+        int x = 0;
+        if (icon != null) {
+            icon.draw(getX(), getY() + 2);
+            x += (int) icon.width;
+        }
+        Main.defaultFont.drawString(getText(), (int) getX() + x, (int) getY(), Color.black);
+        Main.defaultFont.drawString(getText(), (int) getX() + x, (int) getY() - 2, color);
     }
 
 }

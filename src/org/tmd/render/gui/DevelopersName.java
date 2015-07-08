@@ -6,7 +6,6 @@
 package org.tmd.render.gui;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.tmd.main.Main;
 
 /**
@@ -24,8 +23,7 @@ public class DevelopersName extends Label {
         second = sec;
     }
 
-    @Override
-    public void render(Graphics g) {
+    public void render() {
         if(hover){
             Main.defaultFont.drawString(description, (int)x, (int)y, second);
         } else {

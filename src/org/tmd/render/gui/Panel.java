@@ -16,14 +16,21 @@ import org.tmd.main.Main;
  */
 public class Panel extends Element {
 
-    private ArrayList<Element> elements = new ArrayList<Element>();
+    private ArrayList<Element> elements;
 
     public Panel(double x, double y, double width, double height) {
         super(x, y, width, height);
     }
-    
-    public void add(Element e){
+
+    public void add(Element e) {
+        if (elements == null) {
+            elements = new ArrayList<Element>();
+        }
+        if(e == null){
+            return;
+        }
         elements.add(e);
+        e.parent = this;
     }
 
     @Override
@@ -31,7 +38,8 @@ public class Panel extends Element {
         if (!visible) {
             return;
         }
-        Frame.defaultFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
+        Frame.glassFrame.render(getX(), getY(), width, height);
+        if(elements != null)
         for (Element e : elements) {
             e.render();
         }
@@ -51,7 +59,7 @@ public class Panel extends Element {
                     click();
                     click = true;
                 }
-                for (Element e : elements){
+                for (Element e : elements) {
                     e.handle();
                 }
                 return true;
