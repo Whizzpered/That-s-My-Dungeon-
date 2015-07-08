@@ -30,6 +30,7 @@ public class Declaration {
     public static MainMenu mainMenu = new MainMenu();
     public static Settings settings = new Settings();
     public static Dungeon dungeon = null;
+    public static Dialog dialog = new Dialog();
 
     /*
      *   Blocks:

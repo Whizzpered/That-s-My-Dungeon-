@@ -136,7 +136,6 @@ public class Settings extends Scene {
         } else {
             background.draw(0, 0, Display.getWidth(), Display.getHeight());
         }
-
     }
 
 }

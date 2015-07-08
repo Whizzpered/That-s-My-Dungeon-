@@ -15,6 +15,7 @@ import org.tmd.environment.Terrain;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Player;
 import org.tmd.environment.entities.Raider;
+import org.tmd.environment.particles.Particle;
 import org.tmd.main.Declaration;
 import org.tmd.main.Main;
 import org.tmd.render.Image;
@@ -40,8 +41,10 @@ public class Dungeon extends Scene {
     public Player player;
     public Entity underMouse;
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
+    public Particle[] particles = new Particle[256];
     private int longtim = 0;
     private boolean wavetimer;
+    private Image shadow = new Image("gui/shadow.png");
 
     public MiniMap miniMap = new MiniMap(0, 0, 256, 256, this) {
 
@@ -100,7 +103,7 @@ public class Dungeon extends Scene {
                 @Override
                 public void render() {
                     super.render();
-                    String of = (int)d + "/200"; 
+                    String of = (int) d + "/200";
                     Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
                     Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
                     Main.g.setColor(Color.green);
@@ -124,7 +127,7 @@ public class Dungeon extends Scene {
                 @Override
                 public void render() {
                     super.render();
-                    String of = (int)d + "/200"; 
+                    String of = (int) d + "/200";
                     Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
                     Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
                     Main.g.setColor(Color.cyan);
@@ -189,6 +192,15 @@ public class Dungeon extends Scene {
         return en;
     }
 
+    public void addParticle(Particle p) {
+        for (int i = 0; i < particles.length; i++) {
+            if (particles[i] == null) {
+                particles[i] = p;
+                break;
+            }
+        }
+    }
+
     @Override
     public void tick() {
         for (Entity e : getEntities()) {
@@ -198,7 +210,16 @@ public class Dungeon extends Scene {
                 ex.printStackTrace();
             }
         }
-
+        for (int i = 0; i < particles.length; i++) {
+            if (particles[i] != null) {
+                particles[i].tick();
+            }
+            if (particles[i] != null) {
+                if (particles[i].timer <= 0) {
+                    particles[i] = null;
+                }
+            }
+        }
         for (Entity e : getEntities()) {
             if (e instanceof Raider) {
                 return;
@@ -261,6 +282,11 @@ public class Dungeon extends Scene {
         GL11.glTranslated(cam.x, cam.y, 0);
         {
             terrain.render(floor);
+            for (int i = 0; i < particles.length; i++) {
+                if (particles[i] != null) {
+                    particles[i].renderFloor();
+                }
+            }
             for (Entity e : getEntitiesForRender()) {
                 try {
                     e.render();
@@ -271,8 +297,14 @@ public class Dungeon extends Scene {
                     underMouse = e;
                 }
             }
+            for (int i = 0; i < particles.length; i++) {
+                if (particles[i] != null) {
+                    particles[i].renderEntity();
+                }
+            }
+            terrain.renderTops(floor);
+            shadow.draw(player.x - Display.getWidth() - 50, player.y - Display.getHeight() - 50, Display.getWidth() * 2, Display.getHeight() * 2);
         }
-        terrain.renderTops(floor);
         GL11.glTranslated(-cam.x, -cam.y, 0);
     }
 
