@@ -24,7 +24,7 @@ public class Mob extends Entity {
         spawn.y = (int) y;
         spriteStanding = new Sprite("creatures/mob");
         minimapIcon = new Image("minimap/monkey.png");
-        //attackType = "hit_clutches";
+        attackType = "hit_clutches";
         range = 400;
         name = "monkey";
     }
@@ -40,7 +40,7 @@ public class Mob extends Entity {
         attack(from);
         super.hit(damage, from); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public void patrool() {
         if (focus == null) {
             for (Entity e : dungeon.getEntities()) {
@@ -51,7 +51,7 @@ public class Mob extends Entity {
                         return;
                     }
                 }
-                //goTo(spawn.x, spawn.y);
+                goTo(spawn.x + 20, spawn.y + 20);
             }
         } else {
             if (!focus.dead) {
