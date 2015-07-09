@@ -29,6 +29,7 @@ public class Player extends Entity {
     public void handle() {
         if (Mouse.left) {
             goTo(Mouse.x - dungeon.cam.x, Mouse.y - dungeon.cam.y);
+            dungeon.pointer.set(Mouse.x - dungeon.cam.x, Mouse.y - dungeon.cam.y);
         }
     }
 

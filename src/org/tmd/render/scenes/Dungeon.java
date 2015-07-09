@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
+import org.tmd.environment.Pointer;
 import org.tmd.environment.Terrain;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Mob;
@@ -37,6 +38,7 @@ public class Dungeon extends Scene {
 
     public ArrayList<Entity> entities = new ArrayList<Entity>();
     public Point cam = new Point(), floor = new Point();
+    public Pointer pointer = new Pointer();
     public Entity cameraTarget;
     public Point playerRespawnPoint, raidersRespawnPoint;
     public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
@@ -296,6 +298,7 @@ public class Dungeon extends Scene {
                     particles[i].renderFloor();
                 }
             }
+            pointer.render();
             for (Entity e : getEntitiesForRender()) {
                 try {
                     e.render();
@@ -311,6 +314,7 @@ public class Dungeon extends Scene {
                     particles[i].renderEntity();
                 }
             }
+            
             terrain.renderTops(floor);
             shadow.draw(player.x - Display.getWidth() - 50, player.y - Display.getHeight() - 50, Display.getWidth() * 2, Display.getHeight() * 2);
         }

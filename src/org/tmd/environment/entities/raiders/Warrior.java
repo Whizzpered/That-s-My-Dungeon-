@@ -13,8 +13,8 @@ import org.tmd.environment.entities.*;
  */
 public class Warrior extends Raider {
 
-    public Warrior(double x, double y) {
-        super(x, y);
+    public Warrior(double x, double y, int lvl) {
+        super(x, y, lvl);
     }
 
 }

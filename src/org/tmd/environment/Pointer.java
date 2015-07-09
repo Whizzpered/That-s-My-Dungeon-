@@ -36,7 +36,7 @@ public class Pointer {
         //anim.restart();
     }
 
-    public void render(Graphics g) {
+    public void render() {
         if (!done) {
             //anim.draw((int) x - 48, (int) y-44);
             luzhica.draw(x, y);
