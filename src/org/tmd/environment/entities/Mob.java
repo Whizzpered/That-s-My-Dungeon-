@@ -51,10 +51,10 @@ public class Mob extends Entity {
                         return;
                     }
                 }
-                goTo(spawn.x + 20, spawn.y + 20);
             }
         } else {
             if (!focus.dead) {
+                attack(focus);
                 goTo(focus.x, focus.y);
             } else {
                 focus = null;
