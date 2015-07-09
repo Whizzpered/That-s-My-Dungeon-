@@ -43,7 +43,7 @@ import org.tmd.xfg.*;
  * @author yew_mentzaki
  */
 public class Main {
-    
+
     public static final Random RANDOM = new Random();
 
     public static XFG conf;
@@ -56,8 +56,8 @@ public class Main {
         setUpNatives();
         setUpDisplay();
     }
-    
-    public static void exit(){
+
+    public static void exit() {
         exit = true;
     }
 
@@ -179,8 +179,11 @@ public class Main {
 
             @Override
             public void run() {
-                if(Scene.currentScene != null){
-                    Scene.currentScene.tick();
+                if (Scene.currentScene != null) {
+                    try {
+                        Scene.currentScene.tick();
+                    } catch (Exception e) {
+                    }
                 }
             }
         }, 5, 10);
@@ -188,8 +191,11 @@ public class Main {
 
             @Override
             public void run() {
-                if(Scene.currentScene != null){
-                    Scene.currentScene.tick();
+                try {
+                    if (Scene.currentScene != null) {
+                        Scene.currentScene.tick();
+                    }
+                } catch (Exception e) {
                 }
             }
         }, 10, 10);
@@ -197,8 +203,11 @@ public class Main {
 
             @Override
             public void run() {
-                if(Scene.currentScene != null){
-                    Scene.currentScene.longTick();
+                try {
+                    if (Scene.currentScene != null) {
+                        Scene.currentScene.longTick();
+                    }
+                } catch (Exception e) {
                 }
             }
         }, 10, 1000);
@@ -222,7 +231,7 @@ public class Main {
                 glClearColor(0, 0, 0, 0);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
-                if(Scene.currentScene != null){
+                if (Scene.currentScene != null) {
                     Mouse.update();
                     Scene.currentScene.handleScene();
                     Scene.currentScene.renderScene();
