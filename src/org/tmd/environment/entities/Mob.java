@@ -16,12 +16,12 @@ import org.tmd.render.Sprite;
 public class Mob extends Entity {
 
     public double range;
-    public int sx, sy;
+    public Point spawn = new Point();
 
     public Mob(double x, double y) {
         super(x, y);
-        sx = (int) x;
-        sy = (int) y;
+        spawn.x = (int) x;
+        spawn.y = (int) y;
         spriteStanding = new Sprite("creatures/mob");
         minimapIcon = new Image("minimap/monkey.png");
         //attackType = "hit_clutches";
@@ -35,6 +35,12 @@ public class Mob extends Entity {
         patrool();
     }
 
+    @Override
+    public void hit(double damage, Entity from) {
+        attack(from);
+        super.hit(damage, from); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public void patrool() {
         if (focus == null) {
             for (Entity e : dungeon.getEntities()) {
@@ -45,14 +51,14 @@ public class Mob extends Entity {
                         return;
                     }
                 }
+                //goTo(spawn.x, spawn.y);
             }
-            goTo(sx, sy);
         } else {
             if (!focus.dead) {
                 goTo(focus.x, focus.y);
             } else {
                 focus = null;
-                goTo(sx, sy);
+                goTo(spawn.x, spawn.y);
             }
         }
     }

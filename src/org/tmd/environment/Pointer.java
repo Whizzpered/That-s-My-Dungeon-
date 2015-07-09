@@ -22,6 +22,7 @@ public class Pointer {
     Animation anim;
 
     public Pointer() {
+        done = true;
         luzhica = new Image("effects/7.png");
         //anim = Textures.animation("particles/flag");
         //anim.setLooping(false);
@@ -36,9 +37,9 @@ public class Pointer {
     }
 
     public void render() {
-        if (!done) {
+        if (!done && luzhica !=null) {
             //anim.draw((int) x - 48, (int) y-44);
-            luzhica.draw(x-8, y-16);
+            luzhica.draw(x, y);
         }
     }
 }

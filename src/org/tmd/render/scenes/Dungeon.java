@@ -298,7 +298,7 @@ public class Dungeon extends Scene {
                     particles[i].renderFloor();
                 }
             }
-            pointer.render();
+            //pointer.render();
             for (Entity e : getEntitiesForRender()) {
                 try {
                     e.render();
@@ -314,7 +314,6 @@ public class Dungeon extends Scene {
                     particles[i].renderEntity();
                 }
             }
-            
             terrain.renderTops(floor);
             shadow.draw(player.x - Display.getWidth() - 50, player.y - Display.getHeight() - 50, Display.getWidth() * 2, Display.getHeight() * 2);
         }
