@@ -13,10 +13,12 @@ import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.environment.Terrain;
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.entities.Mob;
 import org.tmd.environment.entities.Player;
 import org.tmd.environment.entities.Raider;
 import org.tmd.environment.particles.Particle;
 import org.tmd.main.Declaration;
+import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
 import org.tmd.render.Image;
 import org.tmd.render.gui.Align;
@@ -42,7 +44,7 @@ public class Dungeon extends Scene {
     public Entity underMouse;
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
     public Particle[] particles = new Particle[256];
-    private int longtim = 0;
+    private int longtim = 0, wave = 0;
     private boolean wavetimer;
     private Image shadow = new Image("gui/shadow.png");
 
@@ -92,22 +94,25 @@ public class Dungeon extends Scene {
                 @Override
                 public void render() {
                     string = underMouse.getName();
+                    String of = underMouse.level + " " + GameLocale.get("level");
+                    Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
+                    Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
                     super.render();
                 }
 
             };
             health = new Label("gui/icons/hp.png", "Health", 16, 36, Color.white) {
 
-                double d = Main.RANDOM.nextInt(200);
-
                 @Override
                 public void render() {
                     super.render();
-                    String of = (int) d + "/200";
+                    double d = underMouse.getHP();
+                    double m = underMouse.getMaxHP();
+                    String of = (int) d + "/" + (int) m;
                     Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
                     Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
                     Main.g.setColor(Color.green);
-                    d += Main.RANDOM.nextInt(3) - 1;
+                    d = d / m * 200;
                     if (d < 0) {
                         d = 0;
                     }
@@ -122,16 +127,16 @@ public class Dungeon extends Scene {
             };
             souls = new Label("gui/icons/souls.png", "Souls", 16, 96, Color.white) {
 
-                double d = Main.RANDOM.nextInt(200);
-
                 @Override
                 public void render() {
                     super.render();
-                    String of = (int) d + "/200";
+                    double d = 1;
+                    double m = 10;
+                    String of = (int) d + "/" + (int) m;
                     Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
                     Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
                     Main.g.setColor(Color.cyan);
-                    d += Main.RANDOM.nextInt(3) - 1;
+                    d = d / m * 200;
                     if (d < 0) {
                         d = 0;
                     }
@@ -221,7 +226,7 @@ public class Dungeon extends Scene {
             }
         }
         for (Entity e : getEntities()) {
-            if (e instanceof Raider) {
+            if (e instanceof Raider && !e.dead) {
                 return;
             }
         }
@@ -260,7 +265,8 @@ public class Dungeon extends Scene {
             if (longtim > 0) {
                 longtim--;
             } else {
-                entities.add(new Raider(raidersRespawnPoint.x, raidersRespawnPoint.y));
+                wave++;
+                entities.add(new Raider(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 wavetimer = false;
             }
         }
@@ -271,6 +277,9 @@ public class Dungeon extends Scene {
         gui.add(miniMap);
         gui.add(statsPanel);
         cameraTarget = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
+        for (Point p : minionsRespawnPoints) {
+            entities.add(new Mob(p.x, p.y));
+        }
         entities.add(player);
 
     }

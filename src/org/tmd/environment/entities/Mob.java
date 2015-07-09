@@ -16,14 +16,17 @@ import org.tmd.render.Sprite;
 public class Mob extends Entity {
 
     public double range;
-    Point spawn;
+    public int sx, sy;
 
     public Mob(double x, double y) {
         super(x, y);
+        sx = (int) x;
+        sy = (int) y;
         spriteStanding = new Sprite("creatures/mob");
         minimapIcon = new Image("minimap/monkey.png");
-        range = 200;
-        spawn = new Point(x, y);
+        //attackType = "hit_clutches";
+        range = 400;
+        name = "monkey";
     }
 
     @Override
@@ -47,13 +50,11 @@ public class Mob extends Entity {
         } else {
             if (!focus.dead) {
                 goTo(focus.x, focus.y);
-                double dist = Math.sqrt(Math.pow(x - focus.x, 2) + Math.pow(y - focus.y, 2));
-                if (dist <= 90) {
-                    focus.hit(5, this);
-                }
             } else {
                 focus = null;
+                goTo(sx, sy);
             }
         }
     }
 }
+                attack(focus);

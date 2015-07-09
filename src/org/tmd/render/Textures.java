@@ -10,6 +10,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.opengl.GL11;
@@ -57,12 +60,16 @@ public class Textures {
 
     }
 
-    private static Tex[] textures;
-    private static ArrayList<Animation> animations = new ArrayList<Animation>();
+    private static ArrayList<Animation> tempAnimationList = new ArrayList<Animation>();
+
+    private static Textures.Tex[] textures;
+    private static Animation[] animations;
 
     public static void load() {
         ArrayList<Tex> textureList = new ArrayList<Tex>();
-        for (File f : new File("res/textures").listFiles()) {
+        List<File> ff = Arrays.asList(new File("res/textures").listFiles());
+        Collections.sort(ff);
+        for (File f : ff) {
             if (f.isDirectory()) {
                 textureList.addAll(load(f.getName(), f));
             } else {
@@ -73,6 +80,11 @@ public class Textures {
         for (int i = 0; i < textureList.size(); i++) {
             textures[i] = textureList.get(i);
         }
+        animations = new Animation[tempAnimationList.size()];
+        for (int i = 0; i < tempAnimationList.size(); i++) {
+            animations[i] = tempAnimationList.get(i);
+        }
+        tempAnimationList.clear();
     }
 
     public static Image image(String name) {
@@ -88,18 +100,12 @@ public class Textures {
         }
         return null;
     }
-    
-    
-    public static Animation animation(String name){
+
+    public static Animation animation(String name) {
         for (Animation a : animations) {
-            if (a.name.equals(name)){
+            if (a.name.equals(name)) {
                 return a;
             }
-        }
-        try {
-            throw new FileNotFoundException("Image \"" + name + "\" requested but not loaded!");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Textures.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -115,14 +121,16 @@ public class Textures {
 
     private static ArrayList<Tex> load(String names, File folder) {
         ArrayList<Tex> textures = new ArrayList<Tex>();
-        for (File f : folder.listFiles()) {
+        List<File> ff = Arrays.asList(folder.listFiles());
+        Collections.sort(ff);
+        for (File f : ff) {
             if (f.isDirectory()) {
                 textures.addAll(load(names + "/" + f.getName(), f));
             } else {
                 textures.add(new Tex(names + "/" + f.getName(), f));
             }
         }
-        animations.add(new Animation(names, textures));
+        tempAnimationList.add(new Animation(names, textures));
         return textures;
     }
 }

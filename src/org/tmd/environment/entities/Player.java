@@ -26,11 +26,6 @@ public class Player extends Entity {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-    }
-
-    @Override
     public void handle() {
         if (Mouse.left) {
             goTo(Mouse.x - dungeon.cam.x, Mouse.y - dungeon.cam.y);
