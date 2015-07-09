@@ -5,6 +5,7 @@
  */
 package org.tmd.environment.entities;
 
+import org.tmd.environment.Point;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 
@@ -15,12 +16,14 @@ import org.tmd.render.Sprite;
 public class Mob extends Entity {
 
     public double range;
+    Point spawn;
 
     public Mob(double x, double y) {
         super(x, y);
         spriteStanding = new Sprite("creatures/mob");
         minimapIcon = new Image("minimap/monkey.png");
         range = 200;
+        spawn = new Point(x, y);
     }
 
     @Override
@@ -36,16 +39,17 @@ public class Mob extends Entity {
                     double dist = Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
                     if (dist <= range) {
                         focus = e;
-                        break;
+                        return;
                     }
                 }
             }
+            goTo(spawn.x, spawn.y);
         } else {
             if (!focus.dead) {
                 goTo(focus.x, focus.y);
                 double dist = Math.sqrt(Math.pow(x - focus.x, 2) + Math.pow(y - focus.y, 2));
-                if(dist<=90){
-                    focus.hit(5,this);
+                if (dist <= 90) {
+                    focus.hit(5, this);
                 }
             } else {
                 focus = null;
