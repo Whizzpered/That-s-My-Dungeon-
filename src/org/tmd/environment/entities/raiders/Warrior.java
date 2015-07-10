@@ -53,9 +53,10 @@ public class Warrior extends Raider {
             if (focus != null) {
                 if (focus.dead) {
                     focus = null;
+                } else {
+                    goTo(focus.x, focus.y);
+                    attack(focus);
                 }
-                goTo(focus.x, focus.y);
-                attack(focus);
             }
 
         }

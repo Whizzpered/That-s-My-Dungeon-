@@ -12,12 +12,12 @@ import org.tmd.main.Main;
  *
  * @author Whizzpered
  */
-public class DevelopersName extends Label {
+public class Link extends Label {
 
     public String description;
     Color second;
 
-    public DevelopersName(String str, double x, double y, Color first, String desc, Color sec) {
+    public Link(String str, double x, double y, Color first, String desc, Color sec) {
         super(str, x, y, first);
         description = desc;
         second = sec;
@@ -25,9 +25,13 @@ public class DevelopersName extends Label {
 
     public void render() {
         if(hover){
-            Main.defaultFont.drawString(description, (int)x, (int)y, second);
+            width = Main.defaultFont.getWidth(description);
+            height = 20;
+            Main.defaultFont.drawString(description, (int)getX(), (int)getY() - 15, second);
         } else {
-            Main.defaultFont.drawString(string, (int)x, (int)y, color);
+            width = Main.defaultFont.getWidth(string);
+            height = 20;
+            Main.defaultFont.drawString(string, (int)getX(), (int)getY() - 15, color);
         }
     }
 }

@@ -52,6 +52,7 @@ public class Main {
     private static Image logo;
     public static Graphics g = new Graphics();
     public static FontRender defaultFont;
+    public static String version = "pre-alpha 2.1";
     public static ActionListener longTimerListener = new ActionListener() {
 
         public void actionPerformed(ActionEvent ae) {

@@ -6,6 +6,7 @@
 package org.tmd.render.scenes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -96,8 +97,8 @@ public class Dungeon extends Scene {
 
                 @Override
                 public void render() {
+                    string = underMouse.getName();
                     if (underMouse.level > 0) {
-                        string = underMouse.getName();
                         String of = underMouse.level + " " + GameLocale.get("level");
                         Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
                         Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
@@ -192,22 +193,7 @@ public class Dungeon extends Scene {
 
     public Entity[] getEntitiesForRender() {
         Entity[] en = getEntities();
-        int[] in = new int[en.length];
-        for (int i = 0; i < en.length; i++) {
-            in[i] = en[i].getRenderQueuePriority();
-        }
-        for (int i = 0; i < in.length - 1; i++) {
-            for (int j = 0; j < in.length - i - 1; j++) {
-                if (in[j] > in[j + 1]) {
-                    int a = in[j];
-                    in[j] = in[j + 1];
-                    in[j + 1] = a;
-                    Entity b = en[j];
-                    en[j] = en[j + 1];
-                    en[j + 1] = b;
-                }
-            }
-        }
+        Arrays.sort(en);
         return en;
     }
 
