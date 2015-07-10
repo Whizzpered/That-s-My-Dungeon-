@@ -45,6 +45,7 @@ public class Entity {
     public boolean phantom = false, dead;
     public int attackDamage = 10, attackDeltaDamage = 2;
     public int attackDistance = 128, detectDistance;
+    public int headType = -1;
     public String attackType = "hit_sword";
     public int attackReloadTime = 100;
     protected int attackReload = 0;

@@ -9,6 +9,7 @@ import static java.lang.Math.*;
 import org.tmd.environment.Condition;
 import static org.tmd.environment.Condition.*;
 import org.tmd.environment.particles.Hit;
+import org.tmd.main.Counter;
 import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;

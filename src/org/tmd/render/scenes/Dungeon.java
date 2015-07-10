@@ -285,7 +285,7 @@ public class Dungeon extends Scene {
             } else {
                 wave++;
                 for (int i = 0; i < 3; i++) {
-                    entities.add(new Raider(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                    entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 }
                 wavetimer = false;
             }
