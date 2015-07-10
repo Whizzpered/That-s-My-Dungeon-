@@ -29,8 +29,6 @@ public class Dialog extends Scene{
         currentScene = Declaration.dialog;
     }
     
-    
-    
     @Override
     public void render() {
         if (Declaration.dungeon != null) {

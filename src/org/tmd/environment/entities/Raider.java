@@ -8,7 +8,7 @@ package org.tmd.environment.entities;
 import static java.lang.Math.*;
 import org.tmd.environment.Condition;
 import static org.tmd.environment.Condition.*;
-import org.tmd.main.Counter;
+import org.tmd.environment.particles.Hit;
 import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
@@ -22,9 +22,7 @@ public class Raider extends Entity {
     Animation ghost = new Animation("creatures/ghost");
     int deathtimer = 1000;
     boolean hasMoney = true;
-    public Condition condition;
-    public Counter counter;
-    boolean entried;
+    public Condition condition = JOINED;
 
     public Raider(double x, double y, int level) {
         super(x, y);
@@ -33,13 +31,20 @@ public class Raider extends Entity {
         minimapIcon = new Image("minimap/warrior.png");
         name = "raider";
         width = 96;
-        counter = new Counter(200);
-        entried = true;
+        maxhp = 50;
+        deltahp = 15;
+        attackDamage = 2;
+        attackDeltaDamage = 2;
+        faction = 2;
+        headType = 0;
+        clickable = true;
+        distance = 400;
     }
 
     @Override
     public void alive() {
         ai();
+
     }
 
     public void ai() {
@@ -110,4 +115,8 @@ public class Raider extends Entity {
         }
     }
 
+    @Override
+    public void click() {
+        dungeon.player.focus = this;
+    }
 }
