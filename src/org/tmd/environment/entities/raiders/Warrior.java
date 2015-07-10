@@ -10,6 +10,7 @@ import static java.lang.Math.sqrt;
 import static org.tmd.environment.Condition.GOING;
 import static org.tmd.environment.Condition.JOINED;
 import org.tmd.environment.entities.*;
+import org.tmd.main.Counter;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Warrior extends Raider {
         super(x, y, lvl);
         detectDistance = 200;
         attackDistance = 96;
+        counter = new Counter(300);
     }
 
     @Override
@@ -47,16 +49,16 @@ public class Warrior extends Raider {
                     }
                 }
             }
-            if(focus.dead){
-                focus = null;
-            }
-            
+
             if (focus != null) {
+                if (focus.dead) {
+                    focus = null;
+                }
                 goTo(focus.x, focus.y);
                 attack(focus);
             }
-            
+
         }
     }
-    
+
 }

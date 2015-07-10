@@ -51,7 +51,7 @@ public class Entity {
     protected int attackReload = 0;
     public int level = 1;
     public boolean clickable, entried;
-    protected Counter counter;
+    protected Counter counter = new Counter(500);
 
     public String getName() {
         return GameLocale.get(name);
