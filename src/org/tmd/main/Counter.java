@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Юрий
+ * @author Whizzpered
  */
 public class Counter implements Serializable {
 
@@ -36,7 +36,9 @@ public class Counter implements Serializable {
     }
 
     public void tick() {
-        tick--;
+        if (tick > 0) {
+            tick--;
+        }
     }
 
 }

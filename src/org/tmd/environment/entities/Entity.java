@@ -32,7 +32,7 @@ public class Entity {
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
     public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 75, deltahp = 30, regenhp = 0.05, dmg, armor;
-    protected double targetX = -1, targetY = -1;
+    protected double targetX = -1, targetY = -1, distance;
     private Point[] way;
     private int currentWaypoint;
     public Sprite spriteStanding = new Sprite("creatures/player");

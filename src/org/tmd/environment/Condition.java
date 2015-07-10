@@ -11,7 +11,7 @@ package org.tmd.environment;
  */
 public enum Condition {
     JOINED,
-    GOIND,
+    GOING,
     BATTLE,
     NOTANKS,
     WON,
