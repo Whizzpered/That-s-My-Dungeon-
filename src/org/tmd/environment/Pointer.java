@@ -39,7 +39,7 @@ public class Pointer {
     public void render() {
         if (!done && luzhica !=null) {
             //anim.draw((int) x - 48, (int) y-44);
-            luzhica.draw(x, y);
+            luzhica.draw(x - luzhica.width, y - luzhica.height, luzhica.width * 2, luzhica.height * 2);
         }
     }
 }

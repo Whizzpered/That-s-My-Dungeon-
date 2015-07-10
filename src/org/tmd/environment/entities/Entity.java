@@ -13,9 +13,11 @@ import org.tmd.environment.Point;
 import org.tmd.environment.particles.BloodParticle;
 import org.tmd.environment.particles.HeadParticle;
 import org.tmd.environment.particles.Hit;
+import org.tmd.main.Counter;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
+import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Side;
 import org.tmd.render.Sprite;
@@ -30,10 +32,11 @@ public class Entity {
     public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
-    public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 75, deltahp = 30, regenhp = 0.05, dmg, armor;
+    public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 100, deltahp = 25, regenhp = 0.01, armor, distance;
     protected double targetX = -1, targetY = -1;
     private Point[] way;
     private int currentWaypoint;
+    public static Animation selection = new Animation("effects/selection");
     public Sprite spriteStanding = new Sprite("creatures/player");
     public Image minimapIcon = new Image("minimap/entity.png");
     public Side side = Side.FRONT;
@@ -44,18 +47,24 @@ public class Entity {
     public int attackDistance = 128, detectDistance;
     public String attackType = "hit_sword";
     public int attackReloadTime = 100;
-    private int attackReload = 0;
+    protected int attackReload = 0;
     public int level = 1;
+    public boolean clickable, entried;
+    protected Counter counter;
 
     public String getName() {
         return GameLocale.get(name);
     }
 
+    public void click() {
+
+    }
+
     public void attack(Entity e) {
-        if (attackReload == 0) {
+        if (attackReload == 0 && e != null) {
             if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) < attackDistance) {
                 dungeon.addParticle(new Hit(attackType, e.x, e.y - 35));
-                e.hit(attackDamage, this);
+                e.hit(getDMG(), this);
                 attackReload = attackReloadTime;
             }
         }
@@ -70,7 +79,7 @@ public class Entity {
     }
 
     public double getDMG() {
-        return dmg;
+        return attackDamage + attackDeltaDamage * level;
     }
 
     public double getArmor() {
@@ -230,35 +239,41 @@ public class Entity {
     }
 
     public void tick() {
-        int currentWaypoint = this.currentWaypoint;
         if (hp > 0) {
             if (attackReload > 0) {
                 attackReload--;
             }
-            Point[] way = this.way;
-            if (way != null && currentWaypoint < way.length) {
-                walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
-                if (sqrt(pow(x - way[currentWaypoint].x, 2) + pow(y - way[currentWaypoint].y, 2)) <= Block.BLOCK_WIDTH / 2) {
-                    currentWaypoint++;
-                    if (currentWaypoint == way.length) {
-                        this.way = null;
-                        currentWaypoint = 0;
-                    } else {
-                        while (currentWaypoint + 1 < way.length) {
-                            if (shearable(new Point(x, y), new Point(way[currentWaypoint + 1].x, way[currentWaypoint + 1].y))) {
-                                currentWaypoint++;
-                            } else {
-                                break;
+            try {
+                Point[] way = this.way;
+                int currentWaypoint = this.currentWaypoint;
+                if (way != null && currentWaypoint < way.length) {
+                    walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
+                    if (sqrt(pow(x - way[currentWaypoint].x, 2) + pow(y - way[currentWaypoint].y, 2)) <= Block.BLOCK_WIDTH / 2) {
+                        currentWaypoint++;
+                        if (currentWaypoint == way.length) {
+                            this.way = null;
+                            currentWaypoint = 0;
+                        } else {
+                            while (currentWaypoint + 1 < way.length) {
+                                if (shearable(new Point(x, y), new Point(way[currentWaypoint + 1].x, way[currentWaypoint + 1].y))) {
+                                    currentWaypoint++;
+                                } else {
+                                    break;
+                                }
                             }
                         }
                     }
+                } else if (targetX != -1) {
+                    walk(cos(atan2(targetY - y, targetX - x)) * speed, sin(atan2(targetY - y, targetX - x)) * speed);
+                    if (sqrt(pow(x - targetX, 2) + pow(y - targetY, 2)) <= speed * 2) {
+                        targetX = -1;
+                        targetY = -1;
+                    }
                 }
-            } else if (targetX != -1) {
-                walk(cos(atan2(targetY - y, targetX - x)) * speed, sin(atan2(targetY - y, targetX - x)) * speed);
-                if (sqrt(pow(x - targetX, 2) + pow(y - targetY, 2)) <= speed * 2) {
-                    targetX = -1;
-                    targetY = -1;
-                }
+                this.currentWaypoint = currentWaypoint;
+            } catch (Exception e) {
+                this.currentWaypoint = 0;
+                this.way = null;
             }
             if (!phantom) {
                 for (Entity e : dungeon.getEntities()) {
@@ -282,7 +297,6 @@ public class Entity {
             dead = true;
             dead();
         }
-        this.currentWaypoint = currentWaypoint;
     }
 
     public void handle() {
@@ -325,6 +339,9 @@ public class Entity {
     }
 
     public void render() {
+        if (dungeon.player.focus == this) {
+            selection.get().draw(x - 48, y - 23, 96, 46);
+        }
         spriteStanding.render(side, x, y);
     }
 
@@ -332,21 +349,22 @@ public class Entity {
         return (int) y;
     }
 
-    public void hit(double damage, Entity from) {
+    public boolean hit(double damage, Entity from) {
         if (hp <= 0) {
-            return;
+            return false;
         }
         hp -= damage;
         if (Main.RANDOM.nextBoolean()) {
             dungeon.addParticle(new BloodParticle(x, y - 35));
         }
         if (hp < 0) {
-            if (Main.RANDOM.nextBoolean()) {
-                dungeon.addParticle(new HeadParticle(x, y - 75));
+            if (headType >= 0 && Main.RANDOM.nextBoolean()) {
+                dungeon.addParticle(new HeadParticle(headType, x, y - 75));
             }
             for (int i = 0; i < Main.RANDOM.nextInt(4); i++) {
                 dungeon.addParticle(new BloodParticle(x, y - 35));
             }
         }
+        return hp < 0;
     }
 }

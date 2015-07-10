@@ -96,10 +96,12 @@ public class Dungeon extends Scene {
 
                 @Override
                 public void render() {
-                    string = underMouse.getName();
-                    String of = underMouse.level + " " + GameLocale.get("level");
-                    Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
-                    Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
+                    if (underMouse.level > 0) {
+                        string = underMouse.getName();
+                        String of = underMouse.level + " " + GameLocale.get("level");
+                        Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
+                    }
                     super.render();
                 }
 
@@ -109,22 +111,28 @@ public class Dungeon extends Scene {
                 @Override
                 public void render() {
                     super.render();
-                    double d = underMouse.getHP();
-                    double m = underMouse.getMaxHP();
-                    String of = (int) d + "/" + (int) m;
-                    Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
-                    Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
-                    Main.g.setColor(Color.green);
-                    d = d / m * 200;
-                    if (d < 0) {
-                        d = 0;
+                    if (underMouse.maxhp != Double.MAX_VALUE) {
+                        double d = underMouse.getHP();
+                        double m = underMouse.getMaxHP();
+                        String of = (int) d + "/" + (int) m;
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
+                        Main.g.setColor(Color.green);
+                        d = d / m * 200;
+                        if (d < 0) {
+                            d = 0;
+                        }
+                        if (d > 200) {
+                            d = 200;
+                        }
+                        Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
+                        end.draw((int) d + 18, (int) getY() + 36);
+                        Frame.glassFrame.render(16, getY() + 32, 224, 32);
+                    } else {
+                        String of = GameLocale.get("invulnerable");
+                        Main.defaultFont.drawStringAtCenter(of, 128, (int) getY() + 26, Color.black);
+                        Main.defaultFont.drawStringAtCenter(of, 128, (int) getY() + 28, color);
                     }
-                    if (d > 200) {
-                        d = 200;
-                    }
-                    Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
-                    end.draw((int) d + 18, (int) getY() + 36);
-                    Frame.glassFrame.render(16, getY() + 32, 224, 32);
                 }
 
             };
@@ -132,9 +140,12 @@ public class Dungeon extends Scene {
 
                 @Override
                 public void render() {
+                    if (underMouse != player) {
+                        return;
+                    }
                     super.render();
-                    double d = 1;
-                    double m = 10;
+                    double d = player.souls;
+                    double m = player.neededSouls;
                     String of = (int) d + "/" + (int) m;
                     Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
                     Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
@@ -211,31 +222,35 @@ public class Dungeon extends Scene {
 
     @Override
     public void tick() {
-        for (Entity e : getEntities()) {
-            try {
-                e.tick();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        for (int i = 0; i < particles.length; i++) {
-            if (particles[i] != null) {
-                particles[i].tick();
-            }
-            if (particles[i] != null) {
-                if (particles[i].timer <= 0) {
-                    particles[i] = null;
+        try {
+            for (Entity e : getEntities()) {
+                try {
+                    e.tick();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
-        }
-        for (Entity e : getEntities()) {
-            if (e instanceof Raider && !e.dead) {
-                return;
+            for (int i = 0; i < particles.length; i++) {
+                if (particles[i] != null) {
+                    particles[i].tick();
+                }
+                if (particles[i] != null) {
+                    if (particles[i].timer <= 0) {
+                        particles[i] = null;
+                    }
+                }
             }
-        }
-        if (!wavetimer) {
-            longtim = 5;
-            wavetimer = true;
+            for (Entity e : getEntities()) {
+                if (e instanceof Raider) {
+                    return;
+                }
+            }
+            if (!wavetimer) {
+                longtim = 10;
+                wavetimer = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -269,7 +284,9 @@ public class Dungeon extends Scene {
                 longtim--;
             } else {
                 wave++;
-                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                for (int i = 0; i < 3; i++) {
+                    entities.add(new Raider(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                }
                 wavetimer = false;
             }
         }
@@ -279,7 +296,7 @@ public class Dungeon extends Scene {
     public void init() {
         gui.add(miniMap);
         gui.add(statsPanel);
-        cameraTarget = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
+        cameraTarget = underMouse = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         for (Point p : minionsRespawnPoints) {
             entities.add(new Mob(p.x, p.y));
         }
@@ -290,7 +307,6 @@ public class Dungeon extends Scene {
     @Override
     public void render() {
         camUpdate();
-        underMouse = player;
         GL11.glTranslated(cam.x, cam.y, 0);
         {
             terrain.render(floor);
@@ -299,15 +315,12 @@ public class Dungeon extends Scene {
                     particles[i].renderFloor();
                 }
             }
-            //pointer.render();
+            pointer.render();
             for (Entity e : getEntitiesForRender()) {
                 try {
                     e.render();
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                }
-                if (Math.abs(e.x - Mouse.x + cam.x) < e.width / 2 && Math.abs(e.y - Mouse.y + cam.y - e.height) < e.height) {
-                    underMouse = e;
                 }
             }
             for (int i = 0; i < particles.length; i++) {
@@ -323,12 +336,19 @@ public class Dungeon extends Scene {
 
     @Override
     public void handle() {
+        underMouse = player;
         for (Entity e : getEntities()) {
             try {
                 e.handle();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            if (Math.abs(e.x - Mouse.x + cam.x) < e.width / 2 && Math.abs(e.y - Mouse.y + cam.y - e.height) < e.height) {
+                underMouse = e;
+            }
+        }
+        if (underMouse != player && underMouse.clickable && Mouse.left) {
+            underMouse.click();
         }
     }
 

@@ -8,6 +8,8 @@ package org.tmd.main;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,8 +19,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.FloatBuffer;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -51,6 +52,32 @@ public class Main {
     private static Image logo;
     public static Graphics g = new Graphics();
     public static FontRender defaultFont;
+    public static ActionListener longTimerListener = new ActionListener() {
+
+        public void actionPerformed(ActionEvent ae) {
+            try {
+                if (Scene.currentScene != null) {
+                    Scene.currentScene.longTick();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }, tickTimerListener = new ActionListener() {
+
+        public void actionPerformed(ActionEvent ae) {
+            try {
+                if (Scene.currentScene != null) {
+                    Scene.currentScene.tick();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+    public static Timer longTimer = new Timer(1000, Main.longTimerListener),
+            tickTimer1 = new Timer(10, Main.tickTimerListener),
+            tickTimer2 = new Timer(10, Main.tickTimerListener);
 
     public static void main(String[] args) {
         setUpNatives();
@@ -175,42 +202,9 @@ public class Main {
         }
         logo.getTexture().release();
         Declaration.mainMenu.set();
-        new Timer("First short scene timer").schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                if (Scene.currentScene != null) {
-                    try {
-                        Scene.currentScene.tick();
-                    } catch (Exception e) {
-                    }
-                }
-            }
-        }, 5, 10);
-        new Timer("Second short scene timer").schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                try {
-                    if (Scene.currentScene != null) {
-                        Scene.currentScene.tick();
-                    }
-                } catch (Exception e) {
-                }
-            }
-        }, 10, 10);
-        new Timer("Long scene timer").schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                try {
-                    if (Scene.currentScene != null) {
-                        Scene.currentScene.longTick();
-                    }
-                } catch (Exception e) {
-                }
-            }
-        }, 10, 1000);
+        longTimer.start();
+        tickTimer1.start();
+        tickTimer2.start();
         try {
             while (!(Display.isCloseRequested() | exit)) {
                 glMatrixMode(GL_PROJECTION);
