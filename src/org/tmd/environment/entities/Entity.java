@@ -231,6 +231,7 @@ public class Entity {
     }
 
     public void tick() {
+        int currentWaypoint = this.currentWaypoint;
         if (hp > 0) {
             if (attackReload > 0) {
                 attackReload--;
@@ -282,6 +283,7 @@ public class Entity {
             dead = true;
             dead();
         }
+        this.currentWaypoint = currentWaypoint;
     }
 
     public void handle() {

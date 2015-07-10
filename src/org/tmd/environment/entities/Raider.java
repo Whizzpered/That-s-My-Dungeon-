@@ -5,8 +5,8 @@
  */
 package org.tmd.environment.entities;
 
-import static java.lang.Math.*;
-import org.tmd.environment.particles.Hit;
+import org.tmd.environment.Condition;
+import static org.tmd.environment.Condition.*;
 import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
@@ -20,6 +20,7 @@ public class Raider extends Entity {
     Animation ghost = new Animation("creatures/ghost");
     int deathtimer = 1000;
     boolean hasMoney = true;
+    public Condition condition;
 
     public Raider(double x, double y, int level) {
         super(x, y);
@@ -32,12 +33,18 @@ public class Raider extends Entity {
 
     @Override
     public void alive() {
-        goTo(dungeon.player.x, dungeon.player.y);
-        attack(dungeon.player);
+        ai();
     }
 
+    public void ai() {
+        if(condition==JOINED){
+            
+        }
+    }
+    
     @Override
     public void dead() {
+        condition = DEAD;
         if (hasMoney) {
             hasMoney = false;
             for (int i = 0; i < 4; i++) {
