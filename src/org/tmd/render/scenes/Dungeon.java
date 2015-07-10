@@ -17,6 +17,7 @@ import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Mob;
 import org.tmd.environment.entities.Player;
 import org.tmd.environment.entities.Raider;
+import org.tmd.environment.entities.raiders.Warrior;
 import org.tmd.environment.particles.Particle;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
@@ -268,7 +269,7 @@ public class Dungeon extends Scene {
                 longtim--;
             } else {
                 wave++;
-                entities.add(new Raider(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 wavetimer = false;
             }
         }

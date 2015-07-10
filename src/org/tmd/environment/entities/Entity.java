@@ -19,7 +19,6 @@ import org.tmd.main.Main;
 import org.tmd.render.Image;
 import org.tmd.render.Side;
 import org.tmd.render.Sprite;
-import org.tmd.render.gui.Mouse;
 import org.tmd.render.scenes.Dungeon;
 
 /**
@@ -32,7 +31,7 @@ public class Entity {
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
     public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 75, deltahp = 30, regenhp = 0.05, dmg, armor;
-    protected double targetX = -1, targetY = -1, distance;
+    protected double targetX = -1, targetY = -1;
     private Point[] way;
     private int currentWaypoint;
     public Sprite spriteStanding = new Sprite("creatures/player");
@@ -42,7 +41,7 @@ public class Entity {
     public int faction;
     public boolean phantom = false, dead;
     public int attackDamage = 10, attackDeltaDamage = 2;
-    public int attackDistance = 128;
+    public int attackDistance = 128, detectDistance;
     public String attackType = "hit_sword";
     public int attackReloadTime = 100;
     private int attackReload = 0;

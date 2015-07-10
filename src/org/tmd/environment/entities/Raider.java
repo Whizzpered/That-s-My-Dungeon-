@@ -22,9 +22,9 @@ public class Raider extends Entity {
     Animation ghost = new Animation("creatures/ghost");
     int deathtimer = 1000;
     boolean hasMoney = true;
-    public Condition condition;
+    public Condition condition = JOINED;
     public Counter counter;
-    boolean entried;
+    public boolean entried;
 
     public Raider(double x, double y, int level) {
         super(x, y);
@@ -43,33 +43,7 @@ public class Raider extends Entity {
     }
 
     public void ai() {
-        if (condition == JOINED) {
-            if (entried) {
-                entried = false;
-                counter.start();
-            } else {
-                if (counter.is()) {
-                    goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
-                    condition = GOING;
-                }
-                counter.tick();
-            }
-        } else if (condition == GOING) {
-            double dist = distance;
-            for (Entity e : dungeon.getEntities()) {
-                if (!e.dead && e.faction == 1) {
-                    double d = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
-                    if (d < dist) {
-                        dist = d;
-                        focus = e;
-                    }
-                }
-            }
-            if (focus != null) {
-                goTo(focus.x, focus.y);
-                attack(focus);
-            }
-        }
+        
     }
 
     @Override
