@@ -5,6 +5,7 @@
  */
 package org.tmd.environment.entities;
 
+import org.tmd.environment.entities.raiders.Priest;
 import org.tmd.render.Image;
 
 /**
@@ -32,9 +33,13 @@ public class Bullet extends Entity {
         focus = aim;
         speed = 6;
         hp = 500;
-        minimapIcon = new Image("effects/magic_attack.png");
+        if (owner instanceof Priest) {
+            minimapIcon = new Image("effects/magic_attack.png");
+        } else {
+            minimapIcon = new Image("effects/arrow.png");
+        }
     }
-    
+
     @Override
     public void tick() {
         move(speed * Math.cos(angle), speed * Math.sin(angle));
@@ -58,7 +63,7 @@ public class Bullet extends Entity {
             dungeon.entities.remove(this);
         }
     }
-    
+
     @Override
     public void render() {
         minimapIcon.draw(x, y, angle);
