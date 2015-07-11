@@ -47,13 +47,75 @@ public class Raider extends Entity {
     @Override
     public void alive() {
         ai();
-
     }
 
     public void ai() {
-        
+        if(condition == JOINED){
+            join();
+        } else if(condition == GOING){
+            going();
+        } else if(condition == BATTLE){
+            battle();
+        } else if(condition == NOTANKS){
+            noTanks();
+        } else if(condition == WON){
+            won();
+        } else if(condition == DEAD){
+            died();
+        }
     }
 
+    public void join() {
+        if (entried) {
+                entried = false;
+                counter.start();
+            } else {
+                if (counter.is()) {
+                    goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
+                    condition = GOING;
+                }
+                counter.tick();
+            }
+    }
+    
+    public void going() {
+        double dist = detectDistance;
+            for (Entity e : dungeon.getEntities()) {
+                if (!e.dead && e.faction == 1) {
+                    double d = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
+                    if (d < dist) {
+                        dist = d;
+                        focus = e;
+                    }
+                }
+            }
+            if(focus.dead){
+                focus = null;
+            }
+            
+            if (focus != null) {
+                goTo(focus.x, focus.y);
+                attack(focus);
+            }
+          
+    }
+    
+    public void battle() {
+        
+    }
+    
+    public void noTanks() {
+        
+    }
+    
+    public void won() {
+        
+    }
+    
+    public void died() {
+        
+    }
+    
     @Override
     public void dead() {
         condition = DEAD;
