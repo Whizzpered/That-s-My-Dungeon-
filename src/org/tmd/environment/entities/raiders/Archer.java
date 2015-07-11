@@ -13,6 +13,8 @@ import static java.lang.Math.sqrt;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Raider;
+import org.tmd.render.Image;
+import org.tmd.render.Sprite;
 
 /**
  *
@@ -23,6 +25,8 @@ public class Archer extends Raider{
         super(x, y, lvl);
         detectDistance = 200;
         attackDistance = 200;
+        spriteStanding = new Sprite("creatures/archer");
+        minimapIcon = new Image("minimap/archer.png");
     }
 
     @Override
