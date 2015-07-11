@@ -1,0 +1,26 @@
+dialog {
+    action = subreplic
+    replics {
+		{
+			question = Обучите меня, сенсей!
+			answer = ...
+			action = totraining
+		}
+		{
+			question = Расскажите о себе
+			answer = Я сосу хуи за деньги. (Извините, просто факт из жизни одного разработчика)
+			action = subreplic
+			replics {
+				{
+					question = Спасибо, учитель
+					answer = Всего доброго
+					action = exit
+				}
+		}
+        {
+        question = Прощайте!
+            answer = Доброй охоты!
+            action = exit
+        }
+    }
+}

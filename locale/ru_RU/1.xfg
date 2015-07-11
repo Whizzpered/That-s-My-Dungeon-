@@ -1,0 +1,35 @@
+{
+	action = subreplic
+	replics {
+		{
+			question = Привет!
+			answer = Привет! У меня твои вещи! Заплати, чтобы их получить.
+			action = subreplic
+			replics {
+				{
+					question = Да без проблем, бро
+					answer = Эм...
+					action = toshop
+				}
+				{
+					question = Почему я должен тебе платить?
+					answer = Потому что теперь это мои вещи.
+					action = subreplic
+					replics{
+						{
+							question = Пофиг, покупаю
+							answer = Да без проблем
+							action = toshop
+						}
+					}
+				}
+			}
+		}
+		{
+			question = Прощай!
+			answer = Пока!
+			action = exit
+		}
+	}
+}
+
