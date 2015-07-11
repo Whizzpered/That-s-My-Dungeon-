@@ -27,7 +27,7 @@ import org.tmd.render.scenes.Dungeon;
  *
  * @author yew_mentzaki
  */
-public class Entity implements Comparable<Entity>{
+public class Entity implements Comparable<Entity> {
 
     public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
@@ -67,6 +67,7 @@ public class Entity implements Comparable<Entity>{
 
     public void attack(Entity e) {
         if (attackReload == 0 && e != null) {
+            goTo(e.x, e.y);
             if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) < attackDistance) {
                 dungeon.addParticle(new Hit(attackType, e.x, e.y - 35));
                 e.hit(getDMG(), this);

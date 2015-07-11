@@ -7,6 +7,7 @@ package org.tmd.render.gui;
 
 import org.newdawn.slick.Color;
 import org.tmd.environment.Block;
+import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
 import org.tmd.main.Main;
 import org.tmd.render.scenes.Dungeon;
@@ -37,7 +38,7 @@ public class MiniMap extends Element {
             }
         }
         for (Entity e : dungeon.getEntities()){
-            if(e.minimapIcon != null){
+            if(e.minimapIcon != null && !(e instanceof Bullet)){
                 e.minimapIcon.draw(dx + (e.x * dw) - e.minimapIcon.width / 2, dy + (e.y * dh) - e.minimapIcon.height / 2);
             }
         }

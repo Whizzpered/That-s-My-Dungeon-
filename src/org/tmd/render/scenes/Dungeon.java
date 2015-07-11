@@ -18,7 +18,7 @@ import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Mob;
 import org.tmd.environment.entities.Player;
 import org.tmd.environment.entities.Raider;
-import org.tmd.environment.entities.raiders.Warrior;
+import org.tmd.environment.entities.raiders.*;
 import org.tmd.environment.particles.Particle;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
@@ -270,9 +270,7 @@ public class Dungeon extends Scene {
                 longtim--;
             } else {
                 wave++;
-                for (int i = 0; i < 3; i++) {
-                    entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                }
+                entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 wavetimer = false;
             }
         }

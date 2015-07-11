@@ -24,8 +24,6 @@ public class Raider extends Entity {
     int deathtimer = 1000;
     boolean hasMoney = true;
     public Condition condition = JOINED;
-    public Counter counter;
-    public boolean entried;
 
     public Raider(double x, double y, int level) {
         super(x, y);
@@ -89,12 +87,11 @@ public class Raider extends Entity {
                     }
                 }
             }
-            if(focus.dead){
+            if(focus != null && focus.dead){
                 focus = null;
             }
             
             if (focus != null) {
-                goTo(focus.x, focus.y);
                 attack(focus);
             }
           
