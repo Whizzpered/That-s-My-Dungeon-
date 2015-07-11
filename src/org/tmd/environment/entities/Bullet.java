@@ -23,6 +23,7 @@ public class Bullet extends Entity {
         this.owner = owner;
         speed = 5;
         hp = 500;
+        phantom = true;
         minimapIcon = new Image("effects/magic_attack.png");
     }
 
@@ -33,10 +34,13 @@ public class Bullet extends Entity {
         focus = aim;
         speed = 6;
         hp = 500;
+        phantom = true;
         if (owner instanceof Priest) {
             minimapIcon = new Image("effects/magic_attack.png");
+            minimapIcon.getNxCopy(2f);
         } else {
             minimapIcon = new Image("effects/arrow.png");
+            minimapIcon.getNxCopy(2f);
         }
     }
 
