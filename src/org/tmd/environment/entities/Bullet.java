@@ -24,7 +24,6 @@ public class Bullet extends Entity {
         speed = 5;
         hp = 500;
         phantom = true;
-        minimapIcon = new Image("effects/magic_attack.png");
     }
 
     public Bullet(double x, double y, Entity owner, Entity aim) {
@@ -35,13 +34,6 @@ public class Bullet extends Entity {
         speed = 6;
         hp = 500;
         phantom = true;
-        if (owner instanceof Priest) {
-            minimapIcon = new Image("effects/magic_attack.png");
-            minimapIcon.getNxCopy(2f);
-        } else {
-            minimapIcon = new Image("effects/arrow.png");
-            minimapIcon.getNxCopy(2f);
-        }
     }
 
     @Override
@@ -70,6 +62,15 @@ public class Bullet extends Entity {
 
     @Override
     public void render() {
-        minimapIcon.draw(x, y, angle);
+        if (minimapIcon == null) {
+            if (owner instanceof Priest) {
+                minimapIcon = new Image("effects/magic_attack.png");
+                minimapIcon.getNxCopy(2f);
+            } else {
+                minimapIcon = new Image("effects/arrow.png");
+                minimapIcon.getNxCopy(2f);
+            }
+        }
+        minimapIcon.draw(x, y-48, angle);
     }
 }

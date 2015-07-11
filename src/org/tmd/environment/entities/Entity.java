@@ -61,6 +61,7 @@ public class Entity implements Comparable<Entity> {
 
     }
 
+    @Override
     public int compareTo(Entity t) {
         return getRenderQueuePriority() - t.getRenderQueuePriority();
     }

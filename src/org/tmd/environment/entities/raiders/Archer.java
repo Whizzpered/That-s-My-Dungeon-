@@ -29,10 +29,10 @@ public class Archer extends Raider{
         minimapIcon = new Image("minimap/archer.png");
     }
 
-    @Override
-    public void attack(Entity e) {
+    //@Override
+    /*public void attack(Entity e) {
         if (attackReload == 0 && e != null) {
-            double angle = atan2((e.y - y), (e.x - x));
+            double angle = atan2((y - e.y), (x - e.x));
             goTo(e.x + ((attackDistance-5)*cos(angle)), e.y + ((attackDistance-5)*sin(angle)));
             if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) <= attackDistance) {
                 dungeon.entities.add(new Bullet(x, y, this, e));
@@ -40,5 +40,5 @@ public class Archer extends Raider{
                 attackReload = attackReloadTime;
             }
         }
-    }
+    }*/
 }
