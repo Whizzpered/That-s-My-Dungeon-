@@ -31,6 +31,7 @@ public class Player extends Entity {
         faction = 1;
         regenhp = 0.05;
         headType = 1;
+        level = 1;
     }
 
     @Override

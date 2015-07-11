@@ -27,7 +27,7 @@ import org.tmd.render.scenes.Dungeon;
  *
  * @author yew_mentzaki
  */
-public class Entity {
+public class Entity implements Comparable<Entity>{
 
     public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
@@ -49,9 +49,9 @@ public class Entity {
     public String attackType = "hit_sword";
     public int attackReloadTime = 100;
     protected int attackReload = 0;
-    public int level = 1;
-    public boolean clickable, entried;
-    protected Counter counter;
+    public int level = 0;
+    public boolean clickable, entried, standing;
+    protected Counter counter = new Counter(500);
 
     public String getName() {
         return GameLocale.get(name);
@@ -59,6 +59,10 @@ public class Entity {
 
     public void click() {
 
+    }
+
+    public int compareTo(Entity t) {
+        return getRenderQueuePriority() - t.getRenderQueuePriority();
     }
 
     public void attack(Entity e) {
@@ -248,11 +252,13 @@ public class Entity {
                 Point[] way = this.way;
                 int currentWaypoint = this.currentWaypoint;
                 if (way != null && currentWaypoint < way.length) {
+                    standing = false;
                     walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
                     if (sqrt(pow(x - way[currentWaypoint].x, 2) + pow(y - way[currentWaypoint].y, 2)) <= Block.BLOCK_WIDTH / 2) {
                         currentWaypoint++;
                         if (currentWaypoint == way.length) {
                             this.way = null;
+                            standing = true;
                             currentWaypoint = 0;
                         } else {
                             while (currentWaypoint + 1 < way.length) {
@@ -265,10 +271,12 @@ public class Entity {
                         }
                     }
                 } else if (targetX != -1) {
+                    standing = false;
                     walk(cos(atan2(targetY - y, targetX - x)) * speed, sin(atan2(targetY - y, targetX - x)) * speed);
                     if (sqrt(pow(x - targetX, 2) + pow(y - targetY, 2)) <= speed * 2) {
                         targetX = -1;
                         targetY = -1;
+                        standing = true;
                     }
                 }
                 this.currentWaypoint = currentWaypoint;

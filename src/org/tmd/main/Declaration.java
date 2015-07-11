@@ -74,7 +74,7 @@ public class Declaration {
 
         @Override
         public void parserAction(Dungeon dungeon, double x, double y) {
-            NPC npc = new NPC(x, y, "creatures/seller/anim", "seller", "seller.dialog");
+            NPC npc = new NPC(x, y, "creatures/seller/anim", "seller", "seller");
             npc.dungeon = dungeon;
             dungeon.entities.add(npc);
         }
@@ -85,7 +85,7 @@ public class Declaration {
 
         @Override
         public void parserAction(Dungeon dungeon, double x, double y) {
-            NPC npc = new NPC(x, y, "creatures/sensei/anim", "sensei", "seller.dialog");
+            NPC npc = new NPC(x, y, "creatures/sensei/anim", "sensei", "sensei");
             npc.dungeon = dungeon;
             dungeon.entities.add(npc);
         }

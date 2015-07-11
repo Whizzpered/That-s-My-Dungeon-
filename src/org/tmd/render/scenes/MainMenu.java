@@ -15,6 +15,8 @@ import org.tmd.render.Image;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
 import org.tmd.render.gui.Frame;
+import org.tmd.render.gui.Label;
+import org.tmd.render.gui.Link;
 
 /**
  *
@@ -31,7 +33,7 @@ public class MainMenu extends Scene {
         public void init() {
             visible = false;
         }
-        
+
         @Override
         public void click() {
             currentScene = Declaration.dungeon;
@@ -67,12 +69,37 @@ public class MainMenu extends Scene {
 
     };
 
+    Link whizzpered = new Link("Whizzpered", -5, -75, Color.white, "Founder, programmer", new Color(158, 185, 234)) {
+        @Override
+        public void init() {
+            horisontalAlign = Align.RIGHT;
+            verticalAlign = Align.DOWN;
+        }
+    };
+    Link yew_mentzaki = new Link("Yew_Mentzaki", -5, -50, Color.white, "Programmer, designer", new Color(158, 185, 234)) {
+        @Override
+        public void init() {
+            horisontalAlign = Align.RIGHT;
+            verticalAlign = Align.DOWN;
+        }
+    };
+    Link version = new Link(Main.version, -5, 0, new Color(158, 185, 234), "Copyright © Stormforces, 2015. All rights reserved.", Color.white) {
+        @Override
+        public void init() {
+            horisontalAlign = Align.RIGHT;
+            verticalAlign = Align.DOWN;
+        }
+    };
+    
     @Override
     public void init() {
         gui.add(continueButton);
         gui.add(newGameButton);
         gui.add(settingsButton);
         gui.add(exitButton);
+        gui.add(whizzpered);
+        gui.add(yew_mentzaki);
+        gui.add(version);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class Label extends Element {
         this.icon = new Image(icon);
         this.color = color;
     }
-    
+
     public String getText() {
         return GameLocale.get(string);
     }
@@ -44,6 +44,8 @@ public class Label extends Element {
             icon.draw(getX(), getY() + 2);
             x += (int) icon.width;
         }
+        width = Main.defaultFont.getWidth(string) + x;
+        height = 20;
         Main.defaultFont.drawString(getText(), (int) getX() + x, (int) getY(), Color.black);
         Main.defaultFont.drawString(getText(), (int) getX() + x, (int) getY() - 2, color);
     }
