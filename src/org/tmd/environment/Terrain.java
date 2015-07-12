@@ -21,7 +21,7 @@ import org.tmd.render.scenes.Dungeon;
  *
  * @author yew_mentzaki
  */
-public class Terrain implements Serializable{
+public class Terrain implements Serializable {
 
     public int width, height;
     byte[][] blocks;
@@ -42,13 +42,15 @@ public class Terrain implements Serializable{
                     int index = 0;
                     for (int j = 0; j < Block.blocks.length; j++) {
                         if (Block.blocks[j] != null && Block.blocks[j].symbol == n[i]) {
-                            b[i][h - 1] = Block.blocks[j].index;
-                            Block.blocks[j].parserAction(dungeon, (double) (i * BLOCK_WIDTH) + BLOCK_WIDTH / 2, (double) ((h - 1) * BLOCK_HEIGHT) + BLOCK_HEIGHT / 2);
+                            b[i + 1][h] = Block.blocks[j].index;
+                            Block.blocks[j].parserAction(dungeon, (double) ((i + 1) * BLOCK_WIDTH) + BLOCK_WIDTH / 2, (double) ((h) * BLOCK_HEIGHT) + BLOCK_HEIGHT / 2);
                         }
                     }
                 }
             }
-            blocks = new byte[w][h]; borders = new byte[w][h];
+            w += 2; h += 2;
+            blocks = new byte[w][h];
+            borders = new byte[w][h];
             width = w;
             height = h;
             for (int x = 0; x < w; x++) {
@@ -95,8 +97,8 @@ public class Terrain implements Serializable{
     }
 
     public void render(Point camera) {
-        for (int x = (int)((camera.x) / BLOCK_WIDTH - 1); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
-            for (int y = (int)((camera.y) / BLOCK_HEIGHT - 1); y < (camera.y + Display.getHeight()) / BLOCK_HEIGHT + 1; y++) {
+        for (int x = (int) ((camera.x) / BLOCK_WIDTH - 1); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
+            for (int y = (int) ((camera.y) / BLOCK_HEIGHT - 1); y < (camera.y + Display.getHeight()) / BLOCK_HEIGHT + 1; y++) {
                 GL11.glTranslated(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, 0);
                 get(x, y).render(getBorder(x, y), x, y);
                 GL11.glTranslated(-x * BLOCK_WIDTH, -y * BLOCK_HEIGHT, 0);
@@ -105,8 +107,8 @@ public class Terrain implements Serializable{
     }
 
     public void renderTops(Point camera) {
-        for (int x = (int)((camera.x) / BLOCK_WIDTH - 1); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
-            for (int y = (int)((camera.y) / BLOCK_HEIGHT - 1); y < (camera.y + Display.getHeight()) / BLOCK_HEIGHT + 1; y++) {
+        for (int x = (int) ((camera.x) / BLOCK_WIDTH - 1); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
+            for (int y = (int) ((camera.y) / BLOCK_HEIGHT - 1); y < (camera.y + Display.getHeight()) / BLOCK_HEIGHT + 1; y++) {
                 GL11.glTranslated(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, 0);
                 get(x, y).renderTop(getBorder(x, y), x, y);
                 GL11.glTranslated(-x * BLOCK_WIDTH, -y * BLOCK_HEIGHT, 0);
@@ -134,7 +136,7 @@ public class Terrain implements Serializable{
         if (x >= 0 && x < width && y >= 0 && y < height) {
             return borders[x][y] + 128;
         } else {
-            return 0;
+            return 15;
         }
     }
 
@@ -175,7 +177,7 @@ public class Terrain implements Serializable{
     public void setIndex(double x, double y, int index) {
         setIndex((int) (x / BLOCK_WIDTH), (int) (y / BLOCK_HEIGHT), index);
     }
-    
+
     public void setBorder(double x, double y, int index) {
         setBorder((int) (x / BLOCK_WIDTH), (int) (y / BLOCK_HEIGHT), index);
     }

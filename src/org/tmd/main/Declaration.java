@@ -35,7 +35,7 @@ public class Declaration {
     /*
      *   Blocks:
      */
-    public static Block blockAir = new Block(0, ' ', new Color(0, 0, 0, 0), null, true, false, false);
+    public static Block blockAir = new Block(0, ' ', new Color(0, 0, 0, 0), "dirt.png", "dirt.png", "dirt_border.png", "dirt_border_angle.png", "dirt_border_angle_inside.png", true, false, false);
     public static Block blockFloor = new Block(1, '_', new Color(255, 255, 255, 100), "floor.png", false, false, false);
     public static Block blockWall = new Block(2, '*', new Color(0, 0, 0, 100), "wall.png", "top.png", "border.png", "border_angle.png", "border_angle_inside.png", true, false, false);
     public static Block blockWater = new WaterBlock(3, '~', "water.png", "border.png", "border_angle.png", "border_angle_inside.png", true, false, false);
