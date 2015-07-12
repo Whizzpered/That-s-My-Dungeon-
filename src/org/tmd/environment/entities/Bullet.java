@@ -6,6 +6,7 @@
 package org.tmd.environment.entities;
 
 import org.tmd.environment.entities.raiders.Priest;
+import org.tmd.environment.particles.Hit;
 import org.tmd.render.Image;
 
 /**
@@ -49,6 +50,8 @@ public class Bullet extends Entity {
             if (dist < 48) {
                 dungeon.entities.remove(this);
                 focus.hit(owner.getDMG(), owner);
+                hp = 0;
+                dungeon.addParticle(new Hit("hit_magic_attack", x, y - 48));
             }
 
         } else {
@@ -57,6 +60,7 @@ public class Bullet extends Entity {
                 if (dist < ent.size && ent.faction != owner.faction && !ent.phantom && !ent.dead) {
                     ent.hit(owner.getDMG(), owner);
                     hp = 0;
+                    dungeon.addParticle(new Hit("hit_arrow", x, y - 48));
                 }
             }
         }
@@ -75,7 +79,7 @@ public class Bullet extends Entity {
     public void move(double x, double y) {
         this.x += x;
         this.y += y;
-        if(dungeon.terrain.get(this.x, this.y).top != null){
+        if (dungeon.terrain.get(this.x, this.y).top != null) {
             hp = 0;
         }
     }
