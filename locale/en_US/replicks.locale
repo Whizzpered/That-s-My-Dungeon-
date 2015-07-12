@@ -1,32 +1,40 @@
-locale_name =  de_DE
-loading = Laden
-texture = Texture
-sound = Klang
-music = Musik
-continue =  Weiter
-newgame =  Neüssiel
-settings =  Einstellung
-exit =  Ausgang
-pause =  Pausen
-shop =  Shopen
-reinit =  Wiederholung
-ability =  Fahigkeit
-inventory =  Inventar
-fullscreen =  Vollbild
-keyboard =  tastatur
-apply =  Antworten
-welcome =  Willkommen in
-times =  mal
-next =  Next
-h1 =  Zu Kamerafokuswechsel die Pfeiltasten drücken.
-h2 =  Alle Interaktionen mit der linke Maustaste.
-h3 =  Zum Verwenden Sie die Fähigkeiten dieser Taste drücken. Oder drücken der Rechte Maustaste auf das Symbol.
-item_arms =  Die Schulternkleide sind das Beste für brutalen Mann, ei ja!\n Max LP +10 und +10 pro jeden Level.
-item_braces =  Die Handschuhe werden einfach toeten alle diese Schwanzlutscheren!\n Attack +3 und +10 pro jeden Level.
-item_hat =  Der Hut - de facto es ist Teppich, aber das geht mir am A...\n Scheller +0.3 Pixele pro Tick 
-item_pants =  Die Hosen für Ihre kleinen Freund Versteck. \n Max LP +10 und +10 pro jeden Level.
-abil_aoe =  Bereich der Bier\nDurchführung großen Kreis von Liebe und Glück.
-abil_regen =  Regeneration \n Für einen beliebigen Wert in einer Sekunde eilt sich!
-abil_throw =  Werfen \n DIESES GROSSE STEIN STÜCK SCHEISSE ZU DIESE SCHWUCHTEL GESICHT WERFEN!
-abil_roar =  RRAAAAAAH! \n Sie ausführen lautes Gebrüll, bricht alle missbrauchen Effekte und fügt allen Feinden.
-abil_summon =  Laden \n Laden einer kleinen Hündin. Sie ist Mädchen, aber sie kann jemand ficken.
+raider_joined{
+        hi all
+        hi everyone!
+        glhf
+		lets kill this "boss"
+    }
+raider_going{
+		ow, i saw monsters!
+		mom, i dont want to eat!!!
+		haha, i drank...
+		we're going, "boss"!!!
+	}
+raider_battle{
+		focus him!
+		dont agro the mobs!
+		Later, mom!!!
+	}
+raider_heal{
+		i need heal!
+		heal me
+		fuck, i'm dying!
+	}
+raider_rise{
+		wake up me!
+		rize me!
+		i dead!!!
+		oh, come on...
+	}
+raider_notanks{
+		STUPID NOOB TANKS
+		HOW DID THEY QUIT????
+		OMG...
+		MAMA, GIVE ME SOME PIZZA PLS, THEY LEAVE
+	}
+raider_dead{
+		GGWP, noobs...
+		JUST.... HOW I DIED????
+		WHERE WAS A REVIVE, STUPID PRIEST???
+		WHERE WAS A LASTSHOT, STUPID HUNT???
+	}

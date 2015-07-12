@@ -34,7 +34,7 @@ public class Priest extends Raider {
             goTo(e.x + ((attackDistance-5)*cos(angle)), e.y + ((attackDistance-5)*sin(angle)));
             if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) <= attackDistance) {
                 dungeon.entities.add(new Bullet(x, y, this, e));
-                System.out.println(angle);
+                System.out.println("ATTACKED" + angle);
                 attackReload = attackReloadTime;
             }
         }
