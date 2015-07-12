@@ -19,6 +19,7 @@ public class Scene implements Serializable{
 
     public ArrayList<Element> gui = new ArrayList<Element>();
     private boolean loaded;
+    public boolean pressed;
 
     public void init() {
 

@@ -11,6 +11,7 @@ import java.util.Arrays;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Graphics;
 import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
@@ -50,8 +51,8 @@ public class Dungeon extends Scene implements Serializable {
     public Entity underMouse;
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
     public Particle[] particles = new Particle[256];
-    private int longtim = 0, wave = 0;
-    private boolean wavetimer, pressed;
+    private int longtim = 0, wave = 0, target = 0;
+    private boolean wavetimer;
     private Image shadow = new Image("gui/shadow.png");
 
     public MiniMap miniMap = new MiniMap(0, 0, 256, 256, this) {
@@ -193,6 +194,18 @@ public class Dungeon extends Scene implements Serializable {
         return e;
     }
 
+    public Raider[] getRaiders() {
+        ArrayList<Entity> en = new ArrayList<Entity>();
+        for (Entity ent : entities) {
+            if (ent instanceof Raider) {
+                en.add(ent);
+            }
+        }
+        Raider[] r = new Raider[en.size()];
+        r = en.toArray(r);
+        return r;
+    }
+
     public Entity[] getEntitiesForRender() {
         Entity[] en = getEntities();
         Arrays.sort(en);
@@ -211,7 +224,7 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void tick() {
         try {
-            buttons();
+
             for (Entity e : getEntities()) {
                 try {
                     e.tick();
@@ -248,6 +261,37 @@ public class Dungeon extends Scene implements Serializable {
             if (pressed) {
                 pressed = false;
                 currentScene = Declaration.mainMenu;
+            }
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            if (pressed) {
+                pressed = false;
+                if (target == 0) {
+                    target = getRaiders().length - 1;
+                } else {
+                    target--;
+                }
+                Raider r = getRaiders()[target];
+                if (r != null) {
+                    cameraTarget = getRaiders()[target];
+                }
+            }
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            if (pressed) {
+                pressed = false;
+                cameraTarget = player;
+            }
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            if (pressed) {
+                pressed = false;
+                if (target == getRaiders().length - 1) {
+                    target = 0;
+                } else {
+                    target++;
+                }
+                Raider r = getRaiders()[target];
+                if (r != null) {
+                    cameraTarget = getRaiders()[target];
+                }
             }
         } else {
             pressed = true;
@@ -307,6 +351,11 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void render() {
         camUpdate();
+
+        Graphics g = new Graphics();
+        g.setColor(new org.newdawn.slick.Color(0, 0, 250));
+        g.fillRect(0, 0, Display.getWidth(), Display.getHeight());
+
         GL11.glTranslated(cam.x, cam.y, 0);
         {
             terrain.render(floor);
@@ -337,6 +386,7 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void handle() {
         underMouse = player;
+        buttons();
         for (Entity e : getEntities()) {
             try {
                 e.handle();

@@ -5,18 +5,14 @@
  */
 package org.tmd.render.scenes;
 
-import static java.lang.Math.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.tmd.render.Color;
 import org.tmd.main.Declaration;
-import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
 import org.tmd.render.Image;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
-import org.tmd.render.gui.Frame;
-import org.tmd.render.gui.Label;
 import org.tmd.render.gui.Link;
 import static org.tmd.render.scenes.Scene.currentScene;
 
@@ -28,7 +24,6 @@ public class MainMenu extends Scene {
 
     Image background = new Image("gui/background.jpg");
     Image logo = new Image("gui/small_logo.png");
-    boolean pressed;
 
     Button continueButton = new Button("continue", 0, 200, 300, 50) {
 
@@ -67,6 +62,9 @@ public class MainMenu extends Scene {
         }
 
     };
+
+    public MainMenu() {
+    }
 
     Button exitButton = new Button("exit", 0, 440, 300, 50) {
 
@@ -131,6 +129,7 @@ public class MainMenu extends Scene {
             background.draw(0, 0, Display.getWidth(), Display.getHeight());
         }
         logo.draw(Display.getWidth() / 2, logo.height / 2 + 40, 0);
+        buttons();
     }
 
 }

@@ -5,7 +5,6 @@
  */
 package org.tmd.environment.entities;
 
-import org.tmd.environment.entities.raiders.Priest;
 import org.tmd.environment.particles.Hit;
 import org.tmd.render.Image;
 
