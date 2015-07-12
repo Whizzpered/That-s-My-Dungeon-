@@ -117,6 +117,7 @@ public class Raider extends Entity {
     @Override
     public void dead() {
         condition = DEAD;
+        phantom = true;
         if (hasMoney) {
             hasMoney = false;
             for (int i = 0; i < 4; i++) {

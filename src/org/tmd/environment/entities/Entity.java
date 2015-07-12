@@ -329,6 +329,7 @@ public class Entity implements Comparable<Entity> {
             alive();
         } else {
             dead = true;
+            hp = 0;
             dead();
         }
     }
