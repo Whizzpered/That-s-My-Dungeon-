@@ -7,6 +7,7 @@ package org.tmd.render.scenes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
@@ -49,7 +50,7 @@ public class Dungeon extends Scene {
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
     public Particle[] particles = new Particle[256];
     private int longtim = 0, wave = 0;
-    private boolean wavetimer;
+    private boolean wavetimer, pressed;
     private Image shadow = new Image("gui/shadow.png");
 
     public MiniMap miniMap = new MiniMap(0, 0, 256, 256, this) {
@@ -209,6 +210,7 @@ public class Dungeon extends Scene {
     @Override
     public void tick() {
         try {
+            buttons();
             for (Entity e : getEntities()) {
                 try {
                     e.tick();
@@ -237,6 +239,17 @@ public class Dungeon extends Scene {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void buttons() {
+        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+            if (pressed) {
+                pressed = false;
+                currentScene = Declaration.mainMenu;
+            }
+        } else {
+            pressed = true;
         }
     }
 
@@ -288,7 +301,6 @@ public class Dungeon extends Scene {
             entities.add(new Mob(p.x, p.y));
         }
         entities.add(player);
-
     }
 
     @Override

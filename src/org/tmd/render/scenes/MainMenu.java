@@ -6,6 +6,7 @@
 package org.tmd.render.scenes;
 
 import static java.lang.Math.*;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.tmd.main.Declaration;
@@ -17,6 +18,7 @@ import org.tmd.render.gui.Button;
 import org.tmd.render.gui.Frame;
 import org.tmd.render.gui.Label;
 import org.tmd.render.gui.Link;
+import static org.tmd.render.scenes.Scene.currentScene;
 
 /**
  *
@@ -26,6 +28,7 @@ public class MainMenu extends Scene {
 
     Image background = new Image("gui/background.jpg");
     Image logo = new Image("gui/small_logo.png");
+    boolean pressed;
 
     Button continueButton = new Button("continue", 0, 200, 300, 50) {
 
@@ -102,6 +105,17 @@ public class MainMenu extends Scene {
         gui.add(version);
     }
 
+    public void buttons() {
+        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+            if (pressed && Declaration.dungeon != null) {
+                pressed = false;
+                currentScene = Declaration.dungeon;
+            }
+        } else {
+            pressed = true;
+        }
+    }
+    
     @Override
     public void render() {
         if (Declaration.dungeon != null) {
