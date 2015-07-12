@@ -5,12 +5,9 @@
  */
 package org.tmd.environment.entities.raiders;
 
-import com.sun.istack.internal.logging.Logger;
-import static java.lang.Math.*;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Raider;
-import org.tmd.environment.particles.Hit;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 

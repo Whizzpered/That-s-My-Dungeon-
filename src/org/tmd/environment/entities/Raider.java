@@ -19,7 +19,7 @@ import org.tmd.render.Sprite;
 public class Raider extends Entity {
 
     Animation ghost = new Animation("creatures/ghost");
-    int deathtimer = 1000;
+    int deathtimer = 800;
     boolean hasMoney = true;
     public Condition condition = JOINED;
 
@@ -155,5 +155,6 @@ public class Raider extends Entity {
     @Override
     public void click() {
         dungeon.player.focus = this;
+        dungeon.player.standing = true;
     }
 }

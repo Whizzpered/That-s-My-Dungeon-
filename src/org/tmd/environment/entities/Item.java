@@ -5,21 +5,35 @@
  */
 package org.tmd.environment.entities;
 
+import java.io.Serializable;
 import org.tmd.environment.ItemType;
+import org.tmd.render.Image;
+import org.tmd.render.Sprite;
 
 /**
  *
  * @author Whizzpered
  */
-public class Item {
+public abstract class Item implements Serializable {
+
     public int lvl;
     public ItemType type;
-    
-    public void render() {
-        
+    public Sprite sprite;
+    public Image icon;
+    public String name;
+
+    public Item(String name, int level) {
+        this.name = name;
+        lvl = level;
     }
-    
-    public void renderIcon(){
-        
+
+    public abstract void modificate();
+
+    public void render(Entity owner) {
+        sprite.render(owner.side, owner.x, owner.y);
+    }
+
+    public void renderIcon(double x, double y) {
+        icon.draw(x,y);
     }
 }

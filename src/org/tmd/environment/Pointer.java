@@ -16,7 +16,7 @@ import org.tmd.render.Textures;
  * @author Whizzpered
  */
 public class Pointer {
-    
+
     public double x, y;
     static Animation anim;
 
@@ -30,7 +30,7 @@ public class Pointer {
     }
 
     public void render() {
-        if (!Declaration.dungeon.player.standing) {
+        if (!Declaration.dungeon.player.standing && Declaration.dungeon.player.focus == null) {
             anim.get().draw(x - anim.get().width, y - anim.get().height, anim.get().width * 2, anim.get().height * 2);
         }
     }
