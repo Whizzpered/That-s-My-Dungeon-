@@ -23,22 +23,16 @@ import org.tmd.render.Sprite;
 public class Archer extends Raider{
     public Archer(double x, double y, int lvl) {
         super(x, y, lvl);
-        detectDistance = 200;
-        attackDistance = 200;
+        detectDistance = 400;
+        attackDistance = 300;
         spriteStanding = new Sprite("creatures/archer");
         minimapIcon = new Image("minimap/archer.png");
     }
 
-    //@Override
-    /*public void attack(Entity e) {
-        if (attackReload == 0 && e != null) {
-            double angle = atan2((y - e.y), (x - e.x));
-            goTo(e.x + ((attackDistance-5)*cos(angle)), e.y + ((attackDistance-5)*sin(angle)));
-            if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) <= attackDistance) {
-                dungeon.entities.add(new Bullet(x, y, this, e));
-                System.out.println("ATTACKED" + angle);
-                attackReload = attackReloadTime;
-            }
-        }
-    }*/
+    @Override
+    public void attackMethod(Entity e) {
+        dungeon.entities.add(new Bullet(x, y, this, e.x, e.y));
+    }
+
+    
 }

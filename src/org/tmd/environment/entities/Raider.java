@@ -30,7 +30,7 @@ public class Raider extends Entity {
         minimapIcon = new Image("minimap/warrior.png");
         name = "raider";
         width = 96;
-        maxhp = 50;
+        maxhp = 20;
         deltahp = 15;
         attackDamage = 2;
         attackDeltaDamage = 2;
@@ -46,36 +46,37 @@ public class Raider extends Entity {
     }
 
     public void ai() {
-        if(condition == JOINED){
+        if (condition == JOINED) {
             join();
-        } else if(condition == GOING){
+        } else if (condition == GOING) {
             going();
-        } else if(condition == BATTLE){
+        } else if (condition == BATTLE) {
             battle();
-        } else if(condition == NOTANKS){
+        } else if (condition == NOTANKS) {
             noTanks();
-        } else if(condition == WON){
+        } else if (condition == WON) {
             won();
-        } else if(condition == DEAD){
+        } else if (condition == DEAD) {
             died();
         }
     }
 
     public void join() {
         if (entried) {
-                entried = false;
-                counter.start();
-            } else {
-                if (counter.is()) {
-                    goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
-                    condition = GOING;
-                }
-                counter.tick();
+            entried = false;
+            counter.start();
+        } else {
+            if (counter.is()) {
+                goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
+                condition = GOING;
             }
+            counter.tick();
+        }
     }
-    
+
     public void going() {
         double dist = detectDistance;
+        if (focus == null) {
             for (Entity e : dungeon.getEntities()) {
                 if (!e.dead && e.faction == 1) {
                     double d = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
@@ -85,32 +86,34 @@ public class Raider extends Entity {
                     }
                 }
             }
-            if(focus != null && focus.dead){
-                focus = null;
-            }
-            
-            if (focus != null) {
-                attack(focus);
-            }
-          
+        }
+        if (focus != null && focus.dead) {
+            goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
+            focus = null;
+        }
+
+        if (focus != null) {
+            attack(focus);
+        }
+
     }
-    
+
     public void battle() {
-        
+
     }
-    
+
     public void noTanks() {
-        
+
     }
-    
+
     public void won() {
-        
+
     }
-    
+
     public void died() {
-        
+
     }
-    
+
     @Override
     public void dead() {
         condition = DEAD;

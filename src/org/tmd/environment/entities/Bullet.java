@@ -19,21 +19,25 @@ public class Bullet extends Entity {
 
     public Bullet(double x, double y, Entity owner, double ax, double ay) {     //aimx, aimy
         super(x, y);
-        angle = Math.atan2((y - ay), (x - ax));
+        angle = Math.atan2((ay - y), (ax - x));
         this.owner = owner;
-        speed = 5;
+        speed = 6;
         hp = 500;
+        maxhp = Double.MAX_VALUE;
         phantom = true;
+        minimapIcon = new Image("effects/arrow.png");
     }
 
     public Bullet(double x, double y, Entity owner, Entity aim) {
         super(x, y);
-        angle = Math.atan2((y - aim.y), (x - aim.x));
+        angle = Math.atan2((aim.y - y), (aim.x - x));
         this.owner = owner;
         focus = aim;
-        speed = 6;
+        speed = 4;
         hp = 500;
+        maxhp = Double.MAX_VALUE;
         phantom = true;
+        minimapIcon = new Image("effects/magic_attack.png");
     }
 
     @Override
@@ -49,8 +53,10 @@ public class Bullet extends Entity {
 
         } else {
             for (Entity ent : dungeon.entities) {
-                if (ent.faction != owner.faction && !ent.phantom && !ent.dead) {
-                    focus.hit(owner.getDMG(), owner);
+                double dist = Math.sqrt(Math.pow(x - ent.x, 2) + Math.pow(y - ent.y, 2));
+                if (dist < ent.size && ent.faction != owner.faction && !ent.phantom && !ent.dead) {
+                    ent.hit(owner.getDMG(), owner);
+                    hp = 0;
                 }
             }
         }
@@ -62,15 +68,15 @@ public class Bullet extends Entity {
 
     @Override
     public void render() {
-        if (minimapIcon == null) {
-            if (owner instanceof Priest) {
-                minimapIcon = new Image("effects/magic_attack.png");
-                minimapIcon.getNxCopy(2f);
-            } else {
-                minimapIcon = new Image("effects/arrow.png");
-                minimapIcon.getNxCopy(2f);
-            }
+        minimapIcon.draw(x, y - 48, minimapIcon.width * 2, minimapIcon.height * 2, angle);
+    }
+
+    @Override
+    public void move(double x, double y) {
+        this.x += x;
+        this.y += y;
+        if(dungeon.terrain.get(this.x, this.y).top != null){
+            hp = 0;
         }
-        minimapIcon.draw(x, y-48, angle);
     }
 }
