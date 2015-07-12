@@ -39,19 +39,22 @@ public class HeadParticle extends Particle {
         if (vy > Main.RANDOM.nextInt(5) + 2) {
             vy = -vy / 2;
         }
-        if (timer == 0){
+        if (timer == 0) {
             Declaration.dungeon.addParticle(new BloodPool(x, y));
         }
     }
 
     @Override
     public void renderEntity() {
-        if(type == 0)
-        head.draw(x, y, head.width * 2, head.height * 2, a);
-        if(type == 1)
-        phead.draw(x, y, head.width * 2, head.height * 2, a);
-        if(type == 2)
-        mhead.draw(x, y, head.width * 2, head.height * 2, a);
+        if (type == 0) {
+            head.draw(x, y, head.width * 2, head.height * 2, a);
+        }
+        if (type == 1) {
+            phead.draw(x, y, phead.width * 2, phead.height * 2, a);
+        }
+        if (type == 2) {
+            mhead.draw(x, y, mhead.width * 2, mhead.height * 2, a);
+        }
     }
 
 }

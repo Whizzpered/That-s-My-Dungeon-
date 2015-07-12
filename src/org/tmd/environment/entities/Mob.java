@@ -58,7 +58,7 @@ public class Mob extends Entity {
                 comeTimer--;
             }
         }
-        //patrool();
+        patrool();
     }
 
     @Override

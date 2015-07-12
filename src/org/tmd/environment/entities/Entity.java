@@ -67,14 +67,26 @@ public class Entity implements Comparable<Entity> {
     }
 
     public void attack(Entity e) {
-        if (attackReload == 0 && e != null) {
-            goTo(e.x, e.y);
-            if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) < attackDistance) {
-                dungeon.addParticle(new Hit(attackType, e.x, e.y - 35));
-                e.hit(getDMG(), this);
-                attackReload = attackReloadTime;
+        if (e != null) {
+            double dist = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
+            if (attackDistance > 128) {
+                double a = atan2(e.y - y, e.x - x);
+                goTo(e.x - cos(a) * (attackDistance - 50), e.y - sin(a) * (attackDistance - 50));
+            } else {
+                goTo(e.x, e.y);
+            }
+            if (attackReload == 0) {
+                if (dist <= attackDistance) {
+                    attackMethod(e);
+                    attackReload = attackReloadTime;
+                }
             }
         }
+    }
+
+    public void attackMethod(Entity e) {
+        dungeon.addParticle(new Hit(attackType, e.x, e.y - 35));
+        e.hit(getDMG(), this);
     }
 
     public double getHP() {
@@ -117,10 +129,13 @@ public class Entity implements Comparable<Entity> {
     }
 
     public boolean shearable(Point start, Point end) {
+
         int d = (int) Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / 4,
                 s = (int) (Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2)) / d);
         double angle = Math.atan2(end.y - start.y, end.x - start.x);
-
+        if (d == 0) {
+            return true;
+        }
         for (int i = 1; i <= s; i++) {
             double l = (i * d * Math.cos(angle)),
                     k = (i * d * Math.sin(angle));
@@ -132,117 +147,125 @@ public class Entity implements Comparable<Entity> {
                 return false;
             }
         }
-
         return true;
     }
 
     public void goTo(double goToX, double goToY) {
-        int tx = (int) (goToX / Block.BLOCK_WIDTH), ty = (int) (goToY / Block.BLOCK_HEIGHT);
-        final int fx = (int) (this.x / Block.BLOCK_WIDTH), fy = (int) (this.y / Block.BLOCK_HEIGHT);
-        boolean player = getClass() == Player.class;
-        if (player && dungeon.terrain.get(tx, ty).enemyZone) {
-            return;
-        }
-        if (way != null) {
-            int tx2 = (int) (way[way.length - 1].x / Block.BLOCK_WIDTH), ty2 = (int) (way[way.length - 1].y / Block.BLOCK_HEIGHT);
-            if (tx == tx2 && ty == ty2) {
-                way[way.length - 1].x = goToX;
-                way[way.length - 1].y = goToY;
+        try {
+            Point[] way = this.way;
+            int tx = (int) (goToX / Block.BLOCK_WIDTH), ty = (int) (goToY / Block.BLOCK_HEIGHT);
+            final int fx = (int) (this.x / Block.BLOCK_WIDTH), fy = (int) (this.y / Block.BLOCK_HEIGHT);
+            boolean player = getClass() == Player.class;
+            if (dungeon.terrain.get(tx, ty).solid) {
                 return;
             }
-        }
-        final boolean[][] dung = new boolean[dungeon.terrain.width][dungeon.terrain.height];
-        if (tx < 0 || ty < 0 || tx >= dungeon.terrain.width || ty >= dungeon.terrain.height) {
-            return;
-        }
-        for (int x = 0; x < dungeon.terrain.width; x++) {
-            for (int y = 0; y < dungeon.terrain.height; y++) {
-                if (!player) {
-                    dung[x][y] = !(dungeon.terrain.get(x, y).solid);
-                } else {
-                    dung[x][y] = !(dungeon.terrain.get(x, y).solid | dungeon.terrain.get(x, y).enemyZone);
-                }
+            if (player && dungeon.terrain.get(tx, ty).enemyZone) {
+                return;
             }
-        }
-        class Waypoint {
-
-            int x, y;
-            Waypoint parent;
-
-            public Waypoint(int x, int y, Waypoint parent) {
-                this.x = x;
-                this.y = y;
-                this.parent = parent;
-                dung[this.x][this.y] = false;
-            }
-
-            public Waypoint(int x, int y) {
-                this.x = x;
-                this.y = y;
-                dung[this.x][this.y] = false;
-            }
-
-            public boolean growTo(int x, int y, ArrayList<Waypoint> w) {
-                if (this.x + x >= 0
-                        && this.y + y >= 0
-                        && this.x + x < dungeon.terrain.width
-                        && this.y + y < dungeon.terrain.height) {
-                    if (x == 0 || y == 0) {
-                        if (dung[this.x + x][this.y + y]) {
-                            w.add(new Waypoint(this.x + x, this.y + y, this));
-                        }
-                    } else {
-                        if (dung[this.x + x][this.y] & dung[this.x + x][this.y + y] & dung[this.x][this.y + y]) {
-                            w.add(new Waypoint(this.x + x, this.y + y, this));
-                        }
-                    }
-                }
-                return ((this.x + x == fx) && (this.y + y == fy));
-            }
-
-            public Waypoint grow(ArrayList<Waypoint> w) {
-                if (growTo(1, 1, w)
-                        || growTo(-1, 1, w)
-                        || growTo(-1, -1, w)
-                        || growTo(1, -1, w)
-                        || growTo(1, 0, w)
-                        || growTo(-1, 0, w)
-                        || growTo(0, 1, w)
-                        || growTo(0, -1, w)) {
-                    return new Waypoint(fx, fy, this);
-                } else {
-                    return null;
-                }
-            }
-        }
-        ArrayList<Waypoint> wp = new ArrayList<Waypoint>();
-        wp.add(new Waypoint(tx, ty));
-        int i = 0;
-        do {
-            ArrayList<Waypoint> w = new ArrayList<Waypoint>();
-            for (Waypoint v : wp) {
-                Waypoint cwp = v.grow(w);
-                if (cwp != null) {
-                    wp = new ArrayList<Waypoint>();
-                    while (cwp.parent != null) {
-                        wp.add(cwp);
-                        cwp = cwp.parent;
-                    }
-                    wp.add(cwp);
-                    Point[] p = new Point[wp.size()];
-                    for (int j = 0; j < p.length; j++) {
-                        p[j] = new Point(wp.get(j).x * Block.BLOCK_WIDTH + Block.BLOCK_WIDTH / 2, wp.get(j).y * Block.BLOCK_HEIGHT + Block.BLOCK_HEIGHT / 2);
-                    }
-                    p[p.length - 1].x = goToX;
-                    p[p.length - 1].y = goToY;
-                    this.way = p;
-                    this.currentWaypoint = 0;
+            if (way != null) {
+                int tx2 = (int) (way[way.length - 1].x / Block.BLOCK_WIDTH), ty2 = (int) (way[way.length - 1].y / Block.BLOCK_HEIGHT);
+                if (tx == tx2 && ty == ty2) {
+                    way[way.length - 1].x = goToX;
+                    way[way.length - 1].y = goToY;
+                    this.way = way;
                     return;
                 }
             }
-            wp = w;
-            i = w.size();
-        } while (i != 0);
+            final boolean[][] dung = new boolean[dungeon.terrain.width][dungeon.terrain.height];
+            if (tx < 0 || ty < 0 || tx >= dungeon.terrain.width || ty >= dungeon.terrain.height) {
+                return;
+            }
+            for (int x = 0; x < dungeon.terrain.width; x++) {
+                for (int y = 0; y < dungeon.terrain.height; y++) {
+                    if (!player) {
+                        dung[x][y] = !(dungeon.terrain.get(x, y).solid);
+                    } else {
+                        dung[x][y] = !(dungeon.terrain.get(x, y).solid | dungeon.terrain.get(x, y).enemyZone);
+                    }
+                }
+            }
+            class Waypoint {
+
+                int x, y;
+                Waypoint parent;
+
+                public Waypoint(int x, int y, Waypoint parent) {
+                    this.x = x;
+                    this.y = y;
+                    this.parent = parent;
+                    dung[this.x][this.y] = false;
+                }
+
+                public Waypoint(int x, int y) {
+                    this.x = x;
+                    this.y = y;
+                    dung[this.x][this.y] = false;
+                }
+
+                public boolean growTo(int x, int y, ArrayList<Waypoint> w) {
+                    if (this.x + x >= 0
+                            && this.y + y >= 0
+                            && this.x + x < dungeon.terrain.width
+                            && this.y + y < dungeon.terrain.height) {
+                        if (x == 0 || y == 0) {
+                            if (dung[this.x + x][this.y + y]) {
+                                w.add(new Waypoint(this.x + x, this.y + y, this));
+                            }
+                        } else {
+                            if (dung[this.x + x][this.y] & dung[this.x + x][this.y + y] & dung[this.x][this.y + y]) {
+                                w.add(new Waypoint(this.x + x, this.y + y, this));
+                            }
+                        }
+                    }
+                    return ((this.x + x == fx) && (this.y + y == fy));
+                }
+
+                public Waypoint grow(ArrayList<Waypoint> w) {
+                    if (growTo(1, 1, w)
+                            || growTo(-1, 1, w)
+                            || growTo(-1, -1, w)
+                            || growTo(1, -1, w)
+                            || growTo(1, 0, w)
+                            || growTo(-1, 0, w)
+                            || growTo(0, 1, w)
+                            || growTo(0, -1, w)) {
+                        return new Waypoint(fx, fy, this);
+                    } else {
+                        return null;
+                    }
+                }
+            }
+            ArrayList<Waypoint> wp = new ArrayList<Waypoint>();
+            wp.add(new Waypoint(tx, ty));
+            int i = 0;
+            do {
+                ArrayList<Waypoint> w = new ArrayList<Waypoint>();
+                for (Waypoint v : wp) {
+                    Waypoint cwp = v.grow(w);
+                    if (cwp != null) {
+                        wp = new ArrayList<Waypoint>();
+                        while (cwp.parent != null) {
+                            wp.add(cwp);
+                            cwp = cwp.parent;
+                        }
+                        wp.add(cwp);
+                        Point[] p = new Point[wp.size()];
+                        for (int j = 0; j < p.length; j++) {
+                            p[j] = new Point(wp.get(j).x * Block.BLOCK_WIDTH + Block.BLOCK_WIDTH / 2, wp.get(j).y * Block.BLOCK_HEIGHT + Block.BLOCK_HEIGHT / 2);
+                        }
+                        p[p.length - 1].x = goToX;
+                        p[p.length - 1].y = goToY;
+                        this.way = p;
+                        this.currentWaypoint = 0;
+                        return;
+                    }
+                }
+                wp = w;
+                i = w.size();
+            } while (i != 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void tick() {
@@ -256,7 +279,7 @@ public class Entity implements Comparable<Entity> {
                 if (way != null && currentWaypoint < way.length) {
                     standing = false;
                     walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
-                    if (sqrt(pow(x - way[currentWaypoint].x, 2) + pow(y - way[currentWaypoint].y, 2)) <= Block.BLOCK_WIDTH / 2) {
+                    if (sqrt(pow(x - way[currentWaypoint].x, 2) + pow(y - way[currentWaypoint].y, 2)) <= 50) {
                         currentWaypoint++;
                         if (currentWaypoint == way.length) {
                             this.way = null;

@@ -17,7 +17,7 @@ public class Warrior extends Raider {
 
     public Warrior(double x, double y, int lvl) {
         super(x, y, lvl);
-        detectDistance = 200;
+        detectDistance = 400;
         attackDistance = 96;
         spriteStanding = new Sprite("creatures/warrior");
         minimapIcon = new Image("minimap/warrior.png");
