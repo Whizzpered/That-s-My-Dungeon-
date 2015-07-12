@@ -13,7 +13,8 @@ import org.tmd.render.Sprite;
  *
  * @author Whizzpered
  */
-public class Assasin extends Raider{
+public class Assasin extends Raider {
+
     public Assasin(double x, double y, int lvl) {
         super(x, y, lvl);
         detectDistance = 200;

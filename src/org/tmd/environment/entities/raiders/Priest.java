@@ -30,5 +30,4 @@ public class Priest extends Raider {
         dungeon.entities.add(new Bullet(x, y, this, e));
     }
 
-    
 }

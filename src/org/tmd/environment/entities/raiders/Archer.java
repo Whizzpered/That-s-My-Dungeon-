@@ -20,7 +20,8 @@ import org.tmd.render.Sprite;
  *
  * @author Whizzpered
  */
-public class Archer extends Raider{
+public class Archer extends Raider {
+
     public Archer(double x, double y, int lvl) {
         super(x, y, lvl);
         detectDistance = 400;
@@ -34,5 +35,4 @@ public class Archer extends Raider{
         dungeon.entities.add(new Bullet(x, y, this, e.x, e.y));
     }
 
-    
 }

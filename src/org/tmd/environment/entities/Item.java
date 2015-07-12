@@ -34,6 +34,6 @@ public abstract class Item implements Serializable {
     }
 
     public void renderIcon(double x, double y) {
-        icon.draw(x,y);
+        icon.draw(x, y);
     }
 }
