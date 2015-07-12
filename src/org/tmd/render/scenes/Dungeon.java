@@ -378,7 +378,7 @@ public class Dungeon extends Scene implements Serializable {
                 }
             }
             terrain.renderTops(floor);
-            shadow.draw(player.x - Display.getWidth() - 50, player.y - Display.getHeight() - 50, Display.getWidth() * 2, Display.getHeight() * 2);
+            shadow.draw(cameraTarget.x - Display.getWidth() - 50, cameraTarget.y - Display.getHeight() - 50, Display.getWidth() * 2, Display.getHeight() * 2);
         }
         GL11.glTranslated(-cam.x, -cam.y, 0);
     }
