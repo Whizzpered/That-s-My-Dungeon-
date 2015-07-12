@@ -5,6 +5,7 @@
  */
 package org.tmd.render;
 
+import java.io.Serializable;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Graphics;
 import org.tmd.render.Side;
@@ -13,7 +14,7 @@ import org.tmd.render.Side;
  *
  * @author Whizzpered
  */
-public class Sprite {
+public class Sprite implements Serializable{
 
     public Image back = null, front = null, left = null, right = null;
 

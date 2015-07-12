@@ -5,13 +5,14 @@
  */
 package org.tmd.render;
 
+import java.io.Serializable;
 import org.lwjgl.opengl.GL11;
 
 /**
  *
  * @author yew_mentzaki
  */
-public class Image {
+public class Image implements Serializable{
 
     public final String path;
     private transient org.newdawn.slick.Image subimage;

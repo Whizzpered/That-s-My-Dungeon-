@@ -5,7 +5,7 @@
  */
 package org.tmd.render.gui;
 
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
@@ -33,7 +33,7 @@ public class MiniMap extends Element {
         double dh = (height - 32) / ((double) dungeon.terrain.height * Block.BLOCK_HEIGHT);
         for (int x = 0; x < dungeon.terrain.width; x++) {
             for (int y = 0; y < dungeon.terrain.height; y++) {
-                    Main.g.setColor(dungeon.terrain.get(x, y).color);
+                    Main.g.setColor(dungeon.terrain.get(x, y).color.slickColor());
                     Main.g.fillRect((float)(dx + x * dw * Block.BLOCK_WIDTH), (float)(dy + y * dh * Block.BLOCK_HEIGHT), (float)(dw * Block.BLOCK_WIDTH), (float)(dh * Block.BLOCK_HEIGHT));
             }
         }

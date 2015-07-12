@@ -5,11 +5,13 @@
  */
 package org.tmd.environment;
 
+import java.io.Serializable;
+
 /**
  *
  * @author yew_mentzaki
  */
-public class Point {
+public class Point implements Serializable{
 
     public Point(double x, double y) {
         this.x = x;

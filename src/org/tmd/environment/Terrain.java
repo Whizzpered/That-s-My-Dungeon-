@@ -7,6 +7,7 @@ package org.tmd.environment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ import org.tmd.render.scenes.Dungeon;
  *
  * @author yew_mentzaki
  */
-public class Terrain {
+public class Terrain implements Serializable{
 
     public int width, height;
     byte[][] blocks;

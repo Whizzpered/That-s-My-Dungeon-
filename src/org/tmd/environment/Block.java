@@ -6,7 +6,7 @@
 package org.tmd.environment;
 
 import static java.lang.Math.PI;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.render.Image;
 import org.tmd.render.scenes.Dungeon;
 

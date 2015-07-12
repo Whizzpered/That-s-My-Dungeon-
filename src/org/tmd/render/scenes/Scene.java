@@ -5,6 +5,7 @@
  */
 package org.tmd.render.scenes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.tmd.render.gui.Element;
 
@@ -12,7 +13,7 @@ import org.tmd.render.gui.Element;
  *
  * @author yew_mentzaki
  */
-public class Scene {
+public class Scene implements Serializable{
 
     public static Scene currentScene;
 

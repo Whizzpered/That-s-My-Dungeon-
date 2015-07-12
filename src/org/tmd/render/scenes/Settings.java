@@ -7,7 +7,7 @@ package org.tmd.render.scenes;
 
 import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
@@ -131,7 +131,7 @@ public class Settings extends Scene {
     public void render() {
         if (Declaration.dungeon != null) {
             Declaration.dungeon.render();
-            Main.g.setColor(new Color(0, 0, 0, 150));
+            Main.g.setColor(new Color(0, 0, 0, 150).slickColor());
             Main.g.fillRect(0, 0, Display.getWidth(), Display.getHeight());
         } else {
             background.draw(0, 0, Display.getWidth(), Display.getHeight());

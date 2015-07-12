@@ -5,7 +5,7 @@
  */
 package org.tmd.render.gui;
 
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.main.GameLocale;
 
 import org.tmd.main.Main;

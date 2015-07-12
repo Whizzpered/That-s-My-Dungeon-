@@ -5,12 +5,13 @@
  */
 package org.tmd.render.scenes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.environment.Pointer;
@@ -37,7 +38,7 @@ import org.tmd.render.gui.Panel;
  *
  * @author yew_mentzaki & Whizzpered
  */
-public class Dungeon extends Scene {
+public class Dungeon extends Scene implements Serializable {
 
     public ArrayList<Entity> entities = new ArrayList<Entity>();
     public Point cam = new Point(), floor = new Point();
@@ -119,7 +120,7 @@ public class Dungeon extends Scene {
                         String of = (int) d + "/" + (int) m;
                         Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
                         Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
-                        Main.g.setColor(Color.green);
+                        Main.g.setColor(org.newdawn.slick.Color.green);
                         d = d / m * 200;
                         if (d < 0) {
                             d = 0;
@@ -151,7 +152,7 @@ public class Dungeon extends Scene {
                     String of = (int) d + "/" + (int) m;
                     Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
                     Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
-                    Main.g.setColor(Color.cyan);
+                    Main.g.setColor(Color.cyan.slickColor());
                     d = d / m * 200;
                     if (d < 0) {
                         d = 0;
