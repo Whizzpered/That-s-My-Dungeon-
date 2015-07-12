@@ -97,7 +97,7 @@ public class Terrain implements Serializable {
     }
 
     public void render(Point camera) {
-        for (int x = (int) ((camera.x) / BLOCK_WIDTH - 1); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
+        for (int x = (int) ((camera.x) / BLOCK_WIDTH - 2); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
             for (int y = (int) ((camera.y) / BLOCK_HEIGHT - 1); y < (camera.y + Display.getHeight()) / BLOCK_HEIGHT + 1; y++) {
                 GL11.glTranslated(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, 0);
                 get(x, y).render(getBorder(x, y), x, y);
@@ -107,7 +107,7 @@ public class Terrain implements Serializable {
     }
 
     public void renderTops(Point camera) {
-        for (int x = (int) ((camera.x) / BLOCK_WIDTH - 1); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
+        for (int x = (int) ((camera.x) / BLOCK_WIDTH - 2); x < (camera.x + Display.getWidth()) / BLOCK_WIDTH + 1; x++) {
             for (int y = (int) ((camera.y) / BLOCK_HEIGHT - 1); y < (camera.y + Display.getHeight()) / BLOCK_HEIGHT + 1; y++) {
                 GL11.glTranslated(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, 0);
                 get(x, y).renderTop(getBorder(x, y), x, y);
