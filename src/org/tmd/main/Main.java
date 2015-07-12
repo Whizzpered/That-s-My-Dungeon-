@@ -30,12 +30,13 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.*;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.tmd.render.Textures;
 import org.tmd.render.gui.Mouse;
+import org.tmd.render.scenes.Dungeon;
 import org.tmd.render.scenes.Scene;
 import org.tmd.xfg.*;
 
@@ -79,6 +80,7 @@ public class Main {
     public static Timer longTimer = new Timer(1000, Main.longTimerListener),
             tickTimer1 = new Timer(10, Main.tickTimerListener),
             tickTimer2 = new Timer(10, Main.tickTimerListener);
+    private static Object Serialize;
 
     public static void main(String[] args) {
         setUpNatives();
@@ -187,11 +189,11 @@ public class Main {
                 glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
                 logo.draw((Display.getWidth() - logo.getWidth()) / 2, (Display.getHeight() - logo.getHeight()) / 2);
                 defaultFont.drawString(LoadTask.tasks.get(0).text, 16, displayHeight - 60, Color.white);
-                g.setColor(new Color(154, 185, 233));
+                g.setColor(new Color(154, 185, 233).slickColor());
                 g.fillRect(16, displayHeight - 27, (float) (displayWidth - 32), 14);
-                g.setColor(new Color(6, 18, 39));
+                g.setColor(new Color(6, 18, 39).slickColor());
                 g.fillRect(20, displayHeight - 23, (float) (displayWidth - 40), 6);
-                g.setColor(Color.white);
+                g.setColor(Color.white.slickColor());
                 g.fillRect(21, displayHeight - 22, (float) (displayWidth - 42) * (1 - (float) LoadTask.tasks.size() / allTasks), 4);
                 Display.update();
                 LoadTask.tasks.get(0).load();
@@ -202,6 +204,15 @@ public class Main {
             System.exit(1);
         }
         logo.getTexture().release();
+        File dung = new File("save.data");
+        if (dung.exists()) {
+            try {
+                byte[] b = Serialization.readFromFile(dung);
+                Declaration.dungeon = (Dungeon) Serialization.deserialize(b);
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         Declaration.mainMenu.set();
         longTimer.start();
         tickTimer1.start();
@@ -236,6 +247,12 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error!\n" + e);
+        }
+        try {
+            byte[] b = Serialization.serialize(Declaration.dungeon);
+            Serialization.writeToFile(b, new File("save.data"));
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         conf.set("x", Display.getX());
         conf.set("y", Display.getY());

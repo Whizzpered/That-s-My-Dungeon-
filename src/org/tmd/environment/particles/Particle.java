@@ -5,11 +5,13 @@
  */
 package org.tmd.environment.particles;
 
+import java.io.Serializable;
+
 /**
  *
  * @author yew_mentzaki
  */
-public class Particle {
+public class Particle implements Serializable{
     public float x, y;
     public int timer = 256;
 

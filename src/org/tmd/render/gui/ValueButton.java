@@ -7,7 +7,7 @@ package org.tmd.render.gui;
 
 import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.main.Declaration;
 import org.tmd.main.Main;
 

@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import static org.lwjgl.opengl.GL11.*;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
@@ -130,6 +130,7 @@ public final class FontRender {
         }
         return width;
     }
+    
 
     public void drawString(String text, int x, int y, Color color, int maxWidth, boolean WordWrap) {
         if (text == null) {

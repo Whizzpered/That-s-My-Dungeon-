@@ -5,9 +5,10 @@
  */
 package org.tmd.environment.entities;
 
+import java.io.Serializable;
 import static java.lang.Math.*;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.environment.particles.BloodParticle;
@@ -27,7 +28,7 @@ import org.tmd.render.scenes.Dungeon;
  *
  * @author yew_mentzaki
  */
-public class Entity implements Comparable<Entity> {
+public class Entity implements Comparable<Entity>, Serializable {
 
     public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
@@ -329,7 +330,6 @@ public class Entity implements Comparable<Entity> {
             alive();
         } else {
             dead = true;
-            hp = 0;
             dead();
         }
     }

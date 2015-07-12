@@ -6,7 +6,7 @@
 package org.tmd.main;
 
 import static org.lwjgl.opengl.GL11.*;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import static org.tmd.environment.Block.BLOCK_HEIGHT;
 import static org.tmd.environment.Block.BLOCK_WIDTH;

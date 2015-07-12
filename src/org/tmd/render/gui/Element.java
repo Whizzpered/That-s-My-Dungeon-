@@ -5,13 +5,14 @@
  */
 package org.tmd.render.gui;
 
+import java.io.Serializable;
 import org.lwjgl.opengl.Display;
 
 /**
  *
  * @author yew_mentzaki
  */
-public class Element {
+public class Element implements Serializable {
 
     public Element(double x, double y, double width, double height) {
         this.x = x;

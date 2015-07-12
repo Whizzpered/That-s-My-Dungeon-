@@ -5,6 +5,7 @@
  */
 package org.tmd.render;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import org.lwjgl.opengl.GL11;
@@ -15,7 +16,7 @@ import org.newdawn.slick.opengl.Texture;
  *
  * @author yew_mentzaki
  */
-public class Animation {
+public class Animation implements Serializable{
 
     private org.tmd.render.Image[] images(ArrayList<Textures.Tex> t) {
         Textures.Tex[] tex = new Textures.Tex[t.size()];
@@ -29,35 +30,20 @@ public class Animation {
         return i;
     }
 
-    private Texture[] textures(ArrayList<Textures.Tex> t) {
-        Textures.Tex[] tex = new Textures.Tex[t.size()];
-        for (int i = 0; i < t.size(); i++) {
-            tex[i] = t.get(i);
-        }
-        Texture[] i = new Texture[tex.length];
-        for (int j = 0; j < i.length; j++) {
-            i[j] = tex[j].texture;
-        }
-        return i;
-    }
-
     public Animation(String name, int delay) {
         this.name = name;
         this.delay = delay;
         images = Textures.animation(name).images;
-        textures = Textures.animation(name).textures;
     }
 
     public Animation(String name) {
         this.name = name;
         images = Textures.animation(name).images;
-        textures = Textures.animation(name).textures;
     }
 
     Animation(String name, ArrayList<Textures.Tex> tex) {
         this.name = name;
         images = images(tex);
-        textures = textures(tex);
     }
 
     public org.tmd.render.Image get() {
@@ -75,8 +61,7 @@ public class Animation {
     private int index = 0;
     private long last = 0;
     public int delay = 100;
-    public final String name;
-    public final org.tmd.render.Image[] images;
-    public final Texture[] textures;
+    public String name;
+    public org.tmd.render.Image[] images;
 
 }

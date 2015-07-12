@@ -5,7 +5,7 @@
  */
 package org.tmd.render.gui;
 
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.newdawn.slick.Graphics;
 import org.tmd.main.Main;
 import org.tmd.render.Image;

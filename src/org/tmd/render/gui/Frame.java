@@ -6,7 +6,7 @@
 package org.tmd.render.gui;
 
 import static org.lwjgl.opengl.GL11.*;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import org.tmd.main.Main;
 import org.tmd.render.Image;
 

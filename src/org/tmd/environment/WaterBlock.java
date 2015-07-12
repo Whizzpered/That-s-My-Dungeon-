@@ -7,7 +7,7 @@ package org.tmd.environment;
 
 import static java.lang.Math.*;
 import static org.lwjgl.opengl.GL11.*;
-import org.newdawn.slick.Color;
+import org.tmd.render.Color;
 import static org.tmd.environment.Block.BLOCK_HEIGHT;
 import static org.tmd.environment.Block.BLOCK_WIDTH;
 import static org.tmd.main.Main.RANDOM;
