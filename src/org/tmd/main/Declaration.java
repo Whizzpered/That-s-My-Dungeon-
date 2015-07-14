@@ -5,17 +5,12 @@
  */
 package org.tmd.main;
 
-import static org.lwjgl.opengl.GL11.*;
 import org.tmd.render.Color;
 import org.tmd.environment.Block;
-import static org.tmd.environment.Block.BLOCK_HEIGHT;
-import static org.tmd.environment.Block.BLOCK_WIDTH;
 import org.tmd.environment.Point;
 import org.tmd.environment.WaterBlock;
 import org.tmd.environment.entities.Gate;
 import org.tmd.environment.entities.NPC;
-import static org.tmd.main.Main.RANDOM;
-import org.tmd.render.Image;
 import org.tmd.render.scenes.*;
 
 /**
@@ -30,6 +25,7 @@ public class Declaration {
     public static MainMenu mainMenu = new MainMenu();
     public static Settings settings = new Settings();
     public static Dungeon dungeon = null;
+    public static Inventory inventory = new Inventory();
     public static Dialog dialog = new Dialog();
 
     /*

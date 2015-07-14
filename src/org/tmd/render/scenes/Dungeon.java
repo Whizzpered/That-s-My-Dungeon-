@@ -220,7 +220,7 @@ public class Dungeon extends Scene implements Serializable {
             }
         }
     }
-
+    
     @Override
     public void tick() {
         try {

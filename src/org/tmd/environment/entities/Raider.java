@@ -22,6 +22,7 @@ public class Raider extends Entity {
     int deathtimer = 800;
     boolean hasMoney = true;
     public Condition condition = JOINED;
+    public Item[] weared = new Item[4];
 
     public Raider(double x, double y, int level) {
         super(x, y);

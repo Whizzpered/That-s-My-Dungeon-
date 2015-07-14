@@ -22,6 +22,7 @@ public class Player extends Entity {
     public Image deadSprite = new Image("creatures/player/dead.png");
 
     public int souls, neededSouls = 12, money;
+    public Item[] weared = new Item[4];
 
     public Player(double x, double y) {
         super(x, y);
