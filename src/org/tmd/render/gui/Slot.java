@@ -21,7 +21,7 @@ public class Slot extends Button {
     public ItemType type;
 
     public Slot(int x, int y) {
-        super("", x, y, 16, 96);
+        super("", x, y, 64, 64);
     }
 
     @Override

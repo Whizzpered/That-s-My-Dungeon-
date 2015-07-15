@@ -5,11 +5,7 @@
  */
 package org.tmd.environment.entities;
 
-import static java.lang.Math.*;
-import org.tmd.environment.particles.BloodParticle;
-import org.tmd.environment.particles.Hit;
 import org.tmd.environment.particles.LevelUp;
-import org.tmd.main.Main;
 import org.tmd.render.Image;
 import org.tmd.render.gui.Mouse;
 
@@ -64,6 +60,11 @@ public class Player extends Entity {
             deadSprite.draw(x, y - deadSprite.height, deadSprite.width * 2, deadSprite.height * 2, 0);
         } else {
             super.render();
+            for (Item item : weared) {
+                if (item != null) {
+                    item.render(this);
+                }
+            }
         }
     }
 
@@ -72,7 +73,7 @@ public class Player extends Entity {
         if (Mouse.left) {
             goTo(Mouse.x - dungeon.cam.x, Mouse.y - dungeon.cam.y);
             focus = null;
-            dungeon.pointer.set(Mouse.x - dungeon.cam.x,Mouse.y - dungeon.cam.y);
+            dungeon.pointer.set(Mouse.x - dungeon.cam.x, Mouse.y - dungeon.cam.y);
         }
     }
 

@@ -25,6 +25,8 @@ public abstract class Item implements Serializable {
     public Item(String name, int level) {
         this.name = name;
         lvl = level;
+        sprite = new Sprite("items/" + name);
+        icon = new Image("items/" + name + "/icon.png");
     }
 
     public abstract void modificate();

@@ -220,11 +220,11 @@ public class Dungeon extends Scene implements Serializable {
             }
         }
     }
-    
+
     @Override
     public void tick() {
         try {
-
+            Declaration.inventory.tick();
             for (Entity e : getEntities()) {
                 try {
                     e.tick();
@@ -293,6 +293,10 @@ public class Dungeon extends Scene implements Serializable {
                     cameraTarget = getRaiders()[target];
                 }
             }
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
+            if (pressed) {
+                currentScene = Declaration.inventory;
+            }
         } else {
             pressed = true;
         }
@@ -346,6 +350,7 @@ public class Dungeon extends Scene implements Serializable {
             entities.add(new Mob(p.x, p.y));
         }
         entities.add(player);
+        Declaration.inventory.player = player;
     }
 
     @Override
