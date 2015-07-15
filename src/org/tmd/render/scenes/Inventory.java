@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.tmd.environment.ItemType;
-import static org.tmd.environment.ItemType.*;
 import org.tmd.environment.entities.Item;
 import org.tmd.environment.entities.Player;
 import org.tmd.main.Declaration;
@@ -76,18 +75,6 @@ public class Inventory extends Scene {
         }
         gui.addAll(slots);
     }
-
-    @Override
-    public void tick() {
-        for (int i = 0; i < 4; i++) {
-            Declaration.dungeon.player.weared[i] = slots.get(i).item;
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-            currentScene = Declaration.dungeon;
-        }
-    }
-
     @Override
     public void handle() {
 
@@ -99,8 +86,20 @@ public class Inventory extends Scene {
         Main.g.setColor(new Color(0, 0, 0, 150).slickColor());
         Main.g.fillRect(0, 0, Display.getWidth(), Display.getHeight());
         super.render();
+        for (int i = 0; i < 4; i++) {
+            Declaration.dungeon.player.weared[i] = slots.get(i).item;
+        }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+            currentScene = Declaration.dungeon;
+        }
+    }
+    
+    @Override
+    public void renderGUI() {
+        super.renderGUI();
         if (Slot.inHand != null) {
-            Slot.inHand.renderIcon(Mouse.x, Display.getHeight() - Mouse.y);
+            Slot.inHand.renderIcon(Mouse.x, Mouse.y);
         }
     }
 }

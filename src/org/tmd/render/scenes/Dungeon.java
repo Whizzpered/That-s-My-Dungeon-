@@ -351,7 +351,6 @@ public class Dungeon extends Scene implements Serializable {
         }
         entities.add(player);
         Declaration.inventory.player = player;
-        Declaration.inventory.init();
     }
 
     @Override
