@@ -69,6 +69,10 @@ public class Inventory extends Scene {
                 }
             };
         
+        for (int i = 0; i < 4; i++) {
+            slots.get(i).item.type = ItemType.values()[i];
+        }
+        
         for (int i = 0; i < 8; i++) {
             slots.add(new Slot(Display.getWidth() / 2 + 96 * i - 96 * 4, 32));
             slots.add(new Slot(Display.getWidth() / 2 + 96 * i - 96 * 4, 128));

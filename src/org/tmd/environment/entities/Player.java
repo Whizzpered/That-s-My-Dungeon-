@@ -6,8 +6,10 @@
 package org.tmd.environment.entities;
 
 import org.tmd.environment.particles.LevelUp;
+import org.tmd.main.Declaration;
 import org.tmd.render.Image;
 import org.tmd.render.gui.Mouse;
+import org.tmd.render.scenes.Inventory;
 
 /**
  *
@@ -19,6 +21,7 @@ public class Player extends Entity {
 
     public int souls, neededSouls = 12, money;
     public Item[] weared = new Item[4];
+    Inventory inventory = Declaration.inventory;
 
     public Player(double x, double y) {
         super(x, y);
