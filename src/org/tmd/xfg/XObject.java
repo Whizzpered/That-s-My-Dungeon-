@@ -134,10 +134,13 @@ public class XObject extends XFG {
 
     protected String toString(int depth) {
         if (size() == 0) {
-            if (name != null) {
-                return depthString(depth) + name + " = " + normalString(value.toString());
+            if (value != null) {
+                if (name != null) {
+                    return depthString(depth) + name + " = " + normalString(value.toString());
+                }
+                return depthString(depth) + normalString(value.toString());
             }
-            return depthString(depth) + normalString(value.toString());
+            return "";
         } else {
             String xfgNotation = name + "{\n";
             for (int i = 0; i < size(); i++) {

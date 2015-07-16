@@ -75,6 +75,17 @@ public class XFG extends ArrayList<XObject> {
         parse(xfgNotation);
     }
 
+    public boolean contains(String name) {
+        for (int i = 0; i < size(); i++) {
+            if (get(i).name != null) {
+                if (get(i).name.equals(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public XObject get(String name) {
         for (int i = 0; i < size(); i++) {
             if (get(i).name != null) {
@@ -116,12 +127,15 @@ public class XFG extends ArrayList<XObject> {
                     if (c[caret] == '}') {
                         blockDepth--;
                         if (blockDepth == 0) {
-                            add(new XObject(name, value));
+                            System.out.println("XObject!");
+                            add(new XObject(name.trim(), value));
                             readName = true;
                             name = new String();
                             value = new String();
                             continue;
                         }
+                    } else if (c[caret] == '{') {
+                        blockDepth++;
                     }
                     value += c[caret];
                     if (blockReadName && c[caret] == '=' && c[caret - 1] != '\\') {
