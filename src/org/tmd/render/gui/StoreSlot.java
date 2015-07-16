@@ -39,7 +39,7 @@ public class StoreSlot extends Slot {
         super.render();
         if (item != null) {
             Main.g.setColor(Color.white);
-            Main.defaultFont.drawString(item.price + "", (int) (x - 4 + width / 2), (int) (y + 32), org.tmd.render.Color.white);
+            Main.defaultFont.drawString(item.price + "", (int) (getX() - 4 + width / 2), (int) (getY() + 32), org.tmd.render.Color.white);
         }
     }
 }

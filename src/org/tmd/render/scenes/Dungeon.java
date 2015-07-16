@@ -42,6 +42,7 @@ import org.tmd.render.gui.Panel;
 public class Dungeon extends Scene implements Serializable {
 
     public ArrayList<Entity> entities = new ArrayList<Entity>();
+    public Inventory inventory;
     public Point cam = new Point(), floor = new Point();
     public Pointer pointer = new Pointer();
     public Entity cameraTarget;
@@ -347,6 +348,8 @@ public class Dungeon extends Scene implements Serializable {
 
     @Override
     public void init() {
+        inventory = Declaration.inventory = new Inventory();
+        Declaration.shop = new Shop();
         gui.add(miniMap);
         gui.add(statsPanel);
         cameraTarget = underMouse = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
@@ -355,6 +358,11 @@ public class Dungeon extends Scene implements Serializable {
         }
         entities.add(player);
         Declaration.inventory.player = player;
+    }
+    
+    public void deserialized(){
+        Declaration.inventory = inventory;
+        Declaration.shop = new Shop();
     }
 
     @Override

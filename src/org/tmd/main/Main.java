@@ -209,6 +209,7 @@ public class Main {
             try {
                 byte[] b = Serialization.readFromFile(dung);
                 Declaration.dungeon = (Dungeon) Serialization.deserialize(b);
+                Declaration.dungeon.deserialized();
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
