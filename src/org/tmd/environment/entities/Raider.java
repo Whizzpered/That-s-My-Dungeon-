@@ -47,7 +47,7 @@ public class Raider extends Entity {
                     weared[i] = new Item("hat", 1) {
 
                         @Override
-                        public void modificate() {
+                        public void modificate(Entity cr) {
                             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                         }
                     };
@@ -55,7 +55,7 @@ public class Raider extends Entity {
                     weared[i] = new Item("arms", 1) {
 
                         @Override
-                        public void modificate() {
+                        public void modificate(Entity cr) {
                             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                         }
                     };
@@ -63,7 +63,7 @@ public class Raider extends Entity {
                     weared[i] = new Item("braces", 1) {
 
                         @Override
-                        public void modificate() {
+                        public void modificate(Entity cr) {
                             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                         }
                     };
@@ -71,7 +71,7 @@ public class Raider extends Entity {
                     weared[i] = new Item("pants", 1) {
 
                         @Override
-                        public void modificate() {
+                        public void modificate(Entity cr) {
                             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                         }
                     };

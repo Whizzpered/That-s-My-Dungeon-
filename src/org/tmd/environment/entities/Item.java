@@ -29,7 +29,7 @@ public abstract class Item extends Coin implements Serializable {
         icon = new Image("items/" + name + "/icon.png");
     }
 
-    public abstract void modificate();
+    public abstract void modificate(Entity cr);
     
     public void drop(Entity owner){
         this.x = owner.x;
