@@ -8,6 +8,7 @@ package org.tmd.environment.entities;
 import static java.lang.Math.*;
 import org.tmd.environment.Condition;
 import static org.tmd.environment.Condition.*;
+import org.tmd.main.Main;
 import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
@@ -39,6 +40,44 @@ public class Raider extends Entity {
         headType = 0;
         clickable = true;
         distance = 400;
+        for (int i = 0; i < 4; i++) {
+            if (Main.RANDOM.nextBoolean()) {
+                int type = Main.RANDOM.nextInt(4);
+                if (type == 0) {
+                    weared[i] = new Item("hat", 1) {
+
+                        @Override
+                        public void modificate() {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+                    };
+                } else if (type == 1) {
+                    weared[i] = new Item("arms", 1) {
+
+                        @Override
+                        public void modificate() {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+                    };
+                } else if (type == 2) {
+                    weared[i] = new Item("braces", 1) {
+
+                        @Override
+                        public void modificate() {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+                    };
+                } else if (type == 3) {
+                    weared[i] = new Item("pants", 1) {
+
+                        @Override
+                        public void modificate() {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+                    };
+                }
+            }
+        }
     }
 
     @Override
@@ -123,6 +162,10 @@ public class Raider extends Entity {
             hasMoney = false;
             for (int i = 0; i < 4; i++) {
                 dungeon.entities.add(new Coin(x, y));
+                if (weared[i] != null) {
+                    weared[i].drop(this);
+                    weared[i] = null;
+                }
             }
         }
         deathtimer--;
