@@ -74,7 +74,12 @@ public class Shop extends Inventory {
         };
         storeSlots.get(3).item.price = Declaration.dungeon.wave * 2;
         gui.addAll(Declaration.inventory.gui);
-        slots = Declaration.inventory.slots;
         gui.addAll(storeSlots);
+    }
+
+    @Override
+    public void render() {
+        slots = Declaration.inventory.slots;
+        super.render(); 
     }
 }

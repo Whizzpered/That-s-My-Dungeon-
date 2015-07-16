@@ -132,7 +132,7 @@ public class Dungeon extends Scene implements Serializable {
                         }
                         Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
                         end.draw((int) d + 18, (int) getY() + 36);
-                        Frame.glassFrame.render(16, getY() + 32, 224, 32);
+                        Frame.glassFrame.render(16, getY() + 32, 224, 33);
                     } else {
                         String of = GameLocale.get("invulnerable");
                         Main.defaultFont.drawStringAtCenter(of, 128, (int) getY() + 26, Color.black);
@@ -164,7 +164,7 @@ public class Dungeon extends Scene implements Serializable {
                     }
                     Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
                     end.draw((int) d + 18, (int) getY() + 36);
-                    Frame.glassFrame.render(16, getY() + 32, 224, 32);
+                    Frame.glassFrame.render(16, getY() + 32, 224, 33);
                 }
 
             };
@@ -349,7 +349,9 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void init() {
         inventory = Declaration.inventory = new Inventory();
+        inventory.init();
         Declaration.shop = new Shop();
+        Declaration.shop.init();
         gui.add(miniMap);
         gui.add(statsPanel);
         cameraTarget = underMouse = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
