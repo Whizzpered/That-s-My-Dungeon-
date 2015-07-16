@@ -51,7 +51,7 @@ public class Dungeon extends Scene implements Serializable {
     public Entity underMouse;
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
     public Particle[] particles = new Particle[256];
-    private int longtim = 0, wave = 0, target = 0;
+    public int longtim = 0, wave = 0, target = 0;
     private boolean wavetimer;
     private Image shadow = new Image("gui/shadow.png");
 
@@ -296,6 +296,10 @@ public class Dungeon extends Scene implements Serializable {
         } else if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
             if (pressed) {
                 currentScene = Declaration.inventory;
+            }
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+            if (pressed) {
+                currentScene = Declaration.shop;
             }
         } else {
             pressed = true;

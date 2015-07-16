@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.tmd.environment.ItemType;
+import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Item;
 import org.tmd.environment.entities.Player;
 import org.tmd.main.Declaration;
@@ -40,45 +41,48 @@ public class Inventory extends Scene {
             });
             slots.get(slots.size() - 1).type = ItemType.values()[i];
         }
-        
+
         slots.get(0).item = new Item("hat", 1) {
-                @Override
-                public void modificate() {
-                    
-                }
-            };
-        
+            @Override
+            public void modificate(Entity ent) {
+
+            }
+        };
+
         slots.get(1).item = new Item("arms", 1) {
-                @Override
-                public void modificate() {
-                    
-                }
-            };
-        
+            @Override
+            public void modificate(Entity ent) {
+
+            }
+        };
+
         slots.get(2).item = new Item("braces", 1) {
-                @Override
-                public void modificate() {
-                    
-                }
-            };
-        
+            @Override
+            public void modificate(Entity ent) {
+
+            }
+        };
+
         slots.get(3).item = new Item("pants", 1) {
-                @Override
-                public void modificate() {
-                    
-                }
-            };
-        
+            @Override
+            public void modificate(Entity ent) {
+
+            }
+        };
+
         for (int i = 0; i < 4; i++) {
             slots.get(i).item.type = ItemType.values()[i];
         }
-        
-        for (int i = 0; i < 8; i++) {
-            slots.add(new Slot(Display.getWidth() / 2 + 96 * i - 96 * 4, 32));
-            slots.add(new Slot(Display.getWidth() / 2 + 96 * i - 96 * 4, 128));
+
+        for (int i = 0; i < 4; i++) {
+            slots.add(new Slot(Display.getWidth() / 2 + 96 * i + 128, 32));
+            slots.add(new Slot(Display.getWidth() / 2 + 96 * i + 128, 128));
+            slots.add(new Slot(Display.getWidth() / 2 + 96 * i + 128, 224));
+            slots.add(new Slot(Display.getWidth() / 2 + 96 * i + 128, 320));
         }
         gui.addAll(slots);
     }
+
     @Override
     public void handle() {
 
@@ -98,7 +102,7 @@ public class Inventory extends Scene {
             currentScene = Declaration.dungeon;
         }
     }
-    
+
     @Override
     public void renderGUI() {
         super.renderGUI();

@@ -16,7 +16,7 @@ import org.tmd.render.Sprite;
  */
 public abstract class Item implements Serializable {
 
-    public int lvl;
+    public int lvl, price;
     public ItemType type;
     public Sprite sprite;
     public Image icon;
@@ -29,7 +29,7 @@ public abstract class Item implements Serializable {
         icon = new Image("items/" + name + "/icon.png");
     }
 
-    public abstract void modificate();
+    public abstract void modificate(Entity cr);
 
     public void render(Entity owner) {
         sprite.render(owner.side, owner.x, owner.y);

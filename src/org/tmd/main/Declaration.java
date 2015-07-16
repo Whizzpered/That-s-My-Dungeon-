@@ -27,6 +27,7 @@ public class Declaration {
     public static Dungeon dungeon = null;
     public static Inventory inventory = new Inventory();
     public static Dialog dialog = new Dialog();
+    public static Shop shop = new Shop();
 
     /*
      *   Blocks:
