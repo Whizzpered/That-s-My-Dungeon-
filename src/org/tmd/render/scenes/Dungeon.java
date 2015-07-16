@@ -363,6 +363,7 @@ public class Dungeon extends Scene implements Serializable {
     
     public void deserialized(){
         Declaration.inventory = inventory;
+        inventory.init();
         Declaration.shop = new Shop();
     }
 
