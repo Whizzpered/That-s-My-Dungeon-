@@ -30,6 +30,7 @@ public class Inventory extends Scene {
 
     @Override
     public void init() {
+        loaded = true;
         for (int i = 0; i < 4; i++) {
             slots.add(new Slot(96 * i - 144, -16) {
 

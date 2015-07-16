@@ -351,7 +351,6 @@ public class Dungeon extends Scene implements Serializable {
         inventory = Declaration.inventory = new Inventory();
         inventory.init();
         Declaration.shop = new Shop();
-        Declaration.shop.init();
         gui.add(miniMap);
         gui.add(statsPanel);
         cameraTarget = underMouse = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);

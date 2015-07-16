@@ -31,6 +31,7 @@ public class Shop extends Inventory {
 
     @Override
     public void init() {
+        loaded = true;
         for (int i = 0; i < 4; i++) {
             storeSlots.add(new StoreSlot(-(64 + 96 * i), 32) {
 
