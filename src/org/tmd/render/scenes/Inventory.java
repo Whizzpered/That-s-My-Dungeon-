@@ -15,6 +15,7 @@ import org.tmd.environment.entities.Player;
 import org.tmd.main.Declaration;
 import org.tmd.main.Main;
 import org.tmd.render.Color;
+import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Mouse;
 import org.tmd.render.gui.Slot;
 
@@ -29,15 +30,16 @@ public class Inventory extends Scene {
 
     @Override
     public void init() {
+        loaded = true;
         for (int i = 0; i < 4; i++) {
-            slots.add(new Slot(Display.getWidth() / 2 + 96 * i - 96 * 2, 96) {
+            slots.add(new Slot(96 * i - 144, -16) {
 
                 @Override
-                public void render() {
-                    y = Display.getHeight() - 32 - 64;
-                    super.render();
+                public void init() {
+                    horisontalAlign = Align.CENTER;
+                    verticalAlign = Align.DOWN;
                 }
-
+                
             });
             slots.get(slots.size() - 1).type = ItemType.values()[i];
         }
@@ -75,10 +77,38 @@ public class Inventory extends Scene {
         }
 
         for (int i = 0; i < 4; i++) {
-            slots.add(new Slot(Display.getWidth() / 2 + 96 * i + 128, 32));
-            slots.add(new Slot(Display.getWidth() / 2 + 96 * i + 128, 128));
-            slots.add(new Slot(Display.getWidth() / 2 + 96 * i + 128, 224));
-            slots.add(new Slot(Display.getWidth() / 2 + 96 * i + 128, 320));
+            slots.add(new Slot(64 + 96 * i, 32){
+
+                @Override
+                public void init() {
+                    horisontalAlign = Align.CENTER;
+                }
+                
+            });
+            slots.add(new Slot(64 + 96 * i, 128){
+
+                @Override
+                public void init() {
+                    horisontalAlign = Align.CENTER;
+                }
+                
+            });
+            slots.add(new Slot(64 + 96 * i, 224){
+
+                @Override
+                public void init() {
+                    horisontalAlign = Align.CENTER;
+                }
+                
+            });
+            slots.add(new Slot(64 + 96 * i, 320){
+
+                @Override
+                public void init() {
+                    horisontalAlign = Align.CENTER;
+                }
+                
+            });
         }
         gui.addAll(slots);
     }
@@ -107,7 +137,7 @@ public class Inventory extends Scene {
     public void renderGUI() {
         super.renderGUI();
         if (Slot.inHand != null) {
-            Slot.inHand.renderIcon(Mouse.x, Mouse.y);
+            Slot.inHand.renderIcon(Mouse.x - 32, Mouse.y - 32);
         }
     }
 }

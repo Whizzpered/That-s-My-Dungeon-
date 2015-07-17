@@ -21,7 +21,7 @@ public class Slot extends Button {
     public ItemType type;
 
     public Slot(int x, int y) {
-        super("", x, y, 64, 64);
+        super("", x, y, 80, 80);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Slot extends Button {
     public void render() {
         Frame.defaultFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
         if (item != null) {
-            item.renderIcon(x + 4, y + 4);
+            item.renderIcon(getX()+8, getY()+8);
         }
     }
 }
