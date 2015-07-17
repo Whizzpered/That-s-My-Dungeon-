@@ -12,6 +12,7 @@ import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.environment.particles.BloodParticle;
+import org.tmd.environment.particles.FloatingText;
 import org.tmd.environment.particles.HeadParticle;
 import org.tmd.environment.particles.Hit;
 import org.tmd.main.Counter;
@@ -392,6 +393,7 @@ public class Entity implements Comparable<Entity>, Serializable {
         if (Main.RANDOM.nextBoolean()) {
             dungeon.addParticle(new BloodParticle(x, y - 35));
         }
+        dungeon.addParticle(new FloatingText((int)x, (int)y - 35, "- " +damage, Color.red));
         if (hp < 0) {
             if (headType >= 0 && Main.RANDOM.nextBoolean()) {
                 dungeon.addParticle(new HeadParticle(headType, x, y - 75));
