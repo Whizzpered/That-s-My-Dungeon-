@@ -5,21 +5,31 @@
  */
 package org.tmd.render.gui;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Scanner;
+import org.tmd.environment.entities.Entity;
 
 /**
  *
  * @author Whizzpered
  */
 public class Chat {
-    
-    public ArrayList<String> replicks = new ArrayList<String>();
+
+    public String[] nicknames = new String[10], replicks = new String[10];
     public String[] dialog, rage;
-    
-    public void init() {
-       
+
+    public void addMessage(Entity ent) {
+        if (ent == null || ent.name == null) {
+            return;
+        }
+        for (int i = 8; i > 0; i--) {
+            nicknames[i + 1] = nicknames[i];
+            replicks[i + 1] = replicks[i];
+        }
+        nicknames[0] = ent.name;
+        replicks[0] = "FUCK YOUR MOM";
     }
-    
+
+    public void render() {
+        
+    }
+
 }
