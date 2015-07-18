@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.tmd.environment;
+package org.tmd.environment.entities.items;
 
 /**
  *
  * @author Whizzpered
  */
-public enum ItemType {
-    HEAD,
-    CHEST,
-    ARMS,
-    LEGS
+public enum Modificator {
+    HP,
+    ARMOR,
+    DAMAGE,
+    ATTACKSPEED,
+    MOVESPEED
 }

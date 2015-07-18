@@ -5,8 +5,8 @@
  */
 package org.tmd.render.gui;
 
-import org.tmd.environment.ItemType;
-import org.tmd.environment.entities.Item;
+import org.tmd.environment.entities.items.ItemType;
+import org.tmd.environment.entities.items.Item;
 import org.tmd.main.Declaration;
 
 /**

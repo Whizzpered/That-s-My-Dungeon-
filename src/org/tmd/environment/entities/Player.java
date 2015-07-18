@@ -5,6 +5,7 @@
  */
 package org.tmd.environment.entities;
 
+import org.tmd.environment.entities.items.Item;
 import org.tmd.environment.particles.LevelUp;
 import org.tmd.main.Declaration;
 import org.tmd.render.Image;

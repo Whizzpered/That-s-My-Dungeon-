@@ -5,6 +5,7 @@
  */
 package org.tmd.environment.entities;
 
+import org.tmd.environment.entities.items.Item;
 import static java.lang.Math.*;
 import org.tmd.environment.Condition;
 import static org.tmd.environment.Condition.*;

@@ -1,10 +1,12 @@
 
-package org.tmd.environment.entities;
+package org.tmd.environment.entities.items;
 
 import java.io.Serializable;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
-import org.tmd.environment.ItemType;
+import java.util.ArrayList;
+import org.tmd.environment.entities.Coin;
+import org.tmd.environment.entities.Entity;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 
@@ -20,6 +22,7 @@ public abstract class Item extends Coin implements Serializable {
     public Image icon;
     public String name;
     public static Image glow = new Image("effects/light.png");
+    public ArrayList<Modificator> modificators = new ArrayList<Modificator>();
     
     public Item(String name, int level) {
         super(0, 0);
@@ -28,7 +31,7 @@ public abstract class Item extends Coin implements Serializable {
         sprite = new Sprite("items/" + name);
         icon = new Image("items/" + name + "/icon.png");
     }
-
+        
     public abstract void modificate(Entity cr);
     
     public void drop(Entity owner){

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.tmd.environment.entities.Entity;
-import org.tmd.environment.entities.Item;
+import org.tmd.environment.entities.items.Item;
 import org.tmd.main.Declaration;
 import org.tmd.main.Main;
 import org.tmd.render.Color;
