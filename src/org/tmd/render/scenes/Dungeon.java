@@ -29,6 +29,7 @@ import org.tmd.main.Main;
 import org.tmd.render.Image;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
+import org.tmd.render.gui.Chat;
 import org.tmd.render.gui.Frame;
 import org.tmd.render.gui.Label;
 import org.tmd.render.gui.MiniMap;
@@ -46,6 +47,15 @@ public class Dungeon extends Scene implements Serializable {
     public Point cam = new Point(), floor = new Point();
     public Pointer pointer = new Pointer();
     public Entity cameraTarget;
+    public Chat chat = new Chat(0, -276, 512, 256){
+
+        @Override
+        public void init() {
+            horisontalAlign = Align.RIGHT;
+            verticalAlign = Align.DOWN;
+        }
+        
+    };
     public Point playerRespawnPoint, raidersRespawnPoint;
     public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
     public Player player;
@@ -352,6 +362,7 @@ public class Dungeon extends Scene implements Serializable {
         inventory.init();
         Declaration.shop = new Shop();
         gui.add(miniMap);
+        gui.add(chat);
         gui.add(statsPanel);
         cameraTarget = underMouse = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         for (Point p : minionsRespawnPoints) {

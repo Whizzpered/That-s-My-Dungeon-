@@ -13,6 +13,7 @@ import org.tmd.main.Main;
 import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
+import org.tmd.render.gui.Chat;
 
 /**
  *
@@ -112,6 +113,7 @@ public class Raider extends Entity {
                 condition = GOING;
             }
             counter.tick();
+            dungeon.chat.addMessage(this, Chat.messageType.TYPE_JOINED);
         }
     }
 
