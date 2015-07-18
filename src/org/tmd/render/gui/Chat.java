@@ -32,6 +32,7 @@ public class Chat extends Element {
         try {
             this.replicList = new XFG(new File("locale/" + locale + "/replics.xfg"));
         } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
             try {
                 this.replicList = new XFG(new File("locale/" + "en_US" + "/replics.xfg"));
             } catch (FileNotFoundException ex2) {
@@ -52,7 +53,6 @@ public class Chat extends Element {
     }
 
     public void addMessage(Entity ent, messageType type) {
-        System.out.println("addMessage");
         if (ent == null || ent.nickmame == null) {
             return;
         }
@@ -61,14 +61,16 @@ public class Chat extends Element {
             replics[i + 1] = replics[i];
         }
         String l = GameLocale.get("locale_name");
+        System.out.println(l);
+        System.out.println(this.locale);
         if (!l.equals(this.locale)) {
             this.locale = l;
             try {
                 this.replicList = new XFG(new File("locale/" + l + "/replics.xfg"));
             } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
                 try {
                     this.replicList = new XFG(new File("locale/" + "en_US" + "/replics.xfg"));
-
                 } catch (FileNotFoundException ex2) {
                     Logger.getLogger(Chat.class
                             .getName()).log(Level.SEVERE, null, ex);
