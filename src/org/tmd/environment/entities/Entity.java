@@ -54,6 +54,7 @@ public class Entity implements Comparable<Entity>, Serializable {
     public int level = 0;
     public boolean clickable, entried, standing;
     protected Counter counter = new Counter(500);
+    public String nickmame = "n00b";
 
     public String getName() {
         return GameLocale.get(name);

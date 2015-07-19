@@ -1,0 +1,42 @@
+raider_joined{
+		сем привет
+		шалом
+		ку
+		хай
+		ну чо завалим п[censored]а?
+		Всем привет.
+    }
+raider_going{
+		ow, i saw monsters!
+		mom, i dont want to eat!!!
+		haha, i drank...
+		we're going, "boss"!!!
+	}
+raider_battle{
+		focus him!
+		dont agro the mobs!
+		Later, mom!!!
+	}
+raider_heal{
+		i need heal!
+		heal me
+		fuck, i'm dying!
+	}
+raider_rise{
+		wake me up!
+		rize me!
+		i dead!!!
+		oh, come on...
+	}
+raider_notanks{
+		STUPID NOOB TANKS
+		HOW DID THEY QUIT????
+		OMG...
+		MAMA, GIVE ME SOME PIZZA PLS, THEY LEAVE
+	}
+raider_dead{
+		GGWP, noobs...
+		JUST.... HOW I DIED????
+		WHERE WAS A REVIVE, STUPID PRIEST???
+		WHERE WAS A LASTSHOT, STUPID HUNT???
+	}
