@@ -394,7 +394,7 @@ public class Entity implements Comparable<Entity>, Serializable {
         if (Main.RANDOM.nextBoolean()) {
             dungeon.addParticle(new BloodParticle(x, y - 35));
         }
-        dungeon.addParticle(new FloatingText((int)x, (int)y - 35, "- " +damage, Color.red));
+        dungeon.addParticle(new FloatingText((int)x, (int)y - 35, "- " +(int)damage, Color.red));
         if (hp < 0) {
             if (headType >= 0 && Main.RANDOM.nextBoolean()) {
                 dungeon.addParticle(new HeadParticle(headType, x, y - 75));
