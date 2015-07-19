@@ -5,6 +5,7 @@
  */
 package org.tmd.main;
 
+import org.tmd.environment.AreaBlock;
 import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
@@ -54,7 +55,6 @@ public class Declaration {
             dungeon.minionsRespawnPoints.add(new Point(x, y));
         }
     };
-
     public static Block blockGate = new Block(7, '!', new Color(255, 255, 255, 100), "floor.png", false, false, false) {
         @Override
         public void parserAction(Dungeon dungeon, double x, double y) {
@@ -63,10 +63,8 @@ public class Declaration {
             dungeon.entities.add(gate);
         }
     };
-
     public static Block blockRestZone = new Block(8, '+', new Color(255, 255, 255, 100), "floor.png", false, false, true);
     public static Block blockEnemyZone = new Block(9, '-', new Color(255, 255, 255, 100), "floor.png", false, true, false);
-
     public static Block blockSeller = new Block(10, '$', new Color(255, 255, 255, 100), "floor.png", false, false, true) {
 
         @Override
@@ -77,7 +75,6 @@ public class Declaration {
         }
 
     };
-
     public static Block blockMaster = new Block(11, 'M', new Color(255, 255, 255, 100), "floor.png", false, false, true) {
 
         @Override
@@ -89,6 +86,6 @@ public class Declaration {
 
     };
     public static Block blockLava = new WaterBlock(12, '^', "lava.png", "border.png", "border_angle.png", "border_angle_inside.png", true, false, false);
-    
+    public static Block grass = new AreaBlock(13, '.', new Color(255, 255, 255, 100), "grass", false, false);
 
 }

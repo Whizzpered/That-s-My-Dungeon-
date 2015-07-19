@@ -24,18 +24,18 @@ public class Block {
     public final char symbol;
     public final Image wall;
     public final Image top;
-    public final Image border;
-    public final Image borderAngle;
-    public final Image borderAngleInside;
+    public Image border;
+    public Image borderAngle;
+    public Image borderAngleInside;
     public final boolean solid;
     public final boolean enemyZone;
     public final boolean restZone;
     public final Color color;
 
-    private static boolean r(int a, int b) {
+    protected static boolean r(int a, int b) {
         return (a & b) != b;
     }
-
+    
     public Block(int index, char symbol, Color color, String wall, boolean solid, boolean enemyZone, boolean restZone) {
         this.index = index;
         this.symbol = symbol;
