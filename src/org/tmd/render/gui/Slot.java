@@ -60,7 +60,7 @@ public class Slot extends Button {
         if (item != null) {
             item.renderIcon(getX() + 8, getY() + 8);
             if (descrip) {
-                Scene.currentScene.currentTip = new ToolTip(GameLocale.get("fuck") + '\n' + GameLocale.get("hello"));
+                Scene.currentScene.currentTip = new ToolTip(GameLocale.get("fuck") + '\n'+'\n'+'\n'+'\n' + GameLocale.get("hello"));
             }
         }
     }
