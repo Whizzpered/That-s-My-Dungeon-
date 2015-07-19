@@ -20,7 +20,7 @@ public class Chat {
         if (ent == null || ent.name == null) {
             return;
         }
-        for (int i = 8; i > 0; i--) {
+        for (int i = 8; i >= 0; i--) {
             nicknames[i + 1] = nicknames[i];
             replicks[i + 1] = replicks[i];
         }
