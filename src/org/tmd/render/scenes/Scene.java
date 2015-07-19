@@ -8,15 +8,16 @@ package org.tmd.render.scenes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.tmd.render.gui.Element;
+import org.tmd.render.gui.ToolTip;
 
 /**
  *
  * @author yew_mentzaki
  */
-public class Scene implements Serializable{
+public class Scene implements Serializable {
 
     public static Scene currentScene;
-
+    public ToolTip currentTip;
     public ArrayList<Element> gui = new ArrayList<Element>();
     protected boolean loaded;
     public boolean pressed;

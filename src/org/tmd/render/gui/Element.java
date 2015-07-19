@@ -7,6 +7,8 @@ package org.tmd.render.gui;
 
 import java.io.Serializable;
 import org.lwjgl.opengl.Display;
+import org.tmd.main.Declaration;
+import org.tmd.render.scenes.Scene;
 
 /**
  *
@@ -25,7 +27,7 @@ public class Element implements Serializable {
     public Element parent = null;
     public Align horisontalAlign = Align.NONE, verticalAlign = Align.NONE;
     public double x, y, width, height;
-    public boolean visible = true, enabled = true;
+    public boolean visible = true, enabled = true, descrip = false;
     public boolean hover = false, click = false;
 
     public double getX() {
@@ -47,9 +49,9 @@ public class Element implements Serializable {
         }
         return x;
     }
-    
-    public void init(){
-        
+
+    public void init() {
+
     }
 
     public double getY() {
@@ -93,11 +95,18 @@ public class Element implements Serializable {
             if (x <= Mouse.x && y <= Mouse.y && x + width > Mouse.x && y + height > Mouse.y) {
                 hover();
                 hover = true;
+                if (Declaration.settings.tips) {
+                    descrip = true;
+                }
                 if (enabled && Mouse.leftReleased) {
                     click();
                     click = true;
                 }
                 return true;
+            }
+            if (descrip) {
+                descrip = false;
+                Scene.currentScene.currentTip = null;
             }
         }
         return false;

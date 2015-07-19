@@ -87,5 +87,4 @@ public class Declaration {
     };
     public static Block blockLava = new WaterBlock(12, '^', "lava.png", "border.png", "border_angle.png", "border_angle_inside.png", true, false, false);
     public static Block grass = new AreaBlock(13, '.', new Color(255, 255, 255, 100), "grass", false, false);
-
 }

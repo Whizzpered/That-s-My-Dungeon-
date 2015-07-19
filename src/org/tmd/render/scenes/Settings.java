@@ -22,6 +22,7 @@ public class Settings extends Scene {
 
     double a;
     Image background = new Image("gui/background.jpg");
+    public boolean tips = true;
 
     public ArrayList<ValueButton> buttons() {
         ArrayList<ValueButton> u = new ArrayList<ValueButton>();
@@ -135,6 +136,14 @@ public class Settings extends Scene {
             Main.g.fillRect(0, 0, Display.getWidth(), Display.getHeight());
         } else {
             background.draw(0, 0, Display.getWidth(), Display.getHeight());
+        }
+    }
+    
+    @Override
+    public void renderGUI() {
+        super.renderGUI();
+        if (currentTip != null) {
+            currentTip.render();
         }
     }
 

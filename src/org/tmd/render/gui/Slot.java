@@ -9,6 +9,7 @@ import org.lwjgl.opengl.Display;
 import org.tmd.environment.entities.items.ItemType;
 import org.tmd.environment.entities.items.Item;
 import org.tmd.main.Declaration;
+import org.tmd.render.scenes.Scene;
 
 /**
  *
@@ -17,7 +18,7 @@ import org.tmd.main.Declaration;
 public class Slot extends Button {
 
     public static Item inHand;
-    public boolean rb, descrip;
+    public boolean rb;
     public Item item;
     public ItemType type;
 
@@ -27,7 +28,7 @@ public class Slot extends Button {
 
     @Override
     public void click() {
-        descrip = false;
+        descrip = hover;
         if (Declaration.inventory.slots.indexOf(this) < 4 && inHand != null) {
             if (type != null && inHand.type == type) {
                 Item i = item;
@@ -44,16 +45,12 @@ public class Slot extends Button {
 
     @Override
     public boolean handle() {
-        if (super.handle()) {
-            descrip = true;
-        } else {
-            descrip = false;
-        }
         return super.handle();
     }
 
     public void rclick() {
         item = null;
+        descrip = hover;
     }
 
     @Override
@@ -62,8 +59,7 @@ public class Slot extends Button {
         if (item != null) {
             item.renderIcon(getX() + 8, getY() + 8);
             if (descrip) {
-                Frame.defaultFrame.render((Mouse.x >= Display.getHeight() / 2 ? Mouse.x : Mouse.x - 200),
-                        (Mouse.y <= Display.getHeight() / 2 ? Mouse.y : Mouse.y - 200), 200, 200);
+                Scene.currentScene.currentTip = new ToolTip("FUCK YOUR MOM"+'\n'+"HAHAHA");
             }
         }
     }

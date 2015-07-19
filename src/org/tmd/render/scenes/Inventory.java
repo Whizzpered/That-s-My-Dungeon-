@@ -139,5 +139,8 @@ public class Inventory extends Scene {
         if (Slot.inHand != null) {
             Slot.inHand.renderIcon(Mouse.x - 32, Mouse.y - 32);
         }
+        if (currentTip != null) {
+            currentTip.render();
+        }
     }
 }

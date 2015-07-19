@@ -5,6 +5,7 @@
  */
 package org.tmd.main;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -130,7 +131,23 @@ public final class FontRender {
         }
         return width;
     }
-    
+
+    public Dimension getSize(String text) {
+        Dimension dim = new Dimension();
+        int h = 2;
+        dim.width = getWidth(text);
+        for (char c : text.toCharArray()) {
+            Texture t = letter(c);
+            if (t == null) {
+                continue;
+            }
+            if (c == '\n') {
+                h++;
+            }
+        }
+        dim.height = h * f.getSize();
+        return dim;
+    }
 
     public void drawString(String text, int x, int y, Color color, int maxWidth, boolean WordWrap) {
         if (text == null) {
@@ -228,12 +245,12 @@ public final class FontRender {
         }
         glBindTexture(GL_TEXTURE_2D, 0);
     }
-    
-    public void drawStringRight(String text, int x, int y, Color color){
+
+    public void drawStringRight(String text, int x, int y, Color color) {
         drawString(text, x - getWidth(text), y, color);
     }
-    
-    public void drawStringAtCenter(String text, int x, int y, Color color){
+
+    public void drawStringAtCenter(String text, int x, int y, Color color) {
         drawString(text, x - getWidth(text) / 2, y, color);
     }
 }
