@@ -20,7 +20,7 @@ public class ToolTip {
 
     public ToolTip(String text) {
         width = Main.defaultFont.getSize(text).width + 20;
-        height = Main.defaultFont.getSize(text).height + 5;
+        height = Main.defaultFont.getSize(text).height + 10;
         mess = text;
     }
 
@@ -28,6 +28,6 @@ public class ToolTip {
         int x = (int) (Mouse.x >= Display.getHeight() / 2 ? Mouse.x : Mouse.x - width);
         int y = (int) (Mouse.y <= Display.getHeight() / 2 ? Mouse.y : Mouse.y - height);
         Frame.defaultFrame.render(x, y, width, height);
-        Main.defaultFont.drawString(mess, x+10, y+5, Color.white);
+        Main.defaultFont.drawString(mess, x + 10, y + 5, Color.white);
     }
 }
