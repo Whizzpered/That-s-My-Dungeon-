@@ -27,7 +27,7 @@ public class Block {
     public Image border;
     public Image borderAngle;
     public Image borderAngleInside;
-    public final boolean solid;
+    public boolean solid;
     public final boolean enemyZone;
     public final boolean restZone;
     public final Color color;

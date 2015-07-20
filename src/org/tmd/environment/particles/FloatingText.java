@@ -16,7 +16,6 @@ import org.tmd.render.scenes.Dungeon;
  */
 public class FloatingText extends Particle {
 
-    public double x, y;
     public int period;
     public Color color;
     public String message;
@@ -32,12 +31,11 @@ public class FloatingText extends Particle {
     @Override
     public void tick() {
         super.tick();
-        //y -= 0.5;
+        y -= 0.5;
     }
 
     @Override
     public void renderEntity() {
-        //color.r = timer / period;
         Main.defaultFont.drawString(message, (int) x, (int) y, color);
     }
 }
