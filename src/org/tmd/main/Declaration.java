@@ -12,6 +12,7 @@ import org.tmd.environment.Point;
 import org.tmd.environment.WaterBlock;
 import org.tmd.environment.entities.Gate;
 import org.tmd.environment.entities.NPC;
+import org.tmd.render.Image;
 import org.tmd.render.scenes.*;
 
 /**
@@ -85,17 +86,11 @@ public class Declaration {
         }
 
     };
-    public static Block blockLava = new AreaBlock(12, '^', new Color(255, 255, 255, 100), "lava", false, false){
+    public static Block blockLava = new AreaBlock(12, '^', new Color(255, 255, 255, 100), "lava", false, false) {
         @Override
         public void parserAction(Dungeon dungeon, double x, double y) {
             this.solid = true;
         }
-        
-        @Override
-        public void render(int border, int x, int y) {
-            
-            super.render(border, x, y);
-        }
     };
-    public static Block grass = new AreaBlock(13, '.', new Color(255, 255, 255, 100), "grass", false, false);
+    public static Block grass = new AreaBlock(13, '.', new Color(255, 255, 255, 100), "grass2", false, false);
 }

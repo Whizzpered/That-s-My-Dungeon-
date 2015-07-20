@@ -19,6 +19,7 @@ public class AreaBlock extends Block {
 
     public final Image left, down, right, downLeft, downRight, alone;
     Random r = new Random();
+    public float counter;
 
     public AreaBlock(int index, char symbol, Color color, String sprite, boolean enemyZone, boolean restZone) {
         super(index, symbol, color, sprite + "/center.png", false, enemyZone, restZone);
@@ -33,49 +34,53 @@ public class AreaBlock extends Block {
         alone = new Image("tiles/" + sprite + "/alone" + /*(r.nextInt(6)) +*/ ".png");
     }
 
+    public Image getSprite(Image source){
+        return source;
+    }
+    
     @Override
     public void render(int border, int x, int y) {
         if ((r(border, 1) & r(border, 2) & (r(border, 4) & r(border, 8)))) {
-            this.alone.draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
+            getSprite(alone).draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
             return;
         }
 
         if ((r(border, 1) & r(border, 2))) {
-            this.borderAngle.draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
+            getSprite(borderAngle).draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
             return;
         }
         if ((r(border, 2) & r(border, 4))) {
-            this.borderAngleInside.draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
+            getSprite(borderAngleInside).draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
             return;
         }
         if ((r(border, 4) & r(border, 8))) {
-            this.downRight.draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
+            getSprite(downRight).draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
             return;
         }
         if ((r(border, 8) & r(border, 1))) {
-            this.downLeft.draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
+            getSprite(downLeft).draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
             return;
         }
 
         if (r(border, 1)) {
-            this.left.draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
+            getSprite(left).draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
             return;
         }
         if (r(border, 2)) {
-            this.border.draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
+            getSprite(this.border).draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
             return;
         }
         if (r(border, 4)) {
-            this.right.draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
+            getSprite(right).draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
             return;
         }
         if (r(border, 8)) {
-            this.down.draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
+            getSprite(down).draw(0, 0, BLOCK_WIDTH, BLOCK_WIDTH);
             return;
         }
 
         if (wall != null) {
-            wall.draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
+            getSprite(wall).draw(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT);
         }
     }
 }
