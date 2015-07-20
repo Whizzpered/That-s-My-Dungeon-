@@ -12,7 +12,6 @@ import org.tmd.environment.Point;
 import org.tmd.environment.WaterBlock;
 import org.tmd.environment.entities.Gate;
 import org.tmd.environment.entities.NPC;
-import org.tmd.render.Image;
 import org.tmd.render.scenes.*;
 
 /**
@@ -30,6 +29,7 @@ public class Declaration {
     public static Inventory inventory = new Inventory();
     public static Dialog dialog = new Dialog();
     public static Shop shop = new Shop();
+    public static Training training;
 
     /*
      *   Blocks:
@@ -92,5 +92,5 @@ public class Declaration {
             this.solid = true;
         }
     };
-    public static Block grass = new AreaBlock(13, '.', new Color(255, 255, 255, 100), "grass2", false, false);
+    public static Block grass = new AreaBlock(13, '.', new Color(255, 255, 255, 100), "grass", false, false);
 }

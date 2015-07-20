@@ -4,7 +4,6 @@
  *     Yew_Mentzaki.
  */
 package org.tmd.main;
-
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -39,15 +38,12 @@ import org.tmd.render.gui.Mouse;
 import org.tmd.render.scenes.Dungeon;
 import org.tmd.render.scenes.Scene;
 import org.tmd.xfg.*;
-
 /**
  *
  * @author yew_mentzaki
  */
 public class Main {
-
     public static final Random RANDOM = new Random();
-
     public static XFG conf;
     private static boolean exit;
     private static Image logo;
@@ -55,7 +51,6 @@ public class Main {
     public static FontRender defaultFont;
     public static String version = "pre-alpha 2.1";
     public static ActionListener longTimerListener = new ActionListener() {
-
         public void actionPerformed(ActionEvent ae) {
             try {
                 if (Scene.currentScene != null) {
@@ -66,7 +61,6 @@ public class Main {
             }
         }
     }, tickTimerListener = new ActionListener() {
-
         public void actionPerformed(ActionEvent ae) {
             try {
                 if (Scene.currentScene != null) {
@@ -81,16 +75,13 @@ public class Main {
             tickTimer1 = new Timer(10, Main.tickTimerListener),
             tickTimer2 = new Timer(10, Main.tickTimerListener);
     private static Object Serialize;
-
     public static void main(String[] args) {
         setUpNatives();
         setUpDisplay();
     }
-
     public static void exit() {
         exit = true;
     }
-
     public static void setUpDisplay() {
         try {
             try {
@@ -124,7 +115,6 @@ public class Main {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
             GameLocale.load(conf.get("locale").getString());
-
             Display.setDisplayMode(new DisplayMode(conf.get("width").getInteger(), conf.get("height").getInteger()));
             Display.setTitle("That's My Dungeon!");
             Display.setLocation(conf.get("x").getInteger(), conf.get("y").getInteger());
@@ -143,7 +133,6 @@ public class Main {
             try {
                 logo = new Image("res/textures/gui/logo.png");
                 logo.draw((Display.getWidth() - logo.getWidth()) / 2, (Display.getHeight() - logo.getHeight()) / 2);
-
             } catch (SlickException ex) {
                 Logger.getLogger(Main.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -169,6 +158,10 @@ public class Main {
         float allTasks = LoadTask.tasks.size();
         try {
             while (LoadTask.tasks.size() > 0) {
+                if (Display.isCloseRequested()) {
+                    Display.destroy();
+                    System.exit(0);
+                }
                 glMatrixMode(GL_PROJECTION);
                 glLoadIdentity();
                 if (displayWidth != Display.getWidth() || displayHeight != Display.getHeight()) {
@@ -204,6 +197,7 @@ public class Main {
             System.exit(1);
         }
         logo.getTexture().release();
+        Nicknames.init();
         File dung = new File("save.data");
         if (dung.exists()) {
             try {
@@ -245,15 +239,15 @@ public class Main {
                 }
                 Display.update();
             }
+            try {
+                byte[] b = Serialization.serialize(Declaration.dungeon);
+                Serialization.writeToFile(b, new File("save.data"));
+            } catch (Exception ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error!\n" + e);
-        }
-        try {
-            byte[] b = Serialization.serialize(Declaration.dungeon);
-            Serialization.writeToFile(b, new File("save.data"));
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         conf.set("x", Display.getX());
         conf.set("y", Display.getY());
@@ -267,29 +261,22 @@ public class Main {
             System.out.println("Configuration doesn't saved!");
         }
         Display.destroy();
-        System.exit(1);
-
+        System.exit(0);
     }
-
     public static void setUpNatives() {
         if (!new File("native").exists()) {
-
             JOptionPane.showMessageDialog(null, "Error!\nNative libraries not found!");
             System.exit(1);
         }
         try {
-
             System.setProperty("java.library.path", new File("native").getAbsolutePath());
-
             Field fieldSysPath = ClassLoader.class
                     .getDeclaredField("sys_paths");
             fieldSysPath.setAccessible(
                     true);
-
             try {
                 fieldSysPath.set(null, null);
             } catch (IllegalArgumentException ex) {
-
                 JOptionPane.showMessageDialog(null, "Error!\n" + ex.toString());
                 System.exit(1);
             } catch (IllegalAccessException ex) {
@@ -304,5 +291,4 @@ public class Main {
             System.exit(1);
         }
     }
-
 }

@@ -26,6 +26,7 @@ import org.tmd.environment.particles.Particle;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
+import org.tmd.main.Nicknames;
 import org.tmd.render.Image;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
@@ -44,14 +45,15 @@ public class Dungeon extends Scene implements Serializable {
 
     public ArrayList<Entity> entities = new ArrayList<Entity>();
     public Inventory inventory;
+    public Training training;
     public Point cam = new Point(), floor = new Point();
     public Pointer pointer = new Pointer();
     public Entity cameraTarget;
-    public Chat chat = new Chat(0, -276, 512, 256){
+    public Chat chat = new Chat(0, -148, 512, 256){
 
         @Override
         public void init() {
-            horisontalAlign = Align.RIGHT;
+            horisontalAlign = Align.CENTER;
             verticalAlign = Align.DOWN;
         }
         
@@ -72,26 +74,6 @@ public class Dungeon extends Scene implements Serializable {
         public void init() {
             horisontalAlign = Align.RIGHT;
             verticalAlign = Align.DOWN;
-        }
-
-    };
-
-    Button menuButton = new Button("menu", -16, -16, 120, 50) {
-
-        @Override
-        public void init() {
-            horisontalAlign = Align.RIGHT;
-            verticalAlign = Align.DOWN;
-        }
-
-        @Override
-        public void click() {
-            currentScene = Declaration.mainMenu;
-        }
-
-        @Override
-        public void render() {
-            super.render();
         }
 
     };
@@ -182,7 +164,6 @@ public class Dungeon extends Scene implements Serializable {
             add(name);
             add(health);
             add(souls);
-            add(menuButton);
         }
 
         @Override
@@ -312,6 +293,10 @@ public class Dungeon extends Scene implements Serializable {
             if (pressed) {
                 currentScene = Declaration.shop;
             }
+        }  else if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
+            if (pressed) {
+                currentScene = Declaration.training;
+            }
         } else {
             pressed = true;
         }
@@ -347,6 +332,7 @@ public class Dungeon extends Scene implements Serializable {
                 longtim--;
             } else {
                 wave++;
+                Nicknames.free();
                 entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
@@ -360,6 +346,8 @@ public class Dungeon extends Scene implements Serializable {
     public void init() {
         inventory = Declaration.inventory = new Inventory();
         inventory.init();
+        training = Declaration.training = new Training();
+        training.init();
         Declaration.shop = new Shop();
         gui.add(miniMap);
         gui.add(chat);
@@ -374,6 +362,7 @@ public class Dungeon extends Scene implements Serializable {
     
     public void deserialized(){
         Declaration.inventory = inventory;
+        Declaration.training = training;
         inventory.init();
         Declaration.shop = new Shop();
     }
