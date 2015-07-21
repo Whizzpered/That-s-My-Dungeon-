@@ -67,12 +67,6 @@ public class AbilityTrain extends Button {
         
         if (activated) {
             ability.a = 1f;
-        } else {
-            ability.a = 0.5f;
-        }
-        
-        if (enabled) {
-            Frame.glassFrame.render(getX(), getY(), width, height);
             if (left != null) {
                 arrowRight.draw(getX() + 16, getY() + height, -arrowRight.width, arrowRight.height);
             }
@@ -83,7 +77,7 @@ public class AbilityTrain extends Button {
                 arrowRight.draw(getX() + width - 16, getY() + height);
             }
         } else {
-            //Frame.grayFrame.render(getX(), getY(), width, height);
+            ability.a = 0.5f;
             if (left != null) {
                 grayArrowRight.draw(getX() + 16, getY() + height, -arrowRight.width, arrowRight.height);
             }
@@ -93,6 +87,11 @@ public class AbilityTrain extends Button {
             if (right != null) {
                 grayArrowRight.draw(getX() + width - 16, getY() + height);
             }
+        }
+        if (enabled) {
+            Frame.glassFrame.render(getX(), getY(), width, height);
+        } else {
+            Frame.grayFrame.render(getX(), getY(), width, height);
         }
         ability.draw(getX(), getY() - 1);
         if (levelUpTimer >= 0) {

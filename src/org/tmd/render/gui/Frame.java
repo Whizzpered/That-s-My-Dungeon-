@@ -18,6 +18,7 @@ public class Frame {
 
     public static Frame defaultFrame = new Frame("frame");
     public static Frame glassFrame = new Frame("glass_frame");
+    public static Frame grayFrame = new Frame("gray_frame");
 
     Image center;
     Image angle;
