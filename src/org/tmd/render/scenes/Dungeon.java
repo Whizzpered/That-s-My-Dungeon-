@@ -28,6 +28,7 @@ import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
 import org.tmd.main.Nicknames;
 import org.tmd.render.Image;
+import org.tmd.render.gui.AblisPanel;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
 import org.tmd.render.gui.Chat;
@@ -351,13 +352,14 @@ public class Dungeon extends Scene implements Serializable {
         Declaration.shop = new Shop();
         gui.add(miniMap);
         gui.add(chat);
-        gui.add(statsPanel);
+        gui.add(statsPanel); 
         cameraTarget = underMouse = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         for (Point p : minionsRespawnPoints) {
             entities.add(new Mob(p.x, p.y));
         }
         entities.add(player);
         Declaration.inventory.player = player;
+        gui.add(new AblisPanel());
     }
     
     public void deserialized(){

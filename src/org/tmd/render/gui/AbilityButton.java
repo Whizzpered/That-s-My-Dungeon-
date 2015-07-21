@@ -11,7 +11,8 @@ import org.tmd.render.Image;
  *
  * @author yew_mentzaki
  */
-public class AbilityButton extends Button{
+public class AbilityButton extends Button {
+
     public Image ability;
     public boolean activated = false;
     public int level;
@@ -25,7 +26,7 @@ public class AbilityButton extends Button{
 
     @Override
     public void click() {
-        if(!activated){
+        if (!activated) {
             activated = true;
         }
     }
@@ -37,8 +38,10 @@ public class AbilityButton extends Button{
     public void render() {
         if (enabled) {
             Frame.glassFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
+            ability.draw(getX(), getY());
         } else {
             Frame.glassFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
+            ability.draw(getX(), getY());
         }
     }
 }
