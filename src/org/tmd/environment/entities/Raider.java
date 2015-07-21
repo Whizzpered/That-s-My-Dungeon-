@@ -10,6 +10,7 @@ import static java.lang.Math.*;
 import org.tmd.environment.Condition;
 import static org.tmd.environment.Condition.*;
 import org.tmd.main.Main;
+import org.tmd.main.Nicknames;
 import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
@@ -42,6 +43,7 @@ public class Raider extends Entity {
         headType = 0;
         clickable = true;
         distance = 400;
+        nickmame = Nicknames.get();
         for (int i = 0; i < 4; i++) {
             if (Main.RANDOM.nextBoolean()) {
                 int type = Main.RANDOM.nextInt(4);

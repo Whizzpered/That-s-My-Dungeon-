@@ -65,7 +65,7 @@ public class Declaration {
         }
     };
     public static Block blockRestZone = new Block(8, '+', new Color(255, 255, 255, 100), "floor.png", false, false, true);
-    public static Block blockEnemyZone = new Block(9, '-', new Color(255, 255, 255, 100), "floor.png", false, true, false);
+    public static Block blockEnemyZone = new Block(9, '-', new Color(255, 255, 255, 100), "white_floor.png", false, true, false);
     public static Block blockSeller = new Block(10, '$', new Color(255, 255, 255, 100), "floor.png", false, false, true) {
 
         @Override

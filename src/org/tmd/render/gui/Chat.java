@@ -61,8 +61,6 @@ public class Chat extends Element {
             replics[i + 1] = replics[i];
         }
         String l = GameLocale.get("locale_name");
-        System.out.println(l);
-        System.out.println(this.locale);
         if (!l.equals(this.locale)) {
             this.locale = l;
             try {
