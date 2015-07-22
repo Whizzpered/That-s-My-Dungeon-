@@ -208,6 +208,7 @@ public class Main {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        Nicknames.init();
         Declaration.mainMenu.set();
         longTimer.start();
         tickTimer1.start();
