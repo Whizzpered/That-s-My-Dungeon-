@@ -43,36 +43,16 @@ public class Shop extends Inventory {
             });
         }
 
-        storeSlots.get(0).item = new Item("hat", Declaration.dungeon.wave) {
-            @Override
-            public void modificate(Entity cr) {
-                cr.maxhp += Declaration.dungeon.player.level * 10;
-            }
-        };
+        storeSlots.get(0).item = new Item("hat", Declaration.dungeon.wave);
         storeSlots.get(0).item.price = Declaration.dungeon.wave * 2;
 
-        storeSlots.get(1).item = new Item("arms", Declaration.dungeon.wave) {
-            @Override
-            public void modificate(Entity cr) {
-                cr.maxhp += Declaration.dungeon.player.level * 10;
-            }
-        };
+        storeSlots.get(1).item = new Item("arms", Declaration.dungeon.wave);
         storeSlots.get(1).item.price = Declaration.dungeon.wave * 2;
 
-        storeSlots.get(2).item = new Item("braces", Declaration.dungeon.wave) {
-            @Override
-            public void modificate(Entity cr) {
-                cr.attackDamage += Declaration.dungeon.player.level * 3;
-            }
-        };
+        storeSlots.get(2).item = new Item("braces", Declaration.dungeon.wave);
         storeSlots.get(2).item.price = Declaration.dungeon.wave * 2;
 
-        storeSlots.get(3).item = new Item("pants", Declaration.dungeon.wave) {
-            @Override
-            public void modificate(Entity cr) {
-                cr.attackDamage += Declaration.dungeon.player.level * 3;
-            }
-        };
+        storeSlots.get(3).item = new Item("pants", Declaration.dungeon.wave);
         storeSlots.get(3).item.price = Declaration.dungeon.wave * 2;
         gui.addAll(Declaration.inventory.gui);
         gui.addAll(storeSlots);

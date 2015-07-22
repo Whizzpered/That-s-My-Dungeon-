@@ -6,6 +6,9 @@
 package org.tmd.render.gui;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.tmd.render.Color;
 import org.tmd.main.Declaration;
@@ -16,36 +19,35 @@ import org.tmd.main.Main;
  * @author Whizzpered
  */
 public class ValueButton extends Button {
-    
+
     public String value = " ";
     public boolean pressed = false;
     public ArrayList<ValueButton> buttons;
-    
+
     public ValueButton(String text, double x, double y, double width, double height) {
         super(text, x, y, width, height);
         buttons = Declaration.settings.buttons();
     }
 
-    
     @Override
-    public void click() {     
-        if (!pressed) {
+    public void click() {
+        if (pressed) {
+            setValue("-");
+            pressed = false;
+        } else {
             pressed = true;
-            for (ValueButton b : buttons) {
-                if (b != this) {
-                    ValueButton vb = b;
+            for (Button b : buttons) {
+                if (b != this && b instanceof ValueButton) {
+                    ValueButton vb = (ValueButton) b;
                     if (vb.pressed) {
                         vb.pressed = false;
                         vb.setValue("-");
                     }
                 }
             }
-        } else {
-            pressed = false;
-            setValue("-");
         }
     }
-    
+
     public void setValue(String s) {
         value = s;
         if (!value.equals("-")) {
@@ -58,11 +60,11 @@ public class ValueButton extends Button {
             }
         }
     }
-    
-    public void changeSet(){
-        
-    } 
-    
+
+    public void changeSet() {
+
+    }
+
     @Override
     public void render() {
         if (!visible) {
@@ -72,13 +74,18 @@ public class ValueButton extends Button {
         Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 4, (int) getY() + (int) height / 2 - 20 + (hover ? 1 : -1), Color.black);
         Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 4, (int) getY() + (int) height / 2 - 22 + (hover ? 1 : -1), Color.white);
         if (pressed) {
-            Main.defaultFont.drawStringAtCenter("WOW", (int) getX() + (int) width / 2, (int) getY() + (int) height / 2 - 20 + (hover ? 1 : -1), Color.white);
-            if (Keyboard.next()) {
+            Main.defaultFont.drawStringAtCenter("pressed", (int) getX() + (int) width - 20, (int) getY() + (int) height / 2 + (hover ? 1 : -1), Color.white);
+            try {
+                Keyboard.create();
+            } catch (LWJGLException ex) {
+                Logger.getLogger(ValueButton.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (Keyboard.getEventKeyState()) {
                 setValue(Keyboard.getKeyName(Keyboard.getEventKey()));
                 pressed = false;
                 changeSet();
             }
         }
-        Main.defaultFont.drawStringAtCenter(value, (int)(getX()+width - Main.defaultFont.getWidth(value)), (int)getY(), Color.white);
+        Main.defaultFont.drawStringAtCenter(value, (int) (getX() + width - Main.defaultFont.getWidth(value) - 10), (int) getY(), Color.white);
     }
 }

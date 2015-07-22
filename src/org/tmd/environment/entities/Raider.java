@@ -9,6 +9,7 @@ import org.tmd.environment.entities.items.Item;
 import static java.lang.Math.*;
 import org.tmd.environment.Condition;
 import static org.tmd.environment.Condition.*;
+import org.tmd.environment.entities.raiders.Warrior;
 import org.tmd.main.Main;
 import org.tmd.main.Nicknames;
 import org.tmd.render.Animation;
@@ -42,43 +43,20 @@ public class Raider extends Entity {
         faction = 2;
         headType = 0;
         clickable = true;
+        counter.period = 400;
         distance = 400;
         nickmame = Nicknames.get();
         for (int i = 0; i < 4; i++) {
             if (Main.RANDOM.nextBoolean()) {
                 int type = Main.RANDOM.nextInt(4);
                 if (type == 0) {
-                    weared[i] = new Item("hat", 1) {
-
-                        @Override
-                        public void modificate(Entity cr) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-                    };
+                    weared[i] = new Item("hat", 1);
                 } else if (type == 1) {
-                    weared[i] = new Item("arms", 1) {
-
-                        @Override
-                        public void modificate(Entity cr) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-                    };
+                    weared[i] = new Item("arms", 1);
                 } else if (type == 2) {
-                    weared[i] = new Item("braces", 1) {
-
-                        @Override
-                        public void modificate(Entity cr) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-                    };
+                    weared[i] = new Item("braces", 1);
                 } else if (type == 3) {
-                    weared[i] = new Item("pants", 1) {
-
-                        @Override
-                        public void modificate(Entity cr) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-                    };
+                    weared[i] = new Item("pants", 1);
                 }
             }
         }
@@ -90,6 +68,12 @@ public class Raider extends Entity {
     }
 
     public void ai() {
+        if (dead) {
+            condition = DEAD;
+        }
+        if (dungeon.player.dead) {
+            condition = WON;
+        }
         if (condition == JOINED) {
             join();
         } else if (condition == GOING) {
@@ -112,7 +96,6 @@ public class Raider extends Entity {
         } else {
             if (counter.is()) {
                 goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
-                condition = GOING;
             }
             counter.tick();
             dungeon.chat.addMessage(this, Chat.messageType.TYPE_JOINED);
@@ -132,31 +115,58 @@ public class Raider extends Entity {
                 }
             }
         }
-        if (focus != null && focus.dead) {
-            goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
-            focus = null;
-        }
-
         if (focus != null) {
             attack(focus);
+            condition = BATTLE;
+            dungeon.chat.addMessage(this, Chat.messageType.TYPE_BATTLE);
         }
 
     }
 
     public void battle() {
-
+        if (focus != null && focus.dead) {
+            condition = GOING;
+            goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
+            focus = null;
+        }
+        attack(focus);
+        /*
+         Specific battle actions
+         */
+        for (Raider r : dungeon.getRaiders()) {
+            if (r instanceof Warrior) {
+                if (!r.dead) {
+                    return;
+                }
+            }
+        }
+        dungeon.chat.addMessage(this, Chat.messageType.TYPE_NOTANKS);
+        if (attackDistance > width) {
+            attackDistance = (int) width;
+        }
+        condition = NOTANKS;
     }
 
     public void noTanks() {
-
+        attack(dungeon.player);
     }
 
     public void won() {
-
+        dungeon.chat.addMessage(this, Chat.messageType.TYPE_HEAL);
+        goTo(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y);
     }
 
     public void died() {
+        if (counter.is()) {
+            dungeon.chat.addMessage(this, Chat.messageType.TYPE_RISE);
+            counter.start();
+        }
+    }
 
+    @Override
+    public void goTo(double x, double y) {
+        super.goTo(x, y);
+        condition = GOING;
     }
 
     @Override

@@ -44,34 +44,10 @@ public class Inventory extends Scene {
             slots.get(slots.size() - 1).type = ItemType.values()[i];
         }
 
-        slots.get(0).item = new Item("hat", 1) {
-            @Override
-            public void modificate(Entity ent) {
-
-            }
-        };
-
-        slots.get(1).item = new Item("arms", 1) {
-            @Override
-            public void modificate(Entity ent) {
-
-            }
-        };
-
-        slots.get(2).item = new Item("braces", 1) {
-            @Override
-            public void modificate(Entity ent) {
-
-            }
-        };
-
-        slots.get(3).item = new Item("pants", 1) {
-            @Override
-            public void modificate(Entity ent) {
-
-            }
-        };
-
+        slots.get(0).item = new Item("hat", 1);
+        slots.get(1).item = new Item("arms", 1);
+        slots.get(2).item = new Item("braces", 1);
+        slots.get(3).item = new Item("pants", 1);
         for (int i = 0; i < 4; i++) {
             slots.get(i).item.type = ItemType.values()[i];
         }

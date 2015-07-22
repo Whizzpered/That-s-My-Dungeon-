@@ -14,7 +14,7 @@ import org.tmd.render.Sprite;
  *
  * @author Whizzpered
  */
-public abstract class Item extends Coin implements Serializable {
+public class Item extends Coin implements Serializable {
 
     public int lvl, price;
     public ItemType type;
@@ -31,8 +31,6 @@ public abstract class Item extends Coin implements Serializable {
         sprite = new Sprite("items/" + name);
         icon = new Image("items/" + name + "/icon.png");
     }
-        
-    public abstract void modificate(Entity cr);
     
     public void drop(Entity owner){
         this.x = owner.x;
