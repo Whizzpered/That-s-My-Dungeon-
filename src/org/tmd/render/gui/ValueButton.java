@@ -28,8 +28,7 @@ public class ValueButton extends Button {
 
     
     @Override
-    public void click() {
-        
+    public void click() {     
         if (!pressed) {
             pressed = true;
             for (ValueButton b : buttons) {
@@ -41,6 +40,9 @@ public class ValueButton extends Button {
                     }
                 }
             }
+        } else {
+            pressed = false;
+            setValue("-");
         }
     }
     
@@ -70,12 +72,13 @@ public class ValueButton extends Button {
         Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 4, (int) getY() + (int) height / 2 - 20 + (hover ? 1 : -1), Color.black);
         Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 4, (int) getY() + (int) height / 2 - 22 + (hover ? 1 : -1), Color.white);
         if (pressed) {
+            Main.defaultFont.drawStringAtCenter("WOW", (int) getX() + (int) width / 2, (int) getY() + (int) height / 2 - 20 + (hover ? 1 : -1), Color.white);
             if (Keyboard.next()) {
                 setValue(Keyboard.getKeyName(Keyboard.getEventKey()));
                 pressed = false;
                 changeSet();
             }
         }
-        Main.defaultFont.drawStringAtCenter(value, (int)(getX()+width - Main.defaultFont.getWidth(value)), (int)getY() + 13, Color.white);
+        Main.defaultFont.drawStringAtCenter(value, (int)(getX()+width - Main.defaultFont.getWidth(value)), (int)getY(), Color.white);
     }
 }

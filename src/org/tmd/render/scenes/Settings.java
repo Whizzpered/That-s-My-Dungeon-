@@ -39,7 +39,7 @@ public class Settings extends Scene {
 
         @Override
         public void click() {
-
+            Main.conf.set("music", value);
         }
 
     };
@@ -48,7 +48,7 @@ public class Settings extends Scene {
 
         @Override
         public void click() {
-
+            Main.conf.set("sound", value);
         }
 
     };
@@ -119,7 +119,7 @@ public class Settings extends Scene {
 
             @Override
             public void changeSet() {
-                System.out.println("New key: "+this.value);
+                System.out.println("New key: " + this.value);
             }
         });
 
@@ -138,7 +138,7 @@ public class Settings extends Scene {
             background.draw(0, 0, Display.getWidth(), Display.getHeight());
         }
     }
-    
+
     @Override
     public void renderGUI() {
         super.renderGUI();

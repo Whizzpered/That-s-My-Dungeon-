@@ -37,8 +37,6 @@ public class Player extends Entity {
         regenhp = 0.05;
         headType = 1;
         level = 1;
-        abilities.add(new AbilityButton("regen", true, 0, 0));
-        abilities.add(new AbilityButton("roar", false, 0, 0));
     }
 
     @Override
