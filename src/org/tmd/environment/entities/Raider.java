@@ -96,6 +96,8 @@ public class Raider extends Entity {
         } else {
             if (counter.is()) {
                 goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
+                dungeon.chat.addMessage(this, Chat.messageType.TYPE_GOING);
+                condition = GOING;
             }
             counter.tick();
             dungeon.chat.addMessage(this, Chat.messageType.TYPE_JOINED);
@@ -116,16 +118,15 @@ public class Raider extends Entity {
             }
         }
         if (focus != null) {
-            attack(focus);
             condition = BATTLE;
             dungeon.chat.addMessage(this, Chat.messageType.TYPE_BATTLE);
         }
-
     }
 
     public void battle() {
         if (focus != null && focus.dead) {
             condition = GOING;
+            dungeon.chat.addMessage(this, Chat.messageType.TYPE_GOING);
             goTo(dungeon.playerRespawnPoint.x, dungeon.playerRespawnPoint.y);
             focus = null;
         }
@@ -166,7 +167,6 @@ public class Raider extends Entity {
     @Override
     public void goTo(double x, double y) {
         super.goTo(x, y);
-        condition = GOING;
     }
 
     @Override
@@ -186,6 +186,7 @@ public class Raider extends Entity {
         deathtimer--;
         if (deathtimer == 0) {
             dungeon.entities.remove(this);
+            dungeon.chat.addMessage(this, Chat.messageType.TYPE_DEAD);
             for (int i = 0; i < 4; i++) {
                 dungeon.entities.add(new Expa(x, y));
             }

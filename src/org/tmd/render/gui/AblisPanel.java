@@ -36,7 +36,7 @@ public class AblisPanel extends Element {
     public void render() {
         x = Display.getWidth() / 2 - width / 2;
         y = Display.getHeight() - height;
-        Frame.glassFrame.render(getX() - 4, getY(), width + 8, height);
+        //Frame.glassFrame.render(getX() - 4, getY(), width + 8, height);
         for (int i = 0; i < player.abilities.size(); i++) {
             player.abilities.get(i).x = x + i * 64;
             player.abilities.get(i).y = y + 4;
