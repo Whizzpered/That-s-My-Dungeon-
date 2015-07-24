@@ -5,6 +5,11 @@
  */
 package org.tmd.render.gui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.lwjgl.input.Keyboard;
+import org.tmd.environment.abilities.Ability;
+import org.tmd.main.Declaration;
 import org.tmd.render.Image;
 
 /**
@@ -16,26 +21,53 @@ public class AbilityButton extends Button {
     public Image ability;
     public boolean activated = false;
     public int level;
+    public Ability abil;
+    public String key;
 
-    public AbilityButton(String abilityName, boolean enabled, int x, int y) {
+    public AbilityButton(String abilityName, boolean active, int x, int y) {
         super("", x, y, 64, 64);
-        this.text = abilityName;
+        text = abilityName;
         this.level = 1;
         this.ability = new Image("abilities/" + abilityName.toLowerCase() + "-" + level + ".png");
+        try {
+            abil = (Ability) Class.forName("org.tmd.environment.ability." + text).newInstance();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AbilityButton.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(AbilityButton.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(AbilityButton.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (active) {
+            key = ((Declaration.dungeon.player.abilities.size() + 1) + "") + "";
+            enabled = true;
+        } else {
+            enabled = false;
+        }
     }
 
     @Override
     public void click() {
-        if (!activated) {
-            activated = true;
+        if (enabled) {
+            abil.cast(level, Declaration.dungeon.player);
         }
     }
 
+    
+    @Override
+    public boolean handle() {
+        if (Keyboard.isKeyDown(Keyboard.getKeyIndex(key))) {
+            click();
+        }
+        return super.handle();
+    }
+    
     public void rclick() {
+
     }
 
     @Override
-    public void render() {
+    public void render() {  
         if (enabled) {
             Frame.glassFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
             ability.draw(getX(), getY());

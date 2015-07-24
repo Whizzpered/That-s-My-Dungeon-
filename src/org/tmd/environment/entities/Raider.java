@@ -164,12 +164,6 @@ public class Raider extends Entity {
     }
 
     @Override
-    public void goTo(double x, double y) {
-        super.goTo(x, y);
-        condition = GOING;
-    }
-
-    @Override
     public void dead() {
         condition = DEAD;
         phantom = true;
