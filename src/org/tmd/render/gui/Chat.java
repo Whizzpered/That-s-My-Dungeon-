@@ -85,11 +85,11 @@ public class Chat extends Element {
         addNicknames[id] = ent.nickmame;
         if (type == messageType.TYPE_JOINED) {
             int i = Main.RANDOM.nextInt(replicList.get("raider_joined").size());
-            addReplics[0] = replicList.get("raider_joined").get(i).getString();
+            addReplics[id] = replicList.get("raider_joined").get(i).getString();
             addString[id] = addReplics[id].length() * 25 + Main.RANDOM.nextInt(200);
         } else if (type == messageType.TYPE_GOING) {
             int i = Main.RANDOM.nextInt(replicList.get("raider_going").size());
-            addReplics[0] = replicList.get("raider_going").get(i).getString();
+            addReplics[id] = replicList.get("raider_going").get(i).getString();
             addString[id] = addReplics[id].length() * 25 + Main.RANDOM.nextInt(200);
         } else if (type == messageType.TYPE_BATTLE) {
             int i = Main.RANDOM.nextInt(replicList.get("raider_battle").size());
