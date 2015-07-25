@@ -16,7 +16,7 @@ import org.tmd.environment.entities.Entity;
 public class Roar extends Target{
 
     public Roar() {
-        super(1000);
+        super(100);
     }
 
     @Override

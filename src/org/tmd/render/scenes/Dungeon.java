@@ -216,6 +216,7 @@ public class Dungeon extends Scene implements Serializable {
 
     @Override
     public void tick() {
+        chat.tick();
         try {
             Declaration.inventory.tick();
             for (Entity e : getEntities()) {
