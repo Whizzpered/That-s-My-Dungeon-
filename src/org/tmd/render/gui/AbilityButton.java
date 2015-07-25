@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.input.Keyboard;
 import org.tmd.environment.abilities.Ability;
+import org.tmd.environment.abilities.Target;
 import org.tmd.main.Declaration;
 import org.tmd.render.Image;
 
@@ -19,7 +20,7 @@ import org.tmd.render.Image;
 public class AbilityButton extends Button {
 
     public Image ability;
-    public boolean activated = false;
+    public boolean activated = false, pressed;
     public int level;
     public Ability abil;
     public String key;
@@ -53,26 +54,33 @@ public class AbilityButton extends Button {
         }
     }
 
-    
     @Override
     public boolean handle() {
         if (Keyboard.isKeyDown(Keyboard.getKeyIndex(key))) {
-            click();
+            if (pressed) {
+                click();
+                pressed = false;
+            }
+        } else {
+            pressed = true;
         }
         return super.handle();
     }
-    
-    public void rclick() {
 
+    public void rclick() {
+        if(abil instanceof Target){
+            if(((Target)abil).aiming){
+                ((Target)abil).aiming = false;
+            }
+        }
     }
 
     @Override
-    public void render() {  
+    public void render() {
         if (enabled) {
             Frame.glassFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
             ability.draw(getX(), getY());
         } else {
-            Frame.glassFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
             ability.draw(getX(), getY());
         }
     }

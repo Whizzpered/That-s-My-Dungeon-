@@ -18,6 +18,8 @@ public class Ability {
 
     public Counter cd;
     AbilityButton but;
+    boolean active;
+    public double angle;
 
     public Ability(AbilityButton own, int cooldown) {
         but = own;
