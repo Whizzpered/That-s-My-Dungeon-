@@ -28,7 +28,7 @@ import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
 import org.tmd.main.Nicknames;
 import org.tmd.render.Image;
-import org.tmd.render.gui.AblisPanel;
+import org.tmd.render.gui.AbilitiesPanel;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
 import org.tmd.render.gui.Chat;
@@ -50,14 +50,14 @@ public class Dungeon extends Scene implements Serializable {
     public Point cam = new Point(), floor = new Point();
     public Pointer pointer = new Pointer();
     public Entity cameraTarget;
-    public Chat chat = new Chat(0, -148, 512, 256){
+    public Chat chat = new Chat(0, -148, 512, 256) {
 
         @Override
         public void init() {
             horisontalAlign = Align.CENTER;
             verticalAlign = Align.DOWN;
         }
-        
+
     };
     public Point playerRespawnPoint, raidersRespawnPoint;
     public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
@@ -66,7 +66,7 @@ public class Dungeon extends Scene implements Serializable {
     public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
     public Particle[] particles = new Particle[256];
     public int longtim = 0, wave = 0, target = 0;
-    private boolean wavetimer;
+    private boolean wavetimer, frezedMouse;
     private Image shadow = new Image("gui/shadow.png");
 
     public MiniMap miniMap = new MiniMap(0, 0, 256, 256, this) {
@@ -294,7 +294,7 @@ public class Dungeon extends Scene implements Serializable {
             if (pressed) {
                 currentScene = Declaration.shop;
             }
-        }  else if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
             if (pressed) {
                 currentScene = Declaration.training;
             }
@@ -352,17 +352,17 @@ public class Dungeon extends Scene implements Serializable {
         Declaration.shop = new Shop();
         gui.add(miniMap);
         gui.add(chat);
-        gui.add(statsPanel); 
+        gui.add(statsPanel);
         cameraTarget = underMouse = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         for (Point p : minionsRespawnPoints) {
             entities.add(new Mob(p.x, p.y));
         }
         entities.add(player);
         Declaration.inventory.player = player;
-        gui.add(new AblisPanel());
+        gui.add(new AbilitiesPanel());
     }
-    
-    public void deserialized(){
+
+    public void deserialized() {
         Declaration.inventory = inventory;
         Declaration.training = training;
         inventory.init();
@@ -407,7 +407,23 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void handle() {
         underMouse = player;
+        if (player.castAbility != null) {
+            if (Mouse.left) {
+                player.castAbility.cast(new Point(Mouse.x - cam.x, Mouse.y - cam.y));
+                frezedMouse = true;
+            }
+            if (Mouse.right) {
+                player.castAbility = null;
+            }
+        }
         buttons();
+        if(frezedMouse){
+            if(Mouse.left){
+               return; 
+            }else{
+                frezedMouse = false;
+            }
+        }
         for (Entity e : getEntities()) {
             try {
                 e.handle();

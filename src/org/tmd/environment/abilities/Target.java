@@ -5,6 +5,7 @@
  */
 package org.tmd.environment.abilities;
 
+import org.tmd.environment.Point;
 import org.tmd.environment.entities.Entity;
 import org.tmd.render.gui.AbilityButton;
 
@@ -12,14 +13,11 @@ import org.tmd.render.gui.AbilityButton;
  *
  * @author Whizzpered
  */
-public class Target extends Ability {
+public abstract class Target extends Ability {
 
-    public Target(AbilityButton own, int cooldown) {
-        super(own, cooldown);
+    public Target(int cooldown) {
+        super(cooldown);
     }
 
-    @Override
-    public void cast(int level, Entity by) {
-
-    }
+    public abstract void cast(int level, Entity by, Point target);
 }

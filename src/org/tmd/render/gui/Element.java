@@ -32,22 +32,23 @@ public class Element implements Serializable {
 
     public double getX() {
         double x = this.x;
+        double px = 0;
         double dw = Display.getWidth(), dh = Display.getHeight();
         if (parent != null) {
-            x += parent.getX();
+            px = parent.getX();
             dw = parent.width;
             dh = parent.height;
         }
         if (horisontalAlign == Align.LEFT) {
-            return x;
+            return px + x;
         }
         if (horisontalAlign == Align.RIGHT) {
-            return dw - width + x;
+            return px + dw - width + x;
         }
         if (horisontalAlign == Align.CENTER) {
-            return (dw - width) / 2 + x;
+            return px + (dw - width) / 2 + x;
         }
-        return x;
+        return px + x;
     }
 
     public void init() {
@@ -56,22 +57,23 @@ public class Element implements Serializable {
 
     public double getY() {
         double y = this.y;
+        double py = 0;
         double dw = Display.getWidth(), dh = Display.getHeight();
         if (parent != null) {
-            y += parent.getY();
+            py = parent.getY();
             dw = parent.width;
             dh = parent.height;
         }
         if (verticalAlign == Align.TOP) {
-            return y;
+            return py + y;
         }
         if (verticalAlign == Align.DOWN) {
-            return dh - height + y;
+            return py + dh - height + y;
         }
         if (verticalAlign == Align.CENTER) {
-            return (dh - height) / 2 + y;
+            return py + (dh - height) / 2 + y;
         }
-        return y;
+        return py + y;
     }
 
     public void render() {

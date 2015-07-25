@@ -55,7 +55,7 @@ public class AbilityTrain extends Button {
                     return;
                 }
             }
-            p.abilities.add(new AbilityButton(text, enabled, level, level));
+            p.abilities.add(new AbilityButton(text));
         }
     }
 

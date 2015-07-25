@@ -5,16 +5,18 @@
  */
 package org.tmd.environment.abilities;
 
+import org.tmd.environment.entities.Entity;
 import org.tmd.render.gui.AbilityButton;
 
 /**
  *
  * @author Whizzpered
  */
-public class Passive extends Ability {
+public abstract class Passive extends Ability {
 
-    public Passive(AbilityButton own) {
-        super(own,0);
+    public Passive() {
+        super(0);
     }
-
+    
+    public abstract void cast(int level, Entity ent);
 }

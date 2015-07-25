@@ -12,17 +12,11 @@ import org.tmd.render.gui.AbilityButton;
  *
  * @author Whizzpered
  */
-public class Active extends Ability {
+public abstract class Active extends Ability {
 
-    public Active(AbilityButton own, int cooldown) {
-        super(own, cooldown);
+    public Active(int cooldown) {
+        super(cooldown);
     }
 
-    @Override
-    public void cast(int level, Entity ent) {
-        cd.start();
-    }
-
-    
-    
+    public abstract void cast(int level, Entity ent);
 }
