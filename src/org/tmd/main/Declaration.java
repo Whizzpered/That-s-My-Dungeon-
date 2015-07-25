@@ -86,9 +86,9 @@ public class Declaration {
         }
 
     };
-    public static Block blockLava = new AreaBlock(12, '^', new Color(255, 255, 255, 100), "lava", false, false) {
+    public static Block blockLava = new AreaBlock(12, '^', new Color(255, 0, 0, 100), "lava", false, false) {
         @Override
-        public void parserAction(Dungeon dungeon, double x, double y) {
+        public void setSolid() {
             this.solid = true;
         }
     };

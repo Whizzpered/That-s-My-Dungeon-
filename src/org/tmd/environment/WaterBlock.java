@@ -31,6 +31,7 @@ public class WaterBlock extends Block {
         return ((x % 2 == 0 ? 1 : -1) * (y % 2 == 0 ? 1 : -1)) * 0.1f;
     }
 
+    @Override
     public void render(int border, int x, int y) {
         f += 0.001f;
         water.bind();

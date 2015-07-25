@@ -32,10 +32,15 @@ public class AreaBlock extends Block {
         borderAngle = new Image("tiles/" + sprite + "/top-left.png");
         borderAngleInside = new Image("tiles/" + sprite + "/top-right.png");
         alone = new Image("tiles/" + sprite + "/alone" + /*(r.nextInt(6)) +*/ ".png");
+        setSolid();
     }
 
     public Image getSprite(Image source){
         return source;
+    }
+    
+    public void setSolid(){
+        this.solid = false;
     }
     
     @Override

@@ -261,7 +261,7 @@ public class Dungeon extends Scene implements Serializable {
                 currentScene = Declaration.mainMenu;
             }
         } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            if (pressed) {
+            if (pressed && getRaiders().length > 0) {
                 pressed = false;
                 if (target == 0) {
                     target = getRaiders().length - 1;
@@ -279,7 +279,7 @@ public class Dungeon extends Scene implements Serializable {
                 cameraTarget = player;
             }
         } else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            if (pressed) {
+            if (pressed && getRaiders().length > 0) {
                 pressed = false;
                 if (target == getRaiders().length - 1) {
                     target = 0;
