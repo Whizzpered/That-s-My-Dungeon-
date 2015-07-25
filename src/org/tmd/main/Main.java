@@ -114,6 +114,7 @@ public class Main {
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
+            Sounds.startBackgroundLoad();
             GameLocale.load(conf.get("locale").getString());
             Display.setDisplayMode(new DisplayMode(conf.get("width").getInteger(), conf.get("height").getInteger()));
             Display.setTitle("That's My Dungeon!");
@@ -213,6 +214,7 @@ public class Main {
         longTimer.start();
         tickTimer1.start();
         tickTimer2.start();
+        Sounds.musicAudio.playAsSoundEffect(Sounds.music, Sounds.music, true);
         try {
             while (!(Display.isCloseRequested() | exit)) {
                 glMatrixMode(GL_PROJECTION);

@@ -67,6 +67,7 @@ public class Dungeon extends Scene implements Serializable {
     public Particle[] particles = new Particle[256];
     public int longtim = 0, wave = 0, target = 0;
     private boolean wavetimer, frezedMouse;
+    public int quake = 0;
     private Image shadow = new Image("gui/shadow.png");
 
     public MiniMap miniMap = new MiniMap(0, 0, 256, 256, this) {
@@ -217,6 +218,9 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void tick() {
         chat.tick();
+        if (quake > 0) {
+            quake--;
+        }
         try {
             Declaration.inventory.tick();
             for (Entity e : getEntities()) {
@@ -312,6 +316,10 @@ public class Dungeon extends Scene implements Serializable {
         } else {
             cam.x = 0;
             cam.y = 0;
+        }
+        if (quake / 10 > 0) {
+            cam.x += Main.RANDOM.nextInt(Math.min(quake / 10, 5));
+            cam.y += Main.RANDOM.nextInt(Math.min(quake / 10, 5));
         }
         cam.x += (int) (Block.BLOCK_WIDTH / 2) + (Display.getWidth() / 2) - (mx - (Display.getWidth() / 2));
         cam.y += (int) (Block.BLOCK_HEIGHT / 2) + (Display.getHeight() / 2) - (my - (Display.getHeight() / 2));
@@ -418,10 +426,10 @@ public class Dungeon extends Scene implements Serializable {
             }
         }
         buttons();
-        if(frezedMouse){
-            if(Mouse.left){
-               return; 
-            }else{
+        if (frezedMouse) {
+            if (Mouse.left) {
+                return;
+            } else {
                 frezedMouse = false;
             }
         }

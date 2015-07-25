@@ -10,6 +10,8 @@ import org.tmd.environment.abilities.Target;
 import org.tmd.environment.entities.items.Item;
 import org.tmd.environment.particles.LevelUp;
 import org.tmd.main.Declaration;
+import org.tmd.main.Main;
+import org.tmd.main.Sounds;
 import org.tmd.render.Image;
 import org.tmd.render.gui.AbilityButton;
 import org.tmd.render.gui.Mouse;
@@ -47,7 +49,7 @@ public class Player extends Entity {
             abilities.get(i).tick();
         }
     }
-    
+
     @Override
     public void alive() {
         if (focus != null) {
@@ -94,4 +96,17 @@ public class Player extends Entity {
         }
     }
 
+    @Override
+    public void attackMethod(Entity e) {
+        Sounds.play("player");
+        super.attackMethod(e);
+    }
+
+    @Override
+    public boolean hit(double damage, Entity from) {
+        if (Main.RANDOM.nextInt(10) == 0) {
+            Sounds.play("player_hit");
+        }
+        return super.hit(damage, from);
+    }
 }

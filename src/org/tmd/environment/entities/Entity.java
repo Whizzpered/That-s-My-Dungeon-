@@ -19,6 +19,7 @@ import org.tmd.main.Counter;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
+import org.tmd.main.Sounds;
 import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Side;
@@ -88,6 +89,7 @@ public class Entity implements Comparable<Entity>, Serializable {
     }
 
     public void attackMethod(Entity e) {
+        Sounds.play("sword");
         dungeon.addParticle(new Hit(attackType, e.x, e.y - 35));
         e.hit(getDMG(), this);
     }
