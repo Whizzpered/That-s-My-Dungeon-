@@ -22,7 +22,7 @@ import org.tmd.render.Image;
 public class AbilityButton extends Button {
 
     public Image abilityIcon;
-    public boolean activated = false;
+    public boolean activated = false, pressed;
     public int cooldown;
     public int level;
     public Ability abil;
@@ -102,12 +102,6 @@ public class AbilityButton extends Button {
 
     public void rclick() {
 
-    public void rclick() {
-        if(abil instanceof Target){
-            if(((Target)abil).aiming){
-                ((Target)abil).aiming = false;
-            }
-        }
     }
 
     @Override
@@ -121,10 +115,10 @@ public class AbilityButton extends Button {
             abilityIcon.draw(getX(), getY());
         } else {
             Frame.grayFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
-            if(abil.cooldown > 0){
-                double d = 1 - (double)cooldown / (double)abil.cooldown;
+            if (abil.cooldown > 0) {
+                double d = 1 - (double) cooldown / (double) abil.cooldown;
                 Main.g.setColor(Color.green);
-                Main.g.fillRect((int)getX(), (int)(getY() + height), (int)(width * d), 4);
+                Main.g.fillRect((int) getX(), (int) (getY() + height), (int) (width * d), 4);
             }
             abilityIcon.draw(getX(), getY());
         }

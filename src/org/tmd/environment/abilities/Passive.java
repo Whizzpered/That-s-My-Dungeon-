@@ -6,7 +6,6 @@
 package org.tmd.environment.abilities;
 
 import org.tmd.environment.entities.Entity;
-import org.tmd.render.gui.AbilityButton;
 
 /**
  *
