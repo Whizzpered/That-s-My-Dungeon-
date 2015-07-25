@@ -81,10 +81,10 @@ public class Frame {
         {
             glTexCoord2d(0, 0);
             glVertex2d(x + 16, y);
-            glTexCoord2d((width - 31) / 16, 0);
-            glVertex2d(x + width - 15, y);
-            glTexCoord2d((width - 31) / 16, 1);
-            glVertex2d(x + width - 15, y + 16);
+            glTexCoord2d((width - 32) / 16, 0);
+            glVertex2d(x + width - 16, y);
+            glTexCoord2d((width - 32) / 16, 1);
+            glVertex2d(x + width - 16, y + 16);
             glTexCoord2d(0, 1);
             glVertex2d(x + 16, y + 16);
         }
@@ -101,10 +101,10 @@ public class Frame {
         {
             glTexCoord2d(0, 0);
             glVertex2d(x + 16, y + height);
-            glTexCoord2d((width - 31) / 16, 0);
-            glVertex2d(x + width - 15, y + height);
-            glTexCoord2d((width - 31) / 16, 1);
-            glVertex2d(x + width - 15, y + height - 16);
+            glTexCoord2d((width - 32) / 16, 0);
+            glVertex2d(x + width - 16, y + height);
+            glTexCoord2d((width - 32) / 16, 1);
+            glVertex2d(x + width - 16, y + height - 16);
             glTexCoord2d(0, 1);
             glVertex2d(x + 16, y + height - 16);
         }
@@ -124,10 +124,10 @@ public class Frame {
         {
             glTexCoord2d(0, 0);
             glVertex2d(x + 16, y + 16);
-            glTexCoord2d((width - 31) / 16, 0);
-            glVertex2d(x + width - 15, y + 16);
-            glTexCoord2d((width - 31) / 16, (height - 32) / 16);
-            glVertex2d(x + width - 15, y + height - 16);
+            glTexCoord2d((width - 32) / 16, 0);
+            glVertex2d(x + width - 16, y + 16);
+            glTexCoord2d((width - 32) / 16, (height - 32) / 16);
+            glVertex2d(x + width - 16, y + height - 16);
             glTexCoord2d(0, (height - 32) / 16);
             glVertex2d(x + 16, y + height - 16);
         }
