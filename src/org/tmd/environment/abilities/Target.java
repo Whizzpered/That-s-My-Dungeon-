@@ -13,21 +13,11 @@ import org.tmd.render.gui.AbilityButton;
  *
  * @author Whizzpered
  */
-public class Target extends Ability {
+public abstract class Target extends Ability {
 
-    public boolean aiming;
-
-    public Target(AbilityButton own, int cooldown) {
-        super(own, cooldown);
+    public Target(int cooldown) {
+        super(cooldown);
     }
 
-    @Override
-    public void cast(int level, Entity by) {
-        aiming = !aiming;
-    }
-
-    @Override
-    public void cast(int level, Entity by, Point target) {
-        
-    }
+    public abstract void cast(int level, Entity by, Point target);
 }

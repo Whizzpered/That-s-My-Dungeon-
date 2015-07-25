@@ -52,10 +52,11 @@ public class AbilityTrain extends Button {
             for (int i = 0; i < p.abilities.size(); i++) {
                 if (p.abilities.get(i).text.equals(text)) {
                     p.abilities.get(i).level = level;
+                    p.abilities.get(i).abilityIcon = ability;
                     return;
                 }
             }
-            p.abilities.add(new AbilityButton(text, enabled, level, level));
+            p.abilities.add(new AbilityButton(text));
         }
     }
 
