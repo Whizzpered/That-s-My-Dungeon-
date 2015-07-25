@@ -7,6 +7,7 @@ package org.tmd.environment.abilities;
 
 import org.tmd.environment.Point;
 import org.tmd.environment.entities.Bullet;
+import org.tmd.environment.entities.BulletRoar;
 import org.tmd.environment.entities.Entity;
 
 /**
@@ -21,7 +22,7 @@ public class Roar extends Target{
 
     @Override
     public void cast(int level, Entity by, Point target) {
-        by.dungeon.entities.add(new Bullet(by.x, by.y, by, target.x, target.y));
+        by.dungeon.entities.add(new BulletRoar(level, by.x, by.y, by, target.x, target.y));
     }
     
 }
