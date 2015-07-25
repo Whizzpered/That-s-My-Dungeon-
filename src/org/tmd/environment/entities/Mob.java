@@ -11,6 +11,7 @@ import org.tmd.environment.Point;
 import org.tmd.environment.particles.Hit;
 import org.tmd.environment.particles.LevelUp;
 import org.tmd.main.Main;
+import org.tmd.main.Sounds;
 import org.tmd.render.Animation;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
@@ -124,5 +125,13 @@ public class Mob extends Entity {
                 goTo(spawn.x, spawn.y);
             }
         }
+    }
+
+    @Override
+    public boolean hit(double damage, Entity from) {
+        if (Main.RANDOM.nextInt(10) == 0) {
+            Sounds.play("mob_hit");
+        }
+        return super.hit(damage, from);
     }
 }

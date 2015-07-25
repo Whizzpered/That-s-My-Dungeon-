@@ -25,6 +25,11 @@ public class TrackBar extends Button {
         super(text, x, y, width, height);
         track = new Image("gui/track.png");
         tw = track.width;
+        tx = track.width / 2;
+    }
+
+    public void valueChanged() {
+
     }
 
     @Override
@@ -33,15 +38,22 @@ public class TrackBar extends Button {
             if (Math.abs(Mouse.x - getX() - width / 2) <= (width - tw / 2 - 5) / 2) {
                 tx = Mouse.x - getX();
             }
+            if (tx < track.width / 2) {
+                tx = track.width / 2;
+            }
+            if (tx > width - track.width / 2) {
+                tx = width - track.width / 2;
+            }
+            valueChanged();
         }
-        value = (float) ((tx) / width);
+        value = (float) ((tx - track.width / 2) / (width - track.width));
     }
 
     @Override
     public void render() {
-        Frame.defaultFrame.render(getX(), getY(), width, height);
+        Frame.defaultFrame.render(getX(), getY() + 10, width, height - 20);
         track.draw(getX() + tx - tw / 2, getY());
-        Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 2, (int) getY() - 20, Color.black);
-        Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 2, (int) getY() - 22, Color.white);
+        Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 2, (int) getY() - 28, Color.black);
+        Main.defaultFont.drawStringAtCenter(getText(), (int) getX() + (int) width / 2, (int) getY() - 30, Color.white);
     }
 }

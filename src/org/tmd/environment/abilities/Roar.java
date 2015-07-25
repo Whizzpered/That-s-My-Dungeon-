@@ -9,6 +9,7 @@ import org.tmd.environment.Point;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.BulletRoar;
 import org.tmd.environment.entities.Entity;
+import org.tmd.main.Sounds;
 
 /**
  *
@@ -23,6 +24,8 @@ public class Roar extends Target{
     @Override
     public void cast(int level, Entity by, Point target) {
         by.dungeon.entities.add(new BulletRoar(level, by.x, by.y, by, target.x, target.y));
+        by.dungeon.quake = 150;
+        Sounds.play("roar");
     }
     
 }

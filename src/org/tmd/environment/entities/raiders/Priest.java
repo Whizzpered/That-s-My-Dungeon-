@@ -8,6 +8,7 @@ package org.tmd.environment.entities.raiders;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Raider;
+import org.tmd.main.Sounds;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 
@@ -27,6 +28,7 @@ public class Priest extends Raider {
 
     @Override
     public void attackMethod(Entity e) {
+        Sounds.play("magic");
         dungeon.entities.add(new Bullet(x, y, this, e));
     }
 
