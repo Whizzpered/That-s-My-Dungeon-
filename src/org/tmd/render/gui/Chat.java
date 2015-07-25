@@ -77,7 +77,7 @@ public class Chat extends Element {
             }
         }
         int id = 0;
-        for (id = 0; id < 25; id++) {
+        for (id = 0; id < 24; id++) {
             if (addString[id] == 0) {
                 break;
             }
