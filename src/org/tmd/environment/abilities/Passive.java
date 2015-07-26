@@ -13,9 +13,9 @@ import org.tmd.environment.entities.Entity;
  */
 public abstract class Passive extends Ability {
 
-    public Passive() {
-        super(0);
+    public Passive(Entity owner) {
+        super(owner, 0);
     }
-    
+
     public abstract void cast(int level, Entity ent);
 }

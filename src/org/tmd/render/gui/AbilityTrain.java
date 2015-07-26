@@ -38,6 +38,7 @@ public class AbilityTrain extends Button {
 
     @Override
     public void click() {
+        descrip = false;
         if (!activated) {
             if (left != null) {
                 left.enabled = true;
@@ -61,13 +62,13 @@ public class AbilityTrain extends Button {
             p.abilities.add(new AbilityButton(text));
         }
     }
-
+    
     public void rclick() {
+        descrip = false;
     }
 
     @Override
     public void render() {
-        
         if (activated) {
             ability.a = 1f;
             if (left != null) {
@@ -103,9 +104,9 @@ public class AbilityTrain extends Button {
             levelUp.draw(getX() + width / 2, getY() + height / 2, size, size, (((float) levelUpTimer) / 25f));
             levelUpTimer -= 2;
         }
-        
+
         if (descrip) {
-                Scene.currentScene.currentTip = new ToolTip(GameLocale.get("fuck") + '\n'+'\n'+'\n'+'\n' + GameLocale.get("hello"));
-            }
+            Scene.currentScene.currentTip = new ToolTip(GameLocale.get("hello") + '\n' + '\n' + '\n' + '\n' + GameLocale.get("fuck"));
+        }
     }
 }

@@ -19,7 +19,7 @@ import static org.tmd.render.scenes.Scene.currentScene;
  * @author Yew_Mentzaki
  */
 public class Training extends Scene {
-    
+
     @Override
     public void init() {
         String string = new String();
@@ -77,6 +77,9 @@ public class Training extends Scene {
             Declaration.dungeon.render();
             Main.g.setColor(new Color(0, 0, 0, 150).slickColor());
             Main.g.fillRect(0, 0, Display.getWidth(), Display.getHeight());
+        }
+        if (currentTip != null) {
+            currentTip.render();
         }
     }
 

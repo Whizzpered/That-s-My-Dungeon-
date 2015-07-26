@@ -15,9 +15,9 @@ import org.tmd.render.gui.AbilityButton;
  */
 public abstract class Target extends Ability {
 
-    public Target(int cooldown) {
-        super(cooldown);
+    public Target(Entity owner, int cooldown) {
+        super(owner, cooldown);
     }
 
-    public abstract void cast(int level, Entity by, Point target);
+    public abstract void cast(int level, Point target);
 }

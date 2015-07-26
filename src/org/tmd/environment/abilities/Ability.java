@@ -6,19 +6,24 @@
 package org.tmd.environment.abilities;
 
 import java.io.Serializable;
-import org.tmd.environment.Point;
 import org.tmd.environment.entities.Entity;
-import org.tmd.main.Counter;
-import org.tmd.render.gui.AbilityButton;
 
 /**
  *
  * @author Whizzpered
  */
-public abstract class Ability implements Serializable{
-    public int cooldown;
+public abstract class Ability implements Serializable {
 
-    public Ability(int cooldown) {
+    public int cooldown, conting;
+    public boolean cont;
+    public Entity by;
+
+    public Ability(Entity owner,int cooldown) {
         this.cooldown = cooldown;
+        this.by = owner;
+    }
+    
+    public void tick() {
+        
     }
 }

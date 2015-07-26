@@ -69,7 +69,7 @@ public class AbilityButton extends Button {
     public void cast(Point target) {
         if (cooldown == 0 && abil instanceof Target) {
             Declaration.dungeon.player.castAbility = null;
-            ((Target) abil).cast(level, Declaration.dungeon.player, target);
+            ((Target)abil).cast(level, target);
             enabled = false;
             cooldown = abil.cooldown;
         }
@@ -85,6 +85,7 @@ public class AbilityButton extends Button {
                 enabled = true;
             }
         }
+        abil.tick();
     }
 
     @Override

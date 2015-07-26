@@ -35,7 +35,7 @@ public class Entity implements Comparable<Entity>, Serializable {
     public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
-    public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 100, deltahp = 25, regenhp = 0.01, armor, distance;
+    public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 100, deltahp = 25, nativeregenhp = 0.01, regenhp = 0.01, armor, distance;
     protected double targetX = -1, targetY = -1;
     private Point[] way;
     private int currentWaypoint;
@@ -396,7 +396,7 @@ public class Entity implements Comparable<Entity>, Serializable {
         if (Main.RANDOM.nextBoolean()) {
             dungeon.addParticle(new BloodParticle(x, y - 35));
         }
-        dungeon.addParticle(new FloatingText((int)x, (int)y - 35, "- " +(int)damage, Color.red));
+        dungeon.addParticle(new FloatingText((int) x, (int) y - 35, "- " + (int) damage, Color.red));
         if (hp < 0) {
             if (headType >= 0 && Main.RANDOM.nextBoolean()) {
                 dungeon.addParticle(new HeadParticle(headType, x, y - 75));

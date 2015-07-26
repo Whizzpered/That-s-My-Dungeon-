@@ -6,20 +6,28 @@
 package org.tmd.environment.abilities;
 
 import org.tmd.environment.entities.Entity;
-import org.tmd.environment.entities.Pet;
 import org.tmd.main.Declaration;
 
 /**
  *
  * @author Whizzpered
  */
-public class Spawn extends Active {
+public class Regen extends Active {
 
-    public Spawn() {
-        super(Declaration.dungeon.player, 200);
+    public Regen() {
+        super(Declaration.dungeon.player, 500);
+        cont = true;
     }
 
     public void cast(int level, Entity by) {
-        by.dungeon.entities.add(new Pet(by.x, by.y, "slime", level, by));
+        conting = 200;
+    }
+
+    @Override
+    public void tick() {
+        if (conting > 0) {
+            conting--;
+            by.regenhp = by.nativeregenhp * 2;
+        }
     }
 }

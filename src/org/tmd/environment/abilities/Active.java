@@ -6,7 +6,6 @@
 package org.tmd.environment.abilities;
 
 import org.tmd.environment.entities.Entity;
-import org.tmd.render.gui.AbilityButton;
 
 /**
  *
@@ -14,9 +13,10 @@ import org.tmd.render.gui.AbilityButton;
  */
 public abstract class Active extends Ability {
 
-    public Active(int cooldown) {
-        super(cooldown);
+    public Active(Entity owner, int cooldown) {
+        super(owner, cooldown);
     }
 
     public abstract void cast(int level, Entity ent);
+
 }

@@ -9,23 +9,24 @@ import org.tmd.environment.Point;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.BulletRoar;
 import org.tmd.environment.entities.Entity;
+import org.tmd.main.Declaration;
 import org.tmd.main.Sounds;
 
 /**
  *
  * @author yew_mentzaki
  */
-public class Roar extends Target{
+public class Roar extends Target {
 
     public Roar() {
-        super(100);
+        super(Declaration.dungeon.player, 100);
     }
 
     @Override
-    public void cast(int level, Entity by, Point target) {
+    public void cast(int level, Point target) {
         by.dungeon.entities.add(new BulletRoar(level, by.x, by.y, by, target.x, target.y));
         by.dungeon.quake = 150;
         Sounds.play("roar");
     }
-    
+
 }
