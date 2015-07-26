@@ -19,7 +19,7 @@ import static org.tmd.render.scenes.Scene.currentScene;
  * @author Yew_Mentzaki
  */
 public class Training extends Scene {
-
+    
     @Override
     public void init() {
         String string = new String();
@@ -48,14 +48,14 @@ public class Training extends Scene {
             String[] ab = lines[i].split(",");
             for (int j = 0; j < ab.length; j++) {
                 if (ab[j].length() > 0) {
-                    if(ab[j].contains("/")){
-                        at[j][(i - 1) / 2].left = at[j-1][(i - 1) / 2 + 1];
+                    if (ab[j].contains("/")) {
+                        at[j][(i - 1) / 2].left = at[j - 1][(i - 1) / 2 + 1];
                     }
-                    if(ab[j].contains("|")){
+                    if (ab[j].contains("|")) {
                         at[j][(i - 1) / 2].center = at[j][(i - 1) / 2 + 1];
                     }
-                    if(ab[j].contains("\\")){
-                        at[j][(i - 1) / 2].right = at[j+1][(i - 1) / 2 + 1];
+                    if (ab[j].contains("\\")) {
+                        at[j][(i - 1) / 2].right = at[j + 1][(i - 1) / 2 + 1];
                     }
                 }
             }
@@ -63,8 +63,9 @@ public class Training extends Scene {
     }
 
     @Override
-    public boolean handleGUI(){
+    public boolean handleGUI() {
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+            Declaration.dungeon.pressed = false;
             currentScene = Declaration.dungeon;
         }
         return super.handleGUI();

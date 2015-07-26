@@ -29,7 +29,7 @@ public class Slot extends Button {
     
     @Override
     public void click() {
-        descrip = hover;
+        descrip = false;
         if (Declaration.inventory.slots.indexOf(this) < 4 && inHand != null) {
             if (type != null && inHand.type == type) {
                 Item i = item;

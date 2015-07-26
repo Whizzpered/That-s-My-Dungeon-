@@ -6,7 +6,6 @@
 package org.tmd.environment.entities;
 
 import java.util.ArrayList;
-import org.tmd.environment.abilities.Target;
 import org.tmd.environment.entities.items.Item;
 import org.tmd.environment.particles.LevelUp;
 import org.tmd.main.Declaration;

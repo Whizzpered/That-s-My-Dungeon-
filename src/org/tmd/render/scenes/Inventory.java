@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.tmd.environment.entities.items.ItemType;
-import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.items.Item;
 import org.tmd.environment.entities.Player;
 import org.tmd.main.Declaration;
@@ -39,7 +38,7 @@ public class Inventory extends Scene {
                     horisontalAlign = Align.CENTER;
                     verticalAlign = Align.DOWN;
                 }
-                
+
             });
             slots.get(slots.size() - 1).type = ItemType.values()[i];
         }
@@ -53,37 +52,37 @@ public class Inventory extends Scene {
         }
 
         for (int i = 0; i < 4; i++) {
-            slots.add(new Slot(64 + 96 * i, 32){
+            slots.add(new Slot(64 + 96 * i, 32) {
 
                 @Override
                 public void init() {
                     horisontalAlign = Align.CENTER;
                 }
-                
+
             });
-            slots.add(new Slot(64 + 96 * i, 128){
+            slots.add(new Slot(64 + 96 * i, 128) {
 
                 @Override
                 public void init() {
                     horisontalAlign = Align.CENTER;
                 }
-                
+
             });
-            slots.add(new Slot(64 + 96 * i, 224){
+            slots.add(new Slot(64 + 96 * i, 224) {
 
                 @Override
                 public void init() {
                     horisontalAlign = Align.CENTER;
                 }
-                
+
             });
-            slots.add(new Slot(64 + 96 * i, 320){
+            slots.add(new Slot(64 + 96 * i, 320) {
 
                 @Override
                 public void init() {
                     horisontalAlign = Align.CENTER;
                 }
-                
+
             });
         }
         gui.addAll(slots);
@@ -91,7 +90,10 @@ public class Inventory extends Scene {
 
     @Override
     public void handle() {
-
+        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+            Declaration.dungeon.pressed = false;
+            currentScene = Declaration.dungeon;
+        }
     }
 
     @Override
@@ -102,10 +104,6 @@ public class Inventory extends Scene {
         super.render();
         for (int i = 0; i < 4; i++) {
             Declaration.dungeon.player.weared[i] = slots.get(i).item;
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-            currentScene = Declaration.dungeon;
         }
     }
 

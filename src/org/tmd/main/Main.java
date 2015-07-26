@@ -9,26 +9,22 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.FontRenderContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.nio.FloatBuffer;
 import java.util.Random;
 import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.util.glu.GLU.*;
 import org.tmd.render.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -49,7 +45,7 @@ public class Main {
     private static Image logo;
     public static Graphics g = new Graphics();
     public static FontRender defaultFont;
-    public static String version = "pre-alpha 2.1";
+    public static String version = "pre-alpha 2.2";
     public static ActionListener longTimerListener = new ActionListener() {
         public void actionPerformed(ActionEvent ae) {
             try {

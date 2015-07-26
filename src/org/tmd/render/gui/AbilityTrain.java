@@ -7,7 +7,9 @@ package org.tmd.render.gui;
 
 import org.tmd.environment.entities.Player;
 import org.tmd.main.Declaration;
+import org.tmd.main.GameLocale;
 import org.tmd.render.Image;
+import org.tmd.render.scenes.Scene;
 
 /**
  *
@@ -101,5 +103,9 @@ public class AbilityTrain extends Button {
             levelUp.draw(getX() + width / 2, getY() + height / 2, size, size, (((float) levelUpTimer) / 25f));
             levelUpTimer -= 2;
         }
+        
+        if (descrip) {
+                Scene.currentScene.currentTip = new ToolTip(GameLocale.get("fuck") + '\n'+'\n'+'\n'+'\n' + GameLocale.get("hello"));
+            }
     }
 }

@@ -63,7 +63,7 @@ public class Dungeon extends Scene implements Serializable {
     public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
     public Player player;
     public Entity underMouse;
-    public Terrain terrain = new Terrain(this, "maps/dungeon1.map");
+    public Terrain terrain = new Terrain(this, "maps/dungeon" + (Main.RANDOM.nextInt(2) + 1) + ".map");
     public Particle[] particles = new Particle[256];
     public int longtim = 0, wave = 0, target = 0;
     private boolean wavetimer, frezedMouse;
@@ -258,6 +258,7 @@ public class Dungeon extends Scene implements Serializable {
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             if (pressed) {
                 pressed = false;
+                Declaration.mainMenu.pressed = false;
                 currentScene = Declaration.mainMenu;
             }
         } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
