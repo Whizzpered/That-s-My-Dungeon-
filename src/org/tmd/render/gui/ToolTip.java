@@ -19,7 +19,7 @@ public class ToolTip {
     public String mess;
 
     public ToolTip(String text) {
-        width = Main.defaultFont.getSize(text).width + 20;
+        width = Main.defaultFont.getSize(text).width + 26;
         height = Main.defaultFont.getSize(text).height + 10;
         mess = text;
     }

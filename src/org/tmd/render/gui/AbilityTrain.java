@@ -26,13 +26,20 @@ public class AbilityTrain extends Button {
     public boolean activated = false;
     public int level, levelUpTimer;
     public AbilityTrain left, center, right;
+    public String description, mod;
 
     public AbilityTrain(String abilityName, boolean enabled, int x, int y) {
         super("", x, y, 64, 64);
         String d[] = abilityName.split("-");
         this.enabled = enabled;
         this.text = d[0];
+        if (text.equals("Regen")) {
+            mod = "hp";
+        } else {
+            mod = "damage";
+        }
         this.level = Integer.valueOf(d[1]);
+        description = text.toLowerCase() + "description";
         this.ability = new Image("abilities/" + abilityName.toLowerCase() + ".png");
     }
 
@@ -62,7 +69,7 @@ public class AbilityTrain extends Button {
             p.abilities.add(new AbilityButton(text));
         }
     }
-    
+
     public void rclick() {
         descrip = false;
     }
@@ -106,7 +113,8 @@ public class AbilityTrain extends Button {
         }
 
         if (descrip) {
-            Scene.currentScene.currentTip = new ToolTip(GameLocale.get("hello") + '\n' + '\n' + '\n' + '\n' + GameLocale.get("fuck"));
+            Scene.currentScene.currentTip = new ToolTip(GameLocale.get(text) + '\n' + '\n' + GameLocale.get(description) + '\n' + GameLocale.get(mod) + level * 12);
         }
     }
+    
 }

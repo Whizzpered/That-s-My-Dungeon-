@@ -11,6 +11,7 @@ import org.lwjgl.opengl.Display;
 import org.tmd.environment.entities.items.ItemType;
 import org.tmd.environment.entities.items.Item;
 import org.tmd.environment.entities.Player;
+import org.tmd.environment.entities.items.Modificator;
 import org.tmd.main.Declaration;
 import org.tmd.main.Main;
 import org.tmd.render.Color;
@@ -44,9 +45,14 @@ public class Inventory extends Scene {
         }
 
         slots.get(0).item = new Item("hat", 1);
+        slots.get(0).item.modificators.add(Modificator.ARMOR);
+        slots.get(0).item.modificators.add(Modificator.ATTACKSPEED);
         slots.get(1).item = new Item("arms", 1);
+        slots.get(1).item.modificators.add(Modificator.ARMOR);
         slots.get(2).item = new Item("braces", 1);
+        slots.get(2).item.modificators.add(Modificator.ARMOR);
         slots.get(3).item = new Item("pants", 1);
+        slots.get(3).item.modificators.add(Modificator.ARMOR);
         for (int i = 0; i < 4; i++) {
             slots.get(i).item.type = ItemType.values()[i];
         }

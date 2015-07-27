@@ -78,9 +78,14 @@ public class Training extends Scene {
             Main.g.setColor(new Color(0, 0, 0, 150).slickColor());
             Main.g.fillRect(0, 0, Display.getWidth(), Display.getHeight());
         }
+
+    }
+
+    @Override
+    public void renderGUI() {
+        super.renderGUI();
         if (currentTip != null) {
             currentTip.render();
         }
     }
-
 }

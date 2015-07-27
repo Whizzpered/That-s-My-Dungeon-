@@ -5,9 +5,9 @@
  */
 package org.tmd.render.gui;
 
-import org.lwjgl.opengl.Display;
 import org.tmd.environment.entities.items.ItemType;
 import org.tmd.environment.entities.items.Item;
+import org.tmd.environment.entities.items.Modificator;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
 import org.tmd.render.scenes.Scene;
@@ -17,16 +17,16 @@ import org.tmd.render.scenes.Scene;
  * @author Whizzpered
  */
 public class Slot extends Button {
-    
+
     public static Item inHand;
     public boolean rb;
     public Item item;
     public ItemType type;
-    
+
     public Slot(int x, int y) {
         super("", x, y, 80, 80);
     }
-    
+
     @Override
     public void click() {
         descrip = false;
@@ -41,28 +41,33 @@ public class Slot extends Button {
             item = inHand;
             inHand = i;
         }
-        
+
     }
-    
+
     @Override
     public boolean handle() {
         return super.handle();
     }
-    
+
     public void rclick() {
         item = null;
         descrip = hover;
     }
-    
+
     @Override
     public void render() {
         Frame.defaultFrame.render(getX(), getY() + (hover ? 1 : -1), width, height);
         if (item != null) {
             item.renderIcon(getX() + 8, getY() + 8);
             if (descrip) {
-                Scene.currentScene.currentTip = new ToolTip(GameLocale.get("fuck") + '\n'+'\n'+'\n'+'\n' + GameLocale.get("hello"));
+                String itemType = item.type.name().toLowerCase();
+                String description = "";
+                for (Modificator mod : item.modificators) {
+                    description += GameLocale.get(mod.name()) + "1337" + '\n';
+                }
+                Scene.currentScene.currentTip = new ToolTip(GameLocale.get(itemType) + '\n' + '\n' + description);
             }
         }
     }
-    
+
 }
