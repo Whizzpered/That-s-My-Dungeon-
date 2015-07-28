@@ -5,6 +5,7 @@
  */
 package org.tmd.render.scenes;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,7 +64,8 @@ public class Dungeon extends Scene implements Serializable {
     public ArrayList<Point> minionsRespawnPoints = new ArrayList<Point>();
     public Player player;
     public Entity underMouse;
-    public Terrain terrain = new Terrain(this, "maps/dungeon" + (Main.RANDOM.nextInt(2) + 1) + ".map");
+    File maps[] = new File("maps").listFiles();
+    public Terrain terrain  = new Terrain(this, "maps/" + maps[Main.RANDOM.nextInt(maps.length)].getName());
     public Particle[] particles = new Particle[256];
     public int longtim = 0, wave = 0, target = 0;
     private boolean wavetimer, frezedMouse;

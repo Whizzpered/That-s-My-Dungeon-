@@ -31,6 +31,7 @@ public class Pet extends Entity {
         clickable = true;
         this.owner = owner;
         speed = 4;
+        range = 400;
         level = owner.level;
         this.attackDistance = (int) width / 2;
         initAbils();
@@ -76,11 +77,11 @@ public class Pet extends Entity {
             if (!focus.dead) {
                 attack(focus);
                 goTo(focus.x, focus.y);
+                return;
             } else {
                 focus = null;
-                goTo(owner.x, owner.y);
             }
         }
+        goTo(owner.x, owner.y);
     }
-    
 }

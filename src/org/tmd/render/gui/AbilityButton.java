@@ -43,7 +43,7 @@ public class AbilityButton extends Button {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(AbilityButton.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (abil != null && !(abil instanceof Active)) {
+        if (abil != null && !(abil instanceof Passive)) {
             key = ((Declaration.dungeon.player.abilities.size() + 1) + "") + "";
             enabled = true;
         } else {
@@ -53,9 +53,10 @@ public class AbilityButton extends Button {
 
     @Override
     public void click() {
+        System.out.println(abil.getClass().getName());
         if (enabled) {
             if (abil instanceof Active) {
-                ((Active) abil).cast(level, Declaration.dungeon.player);
+                ((Active)abil).cast(level, Declaration.dungeon.player);
                 enabled = false;
                 cooldown = abil.cooldown;
             } else if (abil instanceof Target) {

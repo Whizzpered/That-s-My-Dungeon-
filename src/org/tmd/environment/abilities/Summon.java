@@ -13,9 +13,9 @@ import org.tmd.main.Declaration;
  *
  * @author Whizzpered
  */
-public class Spawn extends Active {
+public class Summon extends Active {
 
-    public Spawn() {
+    public Summon() {
         super(Declaration.dungeon.player, 200);
     }
 
