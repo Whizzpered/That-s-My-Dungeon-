@@ -5,6 +5,7 @@
  */
 package org.tmd.render.gui;
 
+import java.io.Serializable;
 import org.lwjgl.opengl.Display;
 import org.tmd.main.Main;
 import org.tmd.render.Color;
@@ -13,7 +14,7 @@ import org.tmd.render.Color;
  *
  * @author Whizzpered
  */
-public class ToolTip {
+public class ToolTip implements Serializable{
 
     public int width, height;
     public String mess;

@@ -26,23 +26,35 @@ public class Gate extends Entity{
         minimapIcon = null;
         maxhp = Double.MAX_VALUE;
         name = "gate";
+        opened = true;
     }
 
     @Override
     public void tick() {
-        if(!opened){
-            for(Entity e : dungeon.entities){
+        if(opened){
+            for(Entity e : dungeon.getEntities()){
+                if(e instanceof Raider){
+                    opened = false;
+                    if(dungeon.terrain.get(dungeon.player.x, dungeon.player.y).restZone){
+                        dungeon.player.x = dungeon.playerRespawnPoint.x;
+                        dungeon.player.y = dungeon.playerRespawnPoint.y;
+                    }
+                    break;
+                }
+            }
+        }else{
+            boolean open = true;
+            for(Entity e : dungeon.getEntities()){
                 if(Math.abs(y - e.y) < height / 2 && Math.abs(x - e.x) < (e.width + width) / 2){
                     if(e.x > x)e.x = x + (e.width + width) / 2;
                     if(e.x < x)e.x = x - (e.width + width) / 2;
                 }
+                if(e instanceof Raider){
+                    open = false;
+                }
             }
+            opened = open;
         }
-    }
-
-    @Override
-    public void longTick() {
-        opened = !opened;
     }
 
     @Override

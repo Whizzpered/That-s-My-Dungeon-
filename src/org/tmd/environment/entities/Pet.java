@@ -9,6 +9,8 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import org.tmd.environment.particles.Hit;
 import org.tmd.environment.particles.LevelUp;
+import org.tmd.environment.particles.SlimeTrace;
+import org.tmd.main.Main;
 import org.tmd.render.Sprite;
 
 /**
@@ -18,19 +20,23 @@ import org.tmd.render.Sprite;
 public class Pet extends Entity {
 
     public Entity owner;
-    public int comeTimer = 150;
-     public double range;
+    public int comeTimer = 3000;
+    public double range;
 
     public Pet(double x, double y, String sprite, int level, Entity owner) {
         super(x, y);
         spriteStanding = new Sprite("creatures/" + sprite);
-        phantom = true;
+        name = sprite;
+        //phantom = true;
         this.level = level;
-        maxhp = 30 + level * 20;
-        attackDamage = 4 + level * 3;
+        maxhp = 30;
+        deltahp = 20;
+        attackDamage = 4;
+        attackDeltaDamage = 3;
         clickable = true;
         this.owner = owner;
-        speed = 4;
+        faction = 1;
+        speed = 1;
         range = 400;
         level = owner.level;
         this.attackDistance = (int) width / 2;
@@ -42,11 +48,23 @@ public class Pet extends Entity {
     }
 
     @Override
+    public void walk(double x, double y) {
+        if (Main.RANDOM.nextInt(10) == 0) {
+            dungeon.addParticle(new SlimeTrace(x, y));
+        }
+        super.walk(x, y);
+    }
+
+    @Override
     public void tick() {
         super.tick();
+        comeTimer--;
+        if (comeTimer <= 0) {
+            hp = 0;
+        }
         patrool();
     }
-    
+
     @Override
     public void attack(Entity e) {
         if (attackReload == 0) {

@@ -11,6 +11,9 @@ import org.tmd.render.Color;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
 import org.tmd.main.Main;
+import org.tmd.main.Sounds;
+import static org.tmd.main.Sounds.music;
+import static org.tmd.main.Sounds.musicAudio;
 import org.tmd.render.Image;
 import org.tmd.render.gui.*;
 
@@ -38,8 +41,14 @@ public class Settings extends Scene {
     TrackBar musicButton = new TrackBar("music", 0, 230, 300, 50) {
 
         @Override
-        public void click() {
+        public void init() {
+            value = Main.conf.get("music").getFloat();
+        }
+        
+        @Override
+        public void valueChanged() {
             Main.conf.set("music", value);
+            musicAudio.setVolume(value);
         }
 
     };
@@ -47,8 +56,14 @@ public class Settings extends Scene {
     TrackBar soundButton = new TrackBar("sound", 0, 300, 300, 50) {
 
         @Override
-        public void click() {
+        public void init() {
+            value = Main.conf.get("sound").getFloat();
+        }
+        
+        @Override
+        public void valueChanged() {
             Main.conf.set("sound", value);
+            Sounds.sound = value;
         }
 
     };

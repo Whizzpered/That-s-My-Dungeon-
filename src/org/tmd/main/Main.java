@@ -99,6 +99,8 @@ public class Main {
                     } else {
                         conf.set("x", gdd.getDefaultConfiguration().getBounds().x);
                         conf.set("y", gdd.getDefaultConfiguration().getBounds().y);
+                        conf.set("sound", 1.0f);
+                        conf.set("music", 1.0f);
                         conf.set("width", gdd.getDisplayMode().getWidth());
                         conf.set("height", gdd.getDisplayMode().getHeight());
                         conf.set("locale", "en_US");
@@ -210,7 +212,10 @@ public class Main {
         longTimer.start();
         tickTimer1.start();
         tickTimer2.start();
-        Sounds.musicAudio.playAsSoundEffect(Sounds.music, Sounds.music, true);
+        Sounds.musicAudio.play();
+        Sounds.musicAudio.setVolume(conf.get("music").getFloat());
+        Sounds.music = conf.get("music").getFloat();
+        Sounds.sound = conf.get("sound").getFloat();
         try {
             while (!(Display.isCloseRequested() | exit)) {
                 glMatrixMode(GL_PROJECTION);
