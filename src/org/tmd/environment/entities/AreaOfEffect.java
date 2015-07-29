@@ -9,7 +9,6 @@ import org.tmd.main.Main;
  */
 public class AreaOfEffect extends Entity {
 
-    public int radius;
     public int timer;
     public int delay;
 
@@ -19,16 +18,22 @@ public class AreaOfEffect extends Entity {
 
     public AreaOfEffect(double x, double y, int radius, int timer, int delay) {
         super(x, y);
-        this.radius = radius;
+        this.distance = radius;
         this.timer = timer;
         this.delay = delay;
+        phantom = true;
+        this.maxhp = Double.MAX_VALUE;
+        this.size = 0;
     }
 
     public AreaOfEffect(double x, double y, int radius, int timer) {
         super(x, y);
-        this.radius = radius;
+        this.distance = radius;
         this.timer = timer;
         this.delay = 1;
+        phantom = true;
+        this.maxhp = Double.MAX_VALUE;
+        this.size = 0;
     }
 
     @Override
@@ -42,14 +47,16 @@ public class AreaOfEffect extends Entity {
         } else {
             currentDelayTick = delay;
             for (Entity e : dungeon.getEntities()) {
-                if (goodTarget(e)) {
-                    if (isometric) {
-                        if (Math.sqrt(Math.pow(x - e.x, 2)) + Math.pow(y - e.y, 2) * 2 < distance) {
-                            cast(e);
-                        }
-                    } else {
-                        if (Math.sqrt(Math.pow(x - e.x, 2)) + Math.pow(y - e.y, 2) < distance) {
-                            cast(e);
+                if (e != this) {
+                    if (goodTarget(e)) {
+                        if (isometric) {
+                            if (Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2)) * 2 <= distance) {
+                                cast(e);
+                            }
+                        } else {
+                            if (Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2)) <= distance) {
+                                cast(e);
+                            }
                         }
                     }
                 }
@@ -69,9 +76,9 @@ public class AreaOfEffect extends Entity {
     public void render() {
         Main.g.setColor(Color.yellow);
         if (isometric) {
-            Main.g.drawOval((int) (x - radius), (int) (y - radius / 2), radius * 2, radius);
+            Main.g.drawOval((int) (x - distance), (int) (y - distance / 2), (int)distance * 2, (int)distance);
         } else {
-            Main.g.drawOval((int) (x - radius), (int) (y - radius), radius * 2, radius * 2);
+            Main.g.drawOval((int) (x - distance), (int) (y - distance), (int)distance * 2, (int)distance * 2);
         }
     }
 }
