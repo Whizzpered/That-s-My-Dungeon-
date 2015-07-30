@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.Music;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 
@@ -17,7 +19,7 @@ import org.newdawn.slick.openal.AudioLoader;
 public class Sounds {
 
     public static float music = 1, sound = 1;
-    public static Audio musicAudio;
+    public static Music musicAudio;
     private static Sound[] sounds;
 
     private static class Sound {
@@ -42,7 +44,7 @@ public class Sounds {
         }
 
         public void play() {
-            a[Main.RANDOM.nextInt(a.length)].playAsSoundEffect(sound, sound, false);
+            a[Main.RANDOM.nextInt(a.length)].playAsSoundEffect(1, sound, false);
         }
     }
 
@@ -60,8 +62,13 @@ public class Sounds {
 
     private static void backgroundLoad() {
         try {
-            musicAudio = AudioLoader.getStreamingAudio("OGG", new File("res/music/New_Day.ogg").toURL());
+            musicAudio = new Music(new FileInputStream(new File("res/music/New_Day.ogg")), ".ogg");
+            musicAudio.setVolume(music);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SlickException ex) {
             Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
         }
         File[] f = new File("res/sounds").listFiles();

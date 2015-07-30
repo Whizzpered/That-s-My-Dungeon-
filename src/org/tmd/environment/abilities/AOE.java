@@ -7,6 +7,7 @@ package org.tmd.environment.abilities;
 
 import org.tmd.environment.Point;
 import org.tmd.environment.entities.BulletRoar;
+import org.tmd.environment.entities.aoe.PortalToHell;
 import org.tmd.main.Declaration;
 import org.tmd.main.Sounds;
 
@@ -22,8 +23,6 @@ public class AOE extends Target{
 
     @Override
     public void cast(int level, Point target) {
-        by.dungeon.entities.add(new BulletRoar(level, by.x, by.y, by, target.x, target.y));
-        by.dungeon.quake = 150;
-        Sounds.play("roar");
+        by.dungeon.entities.add(new PortalToHell(target.x, target.y, level, by));
     }
 }

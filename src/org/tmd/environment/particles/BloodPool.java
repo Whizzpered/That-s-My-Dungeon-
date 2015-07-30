@@ -15,7 +15,10 @@ import org.tmd.render.Image;
 public class BloodPool extends Particle{
 
     int t;
-    static Image blood[] = new Image[]{new Image("effects/blood_0.png"), new Image("effects/blood_1.png"), new Image("effects/blood_2.png")};
+    static Image blood[] = new Image[]{
+        new Image("effects/blood/0.png"), 
+        new Image("effects/blood/1.png"), 
+        new Image("effects/blood/2.png")};
     
     public BloodPool(double x, double y) {
         super(x, y);
