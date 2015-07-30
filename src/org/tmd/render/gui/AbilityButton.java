@@ -77,6 +77,7 @@ public class AbilityButton extends Button {
     }
 
     public void tick() {
+        abil.cd = cooldown;
         if (abil instanceof Passive) {
             ((Passive) abil).cast(level, Declaration.dungeon.player);
         } else {

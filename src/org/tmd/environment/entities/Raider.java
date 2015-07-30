@@ -9,8 +9,8 @@ import org.tmd.environment.entities.items.Item;
 import static java.lang.Math.*;
 import org.tmd.environment.Condition;
 import static org.tmd.environment.Condition.*;
+import org.tmd.environment.abilities.Ability;
 import org.tmd.environment.entities.raiders.Warrior;
-import org.tmd.main.Main;
 import org.tmd.main.Nicknames;
 import org.tmd.main.Sounds;
 import org.tmd.render.Animation;
@@ -29,6 +29,7 @@ public class Raider extends Entity {
     boolean hasMoney = true;
     public Condition condition = JOINED;
     public Item[] weared = new Item[4];
+    public Ability[] abils = new Ability[1];
 
     public Raider(double x, double y, int level) {
         super(x, y);
@@ -47,20 +48,15 @@ public class Raider extends Entity {
         counter.period = 400;
         distance = 400;
         nickmame = Nicknames.get();
-        for (int i = 0; i < 4; i++) {
-            if (Main.RANDOM.nextBoolean()) {
-                int type = Main.RANDOM.nextInt(4);
-                if (type == 0) {
-                    weared[i] = new Item("hat", 1);
-                } else if (type == 1) {
-                    weared[i] = new Item("arms", 1);
-                } else if (type == 2) {
-                    weared[i] = new Item("braces", 1);
-                } else if (type == 3) {
-                    weared[i] = new Item("pants", 1);
-                }
-            }
-        }
+        initAbilities();
+    }
+
+    public void initAbilities() {
+
+    }
+
+    public void abilities() {
+
     }
 
     @Override
@@ -88,6 +84,7 @@ public class Raider extends Entity {
         } else if (condition == DEAD) {
             died();
         }
+        abilities();
     }
 
     public void join() {

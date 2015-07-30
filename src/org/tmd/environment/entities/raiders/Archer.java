@@ -5,11 +5,6 @@
  */
 package org.tmd.environment.entities.raiders;
 
-import static java.lang.Math.atan2;
-import static java.lang.Math.cos;
-import static java.lang.Math.pow;
-import static java.lang.Math.sin;
-import static java.lang.Math.sqrt;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Raider;

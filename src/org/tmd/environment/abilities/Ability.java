@@ -14,16 +14,22 @@ import org.tmd.environment.entities.Entity;
  */
 public abstract class Ability implements Serializable {
 
-    public int cooldown, conting;
+    public int cooldown, conting, cd;
     public boolean cont;
     public Entity by;
 
-    public Ability(Entity owner,int cooldown) {
+    public boolean isReady() {
+        return (cd <= 0);
+    }
+
+    public Ability(Entity owner, int cooldown) {
         this.cooldown = cooldown;
         this.by = owner;
     }
-    
+
     public void tick() {
-        
+        if (cd > 0) {
+            cd--;
+        }
     }
 }

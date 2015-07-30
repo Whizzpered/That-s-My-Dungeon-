@@ -28,6 +28,7 @@ public class Player extends Entity {
     public Item[] weared = new Item[4];
     public Inventory inventory = Declaration.inventory;
     public AbilityButton castAbility;
+    public Entity agro;
     public ArrayList<AbilityButton> abilities = new ArrayList<AbilityButton>();
 
     public Player(double x, double y) {
