@@ -346,9 +346,9 @@ public class Dungeon extends Scene implements Serializable {
             } else {
                 wave++;
                 Nicknames.free();
-                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                //entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                //entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                //entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 wavetimer = false;
             }

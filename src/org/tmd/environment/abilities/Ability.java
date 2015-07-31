@@ -31,5 +31,19 @@ public abstract class Ability implements Serializable {
         if (cd > 0) {
             cd--;
         }
+        if (conting > 0) {
+            conting--;
+            duration();
+        } else {
+            exduration();
+        }
+    }
+
+    public void duration() {
+
+    }
+
+    public void exduration() {
+
     }
 }

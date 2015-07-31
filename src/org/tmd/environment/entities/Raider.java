@@ -29,6 +29,7 @@ public class Raider extends Entity {
     boolean hasMoney = true;
     public Condition condition = JOINED;
     public Item[] weared = new Item[4];
+    public Raider thisClass = this;
     public Ability[] abils = new Ability[1];
 
     public Raider(double x, double y, int level) {
@@ -159,6 +160,16 @@ public class Raider extends Entity {
         if (counter.is()) {
             dungeon.chat.addMessage(this, Chat.messageType.TYPE_RISE);
             counter.start();
+        }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        for (Ability ab : abils) {
+            if (ab != null) {
+                ab.tick();
+            }
         }
     }
 

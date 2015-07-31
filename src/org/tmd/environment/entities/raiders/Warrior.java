@@ -18,7 +18,7 @@ import org.tmd.render.Sprite;
 public class Warrior extends Raider {
 
     boolean agro;
-    Image agronomic;
+    Image agronomic = null;
 
     public Warrior(double x, double y, int lvl) {
         super(x, y, lvl);
@@ -26,44 +26,33 @@ public class Warrior extends Raider {
         attackDistance = 96;
         spriteStanding = new Sprite("creatures/warrior");
         minimapIcon = new Image("minimap/warrior.png");
-        agronomic = new Image("effects/agro.png").getNxCopy(2f);
     }
-
-    Warrior thisClass = this;
 
     @Override
     public void initAbilities() {
         abils[0] = new Active(thisClass, 300) {
             @Override
             public void cast(int level, Entity ent) {
-                //dungeon.player.agro = thisClass;
-                //dungeon.player.focus = thisClass;
+                dungeon.player.agro = thisClass;
+                dungeon.player.focus = thisClass;
                 conting = 150;
-                cd = 300;
+                cd = cooldown;
             }
 
             @Override
-            public void tick() {
-                super.tick();
-                if (conting > 0) {
-                    conting--;
-                    //dungeon.player.agro = thisClass;
-                    agro = true;
-                } else {
-                    //dungeon.player.agro = null;
-                    agro = false;
-                }
+            public void duration() {
+                agro = true;
+                dungeon.player.agro = thisClass;
+                dungeon.player.focus = thisClass;
+            }
+
+            @Override
+            public void exduration() {
+                agro = false;
+                dungeon.player.agro = null;
             }
         };
 
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        for (Ability ab : abils) {
-            ab.tick();
-        }
     }
 
     @Override
@@ -78,6 +67,9 @@ public class Warrior extends Raider {
 
     @Override
     public void render() {
+        if (agronomic == null) {
+            agronomic = new Image("effects/agro.png").getNxCopy(2f);
+        }
         super.render();
         if (agro) {
             agronomic.draw(x, y - height * 2);

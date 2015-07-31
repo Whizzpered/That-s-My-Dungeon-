@@ -212,8 +212,8 @@ public class Main {
         longTimer.start();
         tickTimer1.start();
         tickTimer2.start();
-        Sounds.musicAudio.play();
-        Sounds.musicAudio.setVolume(conf.get("music").getFloat());
+        //Sounds.musicAudio.play();
+        //Sounds.musicAudio.setVolume(conf.get("music").getFloat());
         Sounds.music = conf.get("music").getFloat();
         Sounds.sound = conf.get("sound").getFloat();
         try {
