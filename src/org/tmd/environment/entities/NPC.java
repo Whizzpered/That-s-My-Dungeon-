@@ -7,7 +7,6 @@ package org.tmd.environment.entities;
 
 import static java.lang.Math.*;
 import org.tmd.render.Animation;
-import org.tmd.render.Image;
 import org.tmd.render.scenes.Dialog;
 
 /**

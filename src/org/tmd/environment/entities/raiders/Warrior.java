@@ -26,7 +26,7 @@ public class Warrior extends Raider {
         spriteStanding = new Sprite("creatures/warrior");
         minimapIcon = new Image("minimap/warrior.png");
     }
-    
+
     @Override
     public void initAbilities() {
         abils[0] = new Active(thisClass, 900) {
@@ -40,9 +40,10 @@ public class Warrior extends Raider {
 
             @Override
             public void duration() {
-                agro = true;
-                dungeon.player.agro = thisClass;
-                dungeon.player.focus = thisClass;
+                if (!dead) {
+                    agro = true;
+                    dungeon.player.agro = thisClass;
+                }
             }
 
             @Override
@@ -51,7 +52,6 @@ public class Warrior extends Raider {
                 dungeon.player.agro = null;
             }
         };
-
     }
 
     @Override
@@ -62,6 +62,13 @@ public class Warrior extends Raider {
                 ((Active) (abils[0])).cast(level, thisClass);
             }
         }
+    }
+
+    @Override
+    public void dead() {
+        super.dead();
+        agro = false;
+        dungeon.player.agro = null;
     }
 
     @Override

@@ -41,7 +41,7 @@ public class Entity implements Comparable<Entity>, Serializable {
     private int currentWaypoint;
     public static Animation selection = new Animation("effects/selection");
     public Sprite spriteStanding = new Sprite("creatures/player");
-    public Image minimapIcon = new Image("minimap/entity.png");
+    public Image minimapIcon = new Image("minimap/entity.png"), healthbar = new Image("h.png");
     public Side side = Side.FRONT;
     public double speed = 2;
     public int faction;
@@ -327,6 +327,7 @@ public class Entity implements Comparable<Entity>, Serializable {
                     }
                 }
             }
+
             hp += regenhp;
             if (hp > getMaxHP()) {
                 hp = getMaxHP();
@@ -382,6 +383,21 @@ public class Entity implements Comparable<Entity>, Serializable {
             selection.get().draw(x - 48, y - 23, 96, 46);
         }
         spriteStanding.render(side, x, y);
+
+        renderHP();
+
+    }
+
+    public void renderHP() {
+        if (hp > 0 && !this.phantom) {
+            org.newdawn.slick.Color clr = org.newdawn.slick.Color.red.darker();
+            Main.g.setColor(clr);
+            Main.g.fillRect((float) (x - width / 2) + 2, (float) (y - height * 3 + 13), 96, 5);
+            Main.g.setColor(org.newdawn.slick.Color.red.brighter());
+            System.out.println(maxhp + "    " + hp);
+            Main.g.fillRect((float) (x - width / 2) + 2, (float) (y - height * 3 + 13), (int) (96 * (float) (getHP() / getMaxHP())), 5);
+            healthbar.draw(x - width / 2, y - height * 3);
+        }
     }
 
     public int getRenderQueuePriority() {

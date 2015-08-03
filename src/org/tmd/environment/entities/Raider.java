@@ -11,9 +11,11 @@ import org.tmd.environment.Condition;
 import static org.tmd.environment.Condition.*;
 import org.tmd.environment.abilities.Ability;
 import org.tmd.environment.entities.raiders.Warrior;
+import org.tmd.main.Main;
 import org.tmd.main.Nicknames;
 import org.tmd.main.Sounds;
 import org.tmd.render.Animation;
+import org.tmd.render.Color;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 import org.tmd.render.gui.Chat;
@@ -85,7 +87,9 @@ public class Raider extends Entity {
         } else if (condition == DEAD) {
             died();
         }
-        abilities();
+        if (!dead) {
+            abilities();
+        }
     }
 
     public void join() {
@@ -220,6 +224,12 @@ public class Raider extends Entity {
             Image g = ghost.images[i];
             g.draw(x - g.width, y - g.height * 2, g.width * 2, g.height * 2);
         }
+    }
+
+    @Override
+    public void renderHP() {
+        super.renderHP();
+        Main.defaultFont.drawStringAtCenter(this.nickmame, (int) x, (int) (y - height * 3 - 20), Color.white);
     }
 
     @Override
