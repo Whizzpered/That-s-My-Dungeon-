@@ -5,7 +5,6 @@
  */
 package org.tmd.environment.entities.raiders;
 
-import org.tmd.environment.abilities.Ability;
 import org.tmd.environment.abilities.Active;
 import org.tmd.environment.entities.*;
 import org.tmd.render.Image;
@@ -27,16 +26,16 @@ public class Warrior extends Raider {
         spriteStanding = new Sprite("creatures/warrior");
         minimapIcon = new Image("minimap/warrior.png");
     }
-
+    
     @Override
     public void initAbilities() {
-        abils[0] = new Active(thisClass, 300) {
+        abils[0] = new Active(thisClass, 900) {
             @Override
             public void cast(int level, Entity ent) {
                 dungeon.player.agro = thisClass;
                 dungeon.player.focus = thisClass;
                 conting = 150;
-                cd = cooldown;
+                this.cd = this.cooldown;
             }
 
             @Override

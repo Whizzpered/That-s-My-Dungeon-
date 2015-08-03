@@ -7,6 +7,9 @@ package org.tmd.render.scenes;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Graphics;
+import org.tmd.environment.entities.Entity;
 import org.tmd.render.Color;
 import org.tmd.main.Declaration;
 import org.tmd.main.Main;
@@ -122,7 +125,7 @@ public class MainMenu extends Scene {
     @Override
     public void render() {
         if (Declaration.dungeon != null) {
-            Declaration.dungeon.render();
+            Declaration.dungeon.staticRender();;
             Main.g.setColor(new Color(0, 0, 0, 150).slickColor());
             Main.g.fillRect(0, 0, Display.getWidth(), Display.getHeight());
         } else {

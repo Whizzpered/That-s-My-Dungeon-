@@ -48,6 +48,9 @@ public class Player extends Entity {
         for (int i = 0; i < abilities.size(); i++) {
             abilities.get(i).tick();
         }
+        if(agro != null){
+            focus = agro;
+        }
     }
 
     @Override

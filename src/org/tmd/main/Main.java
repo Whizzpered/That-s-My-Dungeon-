@@ -4,6 +4,7 @@
  *     Yew_Mentzaki.
  */
 package org.tmd.main;
+
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -34,11 +35,13 @@ import org.tmd.render.gui.Mouse;
 import org.tmd.render.scenes.Dungeon;
 import org.tmd.render.scenes.Scene;
 import org.tmd.xfg.*;
+
 /**
  *
  * @author yew_mentzaki
  */
 public class Main {
+
     public static final Random RANDOM = new Random();
     public static XFG conf;
     private static boolean exit;
@@ -71,13 +74,16 @@ public class Main {
             tickTimer1 = new Timer(10, Main.tickTimerListener),
             tickTimer2 = new Timer(10, Main.tickTimerListener);
     private static Object Serialize;
+
     public static void main(String[] args) {
         setUpNatives();
         setUpDisplay();
     }
+
     public static void exit() {
         exit = true;
     }
+
     public static void setUpDisplay() {
         try {
             try {
@@ -212,8 +218,12 @@ public class Main {
         longTimer.start();
         tickTimer1.start();
         tickTimer2.start();
-        //Sounds.musicAudio.play();
-        //Sounds.musicAudio.setVolume(conf.get("music").getFloat());
+        try {
+            Sounds.musicAudio.play();
+            Sounds.musicAudio.setVolume(conf.get("music").getFloat());
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        }
         Sounds.music = conf.get("music").getFloat();
         Sounds.sound = conf.get("sound").getFloat();
         try {
@@ -267,6 +277,7 @@ public class Main {
         Display.destroy();
         System.exit(0);
     }
+
     public static void setUpNatives() {
         if (!new File("native").exists()) {
             JOptionPane.showMessageDialog(null, "Error!\nNative libraries not found!");

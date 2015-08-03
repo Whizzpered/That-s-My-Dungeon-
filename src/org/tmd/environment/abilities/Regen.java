@@ -16,7 +16,6 @@ public class Regen extends Active {
 
     public Regen() {
         super(Declaration.dungeon.player, 500);
-        cont = true;
     }
 
     public void cast(int level, Entity by) {

@@ -15,7 +15,6 @@ import org.tmd.environment.entities.Entity;
 public abstract class Ability implements Serializable {
 
     public int cooldown, conting, cd;
-    public boolean cont;
     public Entity by;
 
     public boolean isReady() {

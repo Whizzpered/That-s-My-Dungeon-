@@ -23,6 +23,7 @@ import org.tmd.environment.entities.Mob;
 import org.tmd.environment.entities.Player;
 import org.tmd.environment.entities.Raider;
 import org.tmd.environment.entities.raiders.*;
+import org.tmd.environment.particles.FloatingText;
 import org.tmd.environment.particles.Particle;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
@@ -65,7 +66,7 @@ public class Dungeon extends Scene implements Serializable {
     public Player player;
     public Entity underMouse;
     File maps[] = new File("maps").listFiles();
-    public Terrain terrain  = new Terrain(this, "maps/" + maps[Main.RANDOM.nextInt(maps.length)].getName());
+    public Terrain terrain = new Terrain(this, "maps/test.map" /*+ maps[Main.RANDOM.nextInt(maps.length)].getName()*/);
     public Particle[] particles = new Particle[256];
     public int longtim = 0, wave = 0, target = 0;
     private boolean wavetimer, frezedMouse;
@@ -346,9 +347,9 @@ public class Dungeon extends Scene implements Serializable {
             } else {
                 wave++;
                 Nicknames.free();
-                //entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                //entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                //entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 wavetimer = false;
             }
@@ -384,7 +385,10 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void render() {
         camUpdate();
+        staticRender();
+    }
 
+    public void staticRender() {
         Graphics g = new Graphics();
         g.setColor(new org.newdawn.slick.Color(0, 0, 250));
         g.fillRect(0, 0, Display.getWidth(), Display.getHeight());
@@ -419,35 +423,50 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void handle() {
         underMouse = player;
-        if (player.castAbility != null) {
-            if (Mouse.left) {
-                player.castAbility.cast(new Point(Mouse.x - cam.x, Mouse.y - cam.y));
-                frezedMouse = true;
-            }
-            if (Mouse.right) {
-                player.castAbility = null;
-            }
-        }
-        buttons();
-        if (frezedMouse) {
-            if (Mouse.left) {
-                return;
-            } else {
-                frezedMouse = false;
-            }
-        }
         for (Entity e : getEntities()) {
-            try {
-                e.handle();
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            if (player.agro == null && !frezedMouse) {
+                try {
+                    e.handle();
+                } catch (NullPointerException exeption) {
+                    exeption.printStackTrace();
+                }
             }
             if (Math.abs(e.x - Mouse.x + cam.x) < e.width / 2 && Math.abs(e.y - Mouse.y + cam.y - e.height) < e.height) {
                 underMouse = e;
             }
         }
-        if (underMouse != player && underMouse.clickable && Mouse.left) {
-            underMouse.click();
+
+        if (player.agro == null) {
+            if (player.castAbility != null) {
+                if (Mouse.left) {
+                    player.castAbility.cast(new Point(Mouse.x - cam.x, Mouse.y - cam.y));
+                    frezedMouse = true;
+                }
+                if (Mouse.right) {
+                    player.castAbility = null;
+                }
+            }
+            buttons();
+            if (frezedMouse) {
+                if (Mouse.left) {
+                    return;
+                } else {
+                    frezedMouse = false;
+                }
+            }
+
+            if (underMouse != player && underMouse.clickable && Mouse.left) {
+                underMouse.click();
+            }
+        } else {
+            if (Mouse.left) {
+                if (pressed) {
+                    addParticle(new FloatingText((int) (Mouse.x - cam.x), (int) (Mouse.y - cam.y), "GET ME TO THIS MOTHERFUCKER", Color.red));
+                    pressed = false;
+                }
+            } else {
+                pressed = true;
+            }
         }
     }
 
