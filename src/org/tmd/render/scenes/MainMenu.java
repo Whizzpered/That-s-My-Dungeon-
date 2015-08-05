@@ -36,7 +36,7 @@ public class MainMenu extends Scene {
 
         @Override
         public boolean handle() {
-            visible = (Declaration.dungeon != null && Declaration.dungeon.player.getHP() > 0);
+            visible = (Declaration.dungeon != null && Declaration.dungeon.player.hp > 0);
             return super.handle();
         }
 

@@ -37,7 +37,7 @@ public class Player extends Entity {
         name = "Player";
         attackType = "hit_big_clutches";
         faction = 1;
-        nativeregenhp = regenhp = 0.05;
+        regenhp = 0.05f;
         headType = 1;
         level = 1;
     }

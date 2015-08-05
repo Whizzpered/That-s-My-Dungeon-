@@ -23,7 +23,7 @@ public class Bullet extends Entity {
         this.owner = owner;
         speed = 6;
         hp = 500;
-        maxhp = Double.MAX_VALUE;
+        maxhp = (float)Double.MAX_VALUE;
         phantom = true;
         minimapIcon = new Image("effects/arrow.png");
     }
@@ -35,7 +35,7 @@ public class Bullet extends Entity {
         focus = aim;
         speed = 4;
         hp = 500;
-        maxhp = Double.MAX_VALUE;
+        maxhp = (float)Double.MAX_VALUE;
         phantom = true;
         minimapIcon = new Image("effects/magic_attack.png");
     }

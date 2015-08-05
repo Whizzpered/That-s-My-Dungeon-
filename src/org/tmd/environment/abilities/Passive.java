@@ -13,9 +13,19 @@ import org.tmd.environment.entities.Entity;
  */
 public abstract class Passive extends Ability {
 
+    public boolean active = false;
+    
     public Passive(Entity owner) {
         super(owner, 0);
     }
 
     public abstract void cast(int level, Entity ent);
+    
+    @Override
+    public void tick() {
+        if(!active){
+            cast(by.level,by);
+            active  = true;
+        } 
+    }
 }

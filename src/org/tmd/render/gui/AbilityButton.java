@@ -56,7 +56,7 @@ public class AbilityButton extends Button {
         System.out.println(abil.getClass().getName());
         if (enabled) {
             if (abil instanceof Active) {
-                ((Active)abil).cast(level, Declaration.dungeon.player);
+                ((Active) abil).cast(level, Declaration.dungeon.player);
                 enabled = false;
                 cooldown = abil.cooldown;
             } else if (abil instanceof Target) {
@@ -70,7 +70,7 @@ public class AbilityButton extends Button {
     public void cast(Point target) {
         if (cooldown == 0 && abil instanceof Target) {
             Declaration.dungeon.player.castAbility = null;
-            ((Target)abil).cast(level, target);
+            ((Target) abil).cast(level, target);
             enabled = false;
             cooldown = abil.cooldown;
         }
@@ -78,14 +78,10 @@ public class AbilityButton extends Button {
 
     public void tick() {
         abil.cd = cooldown;
-        if (abil instanceof Passive) {
-            ((Passive) abil).cast(level, Declaration.dungeon.player);
+        if (cooldown > 0) {
+            cooldown--;
         } else {
-            if (cooldown > 0) {
-                cooldown--;
-            } else {
-                enabled = true;
-            }
+            enabled = true;
         }
         abil.tick();
     }

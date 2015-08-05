@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
+import org.tmd.environment.entities.items.Modificator;
 import org.tmd.environment.particles.BloodParticle;
 import org.tmd.environment.particles.FloatingText;
 import org.tmd.environment.particles.HeadParticle;
@@ -35,7 +36,9 @@ public class Entity implements Comparable<Entity>, Serializable {
     public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
-    public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 100, deltahp = 25, nativeregenhp = 0.01, regenhp = 0.01, armor, distance;
+    public double x, y, size = 75, width = 128, height = 48, distance;
+    public float armor, deltahp = 25, hp = 105, maxhp = 100, speed = 2;
+    public float regenhp = 0.01f;
     protected double targetX = -1, targetY = -1;
     private Point[] way;
     private int currentWaypoint;
@@ -43,10 +46,9 @@ public class Entity implements Comparable<Entity>, Serializable {
     public Sprite spriteStanding = new Sprite("creatures/player");
     public Image minimapIcon = new Image("minimap/entity.png"), healthbar = new Image("h.png");
     public Side side = Side.FRONT;
-    public double speed = 2;
     public int faction;
     public boolean phantom = false, dead;
-    public int attackDamage = 10, attackDeltaDamage = 2;
+    public float attackDamage = 10, attackDeltaDamage = 2;
     public int attackDistance = 128, detectDistance;
     public int headType = -1;
     public String attackType = "hit_sword";
@@ -55,7 +57,9 @@ public class Entity implements Comparable<Entity>, Serializable {
     public int level = 0;
     public boolean clickable, entried, standing;
     protected Counter counter = new Counter(500);
-    public String nickmame = "n00b";
+    public String nickmame;
+    public ArrayList<Modificator> effTypes = new ArrayList<Modificator>();
+    public ArrayList<Float> effects = new ArrayList<Float>();
 
     public String getName() {
         return GameLocale.get(name);
@@ -94,20 +98,44 @@ public class Entity implements Comparable<Entity>, Serializable {
         e.hit(getDMG(), this);
     }
 
-    public double getHP() {
-        return hp;
-    }
-
-    public double getMaxHP() {
-        return maxhp + deltahp * level;
+    public float getMaxHP() {
+        int i = 0;
+        for (int k = 0; k < effTypes.size(); k++) {
+            if (effTypes.get(k).name().equals("HP")) {
+                i += effects.get(k);
+            }
+        }
+        return maxhp + deltahp * level + i;
     }
 
     public double getDMG() {
-        return attackDamage + attackDeltaDamage * level;
+        int i = 0;
+        for (int k = 0; k < effTypes.size(); k++) {
+            if (effTypes.get(k).name().equals("DAMAGE")) {
+                i += effects.get(k);
+            }
+        }
+        return attackDamage + attackDeltaDamage * level + i;
     }
 
-    public double getArmor() {
-        return armor;
+    public float getArmor() {
+        int i = 0;
+        for (int k = 0; k < effTypes.size(); k++) {
+            if (effTypes.get(k).name().equals("ARMOR")) {
+                i += effects.get(k);
+            }
+        }
+        return armor + i;
+    }
+
+    public float getRegen() {
+        float i = 0;
+        for (int k = 0; k < effTypes.size(); k++) {
+            if (effTypes.get(k).name().equals("REGENHP")) {
+                i += effects.get(k);
+            }
+        }
+        return regenhp + i;
     }
 
     private int sign(double a) {
@@ -327,8 +355,9 @@ public class Entity implements Comparable<Entity>, Serializable {
                     }
                 }
             }
-
-            hp += regenhp;
+            if (hp < getMaxHP()) {
+                hp += getRegen();
+            }
             if (hp > getMaxHP()) {
                 hp = getMaxHP();
             }
@@ -394,8 +423,7 @@ public class Entity implements Comparable<Entity>, Serializable {
             Main.g.setColor(clr);
             Main.g.fillRect((float) (x - width / 2) + 2, (float) (y - height * 3 + 13), 96, 5);
             Main.g.setColor(org.newdawn.slick.Color.red.brighter());
-            System.out.println(maxhp + "    " + hp);
-            Main.g.fillRect((float) (x - width / 2) + 2, (float) (y - height * 3 + 13), (int) (96 * (float) (getHP() / getMaxHP())), 5);
+            Main.g.fillRect((float) (x - width / 2) + 2, (float) (y - height * 3 + 13), (int) (96 * (hp / getMaxHP())), 5);
             healthbar.draw(x - width / 2, y - height * 3);
         }
     }
@@ -408,10 +436,11 @@ public class Entity implements Comparable<Entity>, Serializable {
         if (hp <= 0) {
             return false;
         }
-        hp -= damage;
+        hp -= damage - getArmor();
         if (Main.RANDOM.nextBoolean()) {
             dungeon.addParticle(new BloodParticle(x, y - 35));
         }
+        
         dungeon.addParticle(new FloatingText((int) x, (int) y - 35, "- " + (int) damage, Color.red));
         if (hp < 0) {
             if (headType >= 0 && Main.RANDOM.nextBoolean()) {

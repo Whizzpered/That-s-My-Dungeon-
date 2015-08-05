@@ -1,11 +1,7 @@
-AOE-1,,Regen-1,,Roar-1,,AOE-1
-|\,,/|*,,|,,|
-AOE-2,Roar-1,Regen-2,,Roar-2,,AOE-2
+AOE-1,,Regen-1,,Roar-1,,
+|\,,/|*,,|,,
+AOE-2,Roar-1,Regen-2,,Roar-2,,
 |,|,/|\,,/\,,/
-Summon-1,Roar-2,Regen-3,Roar-3,,Summon-1,
+Summon-1,Roar-2,Regen-3,Roar-3,,
 |,|,|,|,,|,
-Summon-2,Roar-3,Regen-4,Roar-4,,Summon-2,
-,|,,,,,,
-,Roar-4,,,,,,
-,,,,,,,,
-,,,,,,,,
+Summon-2,Roar-3,Regen-4,Roar-4,,

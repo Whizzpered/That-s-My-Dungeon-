@@ -14,5 +14,6 @@ public enum Modificator {
     ARMOR,
     DAMAGE,
     ATTACKSPEED,
-    MOVESPEED
+    MOVESPEED,
+    REGENHP
 }

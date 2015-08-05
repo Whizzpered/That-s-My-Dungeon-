@@ -100,10 +100,16 @@ public class Dungeon extends Scene implements Serializable {
                 public void render() {
                     string = underMouse.getName();
                     if (underMouse.level > 0) {
-                        String of = underMouse.level + " " + GameLocale.get("level");
+                       // String of = underMouse.level + " " + GameLocale.get("level");
+                        //Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
+                        // Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
+                    }
+                    if (underMouse.attackDamage > 0) {
+                        String of = GameLocale.get("damage") + " " + underMouse.getDMG();
                         Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
                         Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
                     }
+
                     super.render();
                 }
 
@@ -114,7 +120,7 @@ public class Dungeon extends Scene implements Serializable {
                 public void render() {
                     super.render();
                     if (underMouse.maxhp != Double.MAX_VALUE) {
-                        double d = underMouse.getHP();
+                        double d = underMouse.hp;
                         double m = underMouse.getMaxHP();
                         String of = (int) d + "/" + (int) m;
                         Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
@@ -347,7 +353,7 @@ public class Dungeon extends Scene implements Serializable {
             } else {
                 wave++;
                 Nicknames.free();
-                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, 3));
                 //entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 //entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 //entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));

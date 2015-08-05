@@ -23,6 +23,7 @@ public class Item extends Coin implements Serializable {
     public String name;
     public static Image glow = new Image("effects/light.png");
     public ArrayList<Modificator> modificators = new ArrayList<Modificator>();
+    public ArrayList<Float> modificatorsvalue  = new ArrayList<Float>();
     
     public Item(String name, int level) {
         super(0, 0);

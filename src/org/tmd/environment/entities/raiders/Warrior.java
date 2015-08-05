@@ -6,7 +6,9 @@
 package org.tmd.environment.entities.raiders;
 
 import org.tmd.environment.abilities.Active;
+import org.tmd.environment.abilities.Passive;
 import org.tmd.environment.entities.*;
+import org.tmd.environment.entities.items.Modificator;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 
@@ -52,6 +54,17 @@ public class Warrior extends Raider {
                 dungeon.player.agro = null;
             }
         };
+        if (level > 2) {
+            abils[1] = new Passive(thisClass) {
+                @Override
+                public void cast(int level, Entity ent) {
+                    by.effTypes.add(Modificator.REGENHP);
+                    by.effects.add(0.03f + level * 0.03f);
+                    by.effTypes.add(Modificator.ARMOR);
+                    by.effects.add(2f + level * 2f);
+                }
+            };
+        }
     }
 
     @Override
