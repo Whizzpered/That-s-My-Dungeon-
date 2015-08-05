@@ -54,6 +54,7 @@ public class Warrior extends Raider {
                 dungeon.player.agro = null;
             }
         };
+        /*
         if (level > 2) {
             abils[1] = new Passive(thisClass) {
                 @Override
@@ -65,6 +66,7 @@ public class Warrior extends Raider {
                 }
             };
         }
+                */
     }
 
     @Override

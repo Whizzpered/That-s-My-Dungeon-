@@ -50,7 +50,7 @@ public class Declaration {
             dungeon.raidersRespawnPoint = new Point(x, y);
         }
     };
-    public static Block blockMinion = new Block(6, '@', new Color(255, 255, 255, 100), "portal.png", false, false, false) {
+    public static Block blockMinion = new Block(6, '@', new Color(255, 255, 255, 100), "black_portal.png", "black_portal_top.png", false, false, false) {
         @Override
         public void parserAction(Dungeon dungeon, double x, double y) {
             dungeon.minionsRespawnPoints.add(new Point(x, y));

@@ -15,6 +15,8 @@ import org.tmd.main.Declaration;
  */
 public class Regen extends Active {
 
+    int index = 0;
+    
     public Regen() {
         super(Declaration.dungeon.player, 500);
     }
