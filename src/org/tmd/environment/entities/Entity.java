@@ -436,7 +436,7 @@ public class Entity implements Comparable<Entity>, Serializable {
         if (hp <= 0) {
             return false;
         }
-        hp -= (damage - getArmor());
+        hp -= damage - getArmor();
         if (Main.RANDOM.nextBoolean()) {
             dungeon.addParticle(new BloodParticle(x, y - 35));
         }

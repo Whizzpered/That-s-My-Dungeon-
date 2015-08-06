@@ -37,7 +37,7 @@ public class SlimeTrace extends Particle {
         } else {
             slime[t].a = 1;
         }
-        slime[t].draw(x, y + slime[t].height, 0);
+        slime[t].draw(x, y);
     }
 
 }

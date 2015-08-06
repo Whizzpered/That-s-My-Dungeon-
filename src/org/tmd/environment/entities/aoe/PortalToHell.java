@@ -7,19 +7,31 @@ package org.tmd.environment.entities.aoe;
 
 import org.tmd.environment.entities.AreaOfEffect;
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.particles.Hell;
+import org.tmd.main.Main;
 
 /**
  *
  * @author yew_mentzaki
  */
-public class PortalToHell extends AreaOfEffect{
-    
+public class PortalToHell extends AreaOfEffect {
+
     Entity by;
-    
+
     public PortalToHell(double x, double y, int level, Entity by) {
         super(x, y, 200 + level * 50, 255, 5);
         isometric = true;
         this.by = by;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (Main.RANDOM.nextInt(10) == 0) {
+            double a = Main.RANDOM.nextDouble() * Math.PI * 2;
+            double d = Main.RANDOM.nextInt((int) distance);
+            dungeon.addParticle(new Hell(x + Math.cos(a) * d, y + Math.sin(a) * d));
+        }
     }
 
     @Override
@@ -31,5 +43,9 @@ public class PortalToHell extends AreaOfEffect{
     public void cast(Entity e) {
         e.hit(1, by);
     }
-    
+
+    @Override
+    public void render() {
+        
+    }
 }

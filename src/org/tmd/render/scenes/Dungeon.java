@@ -100,7 +100,7 @@ public class Dungeon extends Scene implements Serializable {
                 public void render() {
                     string = underMouse.getName();
                     if (underMouse.level > 0) {
-                       // String of = underMouse.level + " " + GameLocale.get("level");
+                        // String of = underMouse.level + " " + GameLocale.get("level");
                         //Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
                         // Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
                     }
@@ -216,12 +216,19 @@ public class Dungeon extends Scene implements Serializable {
     }
 
     public void addParticle(Particle p) {
+        int most_oldest = 0; int oldness = 5000;
         for (int i = 0; i < particles.length; i++) {
             if (particles[i] == null) {
                 particles[i] = p;
-                break;
+                return;
+            }else{
+                if(oldness > particles[i].timer){
+                    oldness = particles[i].timer;
+                    most_oldest = i;
+                }
             }
         }
+        particles[most_oldest] = p;
     }
 
     @Override
@@ -429,6 +436,23 @@ public class Dungeon extends Scene implements Serializable {
     @Override
     public void handle() {
         underMouse = player;
+        buttons();
+        if (player.castAbility != null) {
+            if (Mouse.left) {
+                player.castAbility.cast(new Point(Mouse.x - cam.x, Mouse.y - cam.y));
+                frezedMouse = true;
+            }
+            if (Mouse.right) {
+                player.castAbility = null;
+            }
+        }
+        if (frezedMouse) {
+            if (Mouse.left) {
+                return;
+            } else {
+                frezedMouse = false;
+            }
+        }
         for (Entity e : getEntities()) {
             if (player.agro == null && !frezedMouse) {
                 try {
@@ -443,23 +467,6 @@ public class Dungeon extends Scene implements Serializable {
         }
 
         if (player.agro == null) {
-            if (player.castAbility != null) {
-                if (Mouse.left) {
-                    player.castAbility.cast(new Point(Mouse.x - cam.x, Mouse.y - cam.y));
-                    frezedMouse = true;
-                }
-                if (Mouse.right) {
-                    player.castAbility = null;
-                }
-            }
-            buttons();
-            if (frezedMouse) {
-                if (Mouse.left) {
-                    return;
-                } else {
-                    frezedMouse = false;
-                }
-            }
 
             if (underMouse != player && underMouse.clickable && Mouse.left) {
                 underMouse.click();

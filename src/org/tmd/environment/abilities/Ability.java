@@ -14,9 +14,8 @@ import org.tmd.environment.entities.Entity;
  */
 public abstract class Ability implements Serializable {
 
-    public int cooldown, conting, cd, index;
+    public int cooldown, conting, cd;
     public Entity by;
-    public boolean rd = false;
 
     public boolean isReady() {
         return (cd <= 0);
@@ -33,13 +32,9 @@ public abstract class Ability implements Serializable {
         }
         if (conting > 0) {
             conting--;
-            rd = true;
             duration();
         } else {
-            if (rd) {
-                exduration();
-                rd = false;
-            }
+            exduration();
         }
     }
 
