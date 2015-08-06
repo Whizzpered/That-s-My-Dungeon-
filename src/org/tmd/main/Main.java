@@ -43,7 +43,7 @@ import org.tmd.xfg.*;
 public class Main {
 
     public static final Random RANDOM = new Random();
-    public static XFG conf;
+    public static XFG conf, stats;
     private static boolean exit;
     private static Image logo;
     public static Graphics g = new Graphics();
@@ -119,6 +119,7 @@ public class Main {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
             Sounds.startBackgroundLoad();
+            stats = new XFG("res/text/stats.xfg");
             GameLocale.load(conf.get("locale").getString());
             Display.setDisplayMode(new DisplayMode(conf.get("width").getInteger(), conf.get("height").getInteger()));
             Display.setTitle("That's My Dungeon!");
