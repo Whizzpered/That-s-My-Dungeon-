@@ -6,10 +6,14 @@
 package org.tmd.environment.entities.raiders;
 
 import org.tmd.environment.abilities.Active;
+import org.tmd.environment.abilities.Passive;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.entities.Pet;
 import org.tmd.environment.entities.Raider;
+import org.tmd.environment.entities.items.Modificator;
 import org.tmd.environment.particles.FloatingText;
+import org.tmd.main.Main;
 import org.tmd.main.Sounds;
 import org.tmd.render.Color;
 import org.tmd.render.Image;
@@ -63,6 +67,46 @@ public class Priest extends Raider {
                 }
             }
         };
+        if (level > 2) {
+            abils[1] = new Passive(thisClass) {
+                @Override
+                public void cast(int level, Entity by) {
+                    for (Entity ent : dungeon.getEntities()) {
+                        if (ent instanceof Raider
+                                || (ent instanceof Pet && ((Pet) ent).owner instanceof Raider)) {
+                            if (ent.hp < ent.getMaxHP()) {
+                                ent.hp += 0.02 + level / 100;
+                            }
+                        }
+                    }
+                }
+
+                public void tick() {
+                    cast(thisClass.level, thisClass);
+                }
+            };
+        }
+        if (level > 4) {
+            abils[2] = new Active(thisClass, 900) {
+                @Override
+                public void cast(int level, Entity ent) {
+                    switch (Main.RANDOM.nextInt(3)) {
+                        case (0):
+                            dungeon.entities.add(new Warrior(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y, dungeon.wave));
+                            break;
+                        case (1):
+                            dungeon.entities.add(new Assasin(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y, dungeon.wave));
+                            break;
+                        case (2):
+                            dungeon.entities.add(new Archer(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y, dungeon.wave));
+                            break;
+                        case (3):
+                            dungeon.entities.add(new Priest(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y, dungeon.wave));
+                            break;
+                    }
+                }
+            };
+        }
     }
 
     @Override

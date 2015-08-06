@@ -8,6 +8,7 @@ package org.tmd.environment.entities.raiders;
 import org.tmd.environment.Condition;
 import org.tmd.environment.abilities.Active;
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.entities.Pet;
 import org.tmd.environment.entities.Raider;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
@@ -18,6 +19,8 @@ import org.tmd.render.Sprite;
  */
 public class Assasin extends Raider {
 
+    Pet pet;
+    
     public Assasin(double x, double y, int lvl) {
         super(x, y, lvl);
         detectDistance = 400;
@@ -41,10 +44,39 @@ public class Assasin extends Raider {
             }
 
             @Override
-            public void exduration() { 
+            public void exduration() {
                 thisClass.clickable = true;
             }
         };
+        if (level > 2) {
+            abils[1] = new Active(thisClass, 800) {
+                @Override
+                public void cast(int level, Entity by) {
+                    conting = 150;
+                    this.cd = this.cooldown;
+                }
+
+                @Override
+                public void duration() {
+                    focus.hp -= level * 0.5f;
+                }
+            };
+        }
+        if (level > 4) {
+            abils[2] = new Active(thisClass, 900) {
+                @Override
+                public void cast(int level, Entity by) {
+                    conting = 330;
+                    this.cd = this.cooldown;
+                    pet = new Pet(thisClass.x, thisClass.y, "dog", level/2, thisClass);
+                    dungeon.entities.add(pet);
+                }
+                
+                public void exduration() {
+                    dungeon.entities.remove(pet);
+                }
+            }; 
+        }
     }
 
     @Override
@@ -53,10 +85,10 @@ public class Assasin extends Raider {
             ((Active) abils[0]).cast(level, thisClass);
         }
     }
-    
+
     @Override
     public void render() {
-        if(clickable && !dead){
+        if (clickable && !dead) {
             super.render();
         }
     }

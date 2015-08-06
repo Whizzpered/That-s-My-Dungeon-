@@ -6,10 +6,13 @@
 package org.tmd.environment.entities.raiders;
 
 import org.tmd.environment.Point;
+import org.tmd.environment.abilities.Active;
+import org.tmd.environment.abilities.Passive;
 import org.tmd.environment.abilities.Target;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Raider;
+import org.tmd.environment.entities.items.Modificator;
 import org.tmd.main.Sounds;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
@@ -31,16 +34,35 @@ public class Archer extends Raider {
     @Override
     public void initAbilities() {
         abils[0] = new Target(thisClass, 400) {
-
             @Override
             public void cast(int level, Point target) {
                 cd = cooldown;
-                for (int i = 0; i < 6; i++) {
-                    dungeon.entities.add(new Bullet(x, y + 32 * (i - 3), thisClass, target.x, target.y));
+                for (int i = 0; i < 3; i++) {
+                    dungeon.entities.add(new Bullet(x, y + 32 * (i - 1), thisClass, target.x, target.y));
                 }
             }
 
         };
+        if (level > 2) {
+            abils[1] = new Active(thisClass, 600) {
+                @Override
+                public void cast(int level, Entity ent) {
+                    focus.effTypes.add(Modificator.ARMOR);
+                    focus.effects.add(-1f - level);
+                }
+            };
+        }
+        if (level > 5) {
+            abils[2] = new Passive(thisClass) {
+                @Override
+                public void cast(int level, Entity ent) {
+                    by.effTypes.add(Modificator.ARMOR);
+                    by.effects.add(3f + level * 2f);
+                    by.effTypes.add(Modificator.DAMAGE);
+                    by.effects.add(4f + level * 2f);
+                }
+            };
+        }
     }
 
     @Override

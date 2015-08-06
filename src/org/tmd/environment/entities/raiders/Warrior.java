@@ -42,9 +42,9 @@ public class Warrior extends Raider {
 
             @Override
             public void duration() {
-                if (!dead) {
-                    agro = true;
-                    dungeon.player.agro = thisClass;
+                if (dead) {
+                    agro = false;
+                    dungeon.player.agro = null;
                 }
             }
 
@@ -54,7 +54,7 @@ public class Warrior extends Raider {
                 dungeon.player.agro = null;
             }
         };
-        /*
+
         if (level > 2) {
             abils[1] = new Passive(thisClass) {
                 @Override
@@ -66,7 +66,24 @@ public class Warrior extends Raider {
                 }
             };
         }
-                */
+        if (level > 4) {
+            abils[2] = new Active(thisClass, 900) {
+                @Override
+                public void cast(int level, Entity ent) {
+                    conting = 150;
+                    this.cd = this.cooldown;
+                    by.effTypes.add(Modificator.DAMAGE);
+                    by.effects.add(3f + level * 2f);
+                    by.effTypes.add(Modificator.MOVESPEED);
+                    by.effects.add(1f + level);
+                }
+
+                public void exduration() {
+                    //тут надо удалить эффекты выше
+                }
+            };
+        }
+
     }
 
     @Override

@@ -27,7 +27,6 @@ public class Pet extends Entity {
         super(x, y);
         spriteStanding = new Sprite("creatures/" + sprite);
         name = sprite;
-        //phantom = true;
         this.level = level;
         maxhp = 30;
         deltahp = 20;
