@@ -90,7 +90,7 @@ public class Priest extends Raider {
             abils[2] = new Active(thisClass, 900) {
                 @Override
                 public void cast(int level, Entity ent) {
-                    switch (Main.RANDOM.nextInt(3)) {
+                    switch (Main.RANDOM.nextInt(4)) {
                         case (0):
                             dungeon.entities.add(new Warrior(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y, dungeon.wave));
                             break;

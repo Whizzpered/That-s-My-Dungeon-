@@ -28,14 +28,8 @@ public class Pet extends Entity {
         spriteStanding = new Sprite("creatures/" + sprite);
         name = sprite;
         this.level = level;
-        maxhp = 30;
-        deltahp = 20;
-        attackDamage = 4;
-        attackDeltaDamage = 3;
         clickable = true;
         this.owner = owner;
-        faction = 1;
-        speed = 1;
         range = 400;
         level = owner.level;
         this.attackDistance = (int) width / 2;
