@@ -155,7 +155,7 @@ public class Entity implements Comparable<Entity>, Serializable {
         this.x = x;
         this.y = y;
         String name = getClass().getName().replace("org.tmd.environment.entities.", "");
-        if (Main.stats.contains(name)) {
+        if (Main.stats.get(name).isEmpty()) {
             XObject o = Main.stats.get(name);
             this.hp = this.maxhp = o.get("hp").getFloat();
             this.deltahp = o.get("deltahp").getFloat();
@@ -166,6 +166,9 @@ public class Entity implements Comparable<Entity>, Serializable {
             this.armor = o.get("armor").getFloat();
             this.deltaarmor = o.get("deltaarmor").getFloat();
             this.speed = o.get("movementspeed").getFloat();
+        } else {
+            System.out.println(name);
+            System.out.println("!!!");
         }
     }
 

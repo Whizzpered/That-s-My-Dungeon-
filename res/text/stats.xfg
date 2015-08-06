@@ -1,88 +1,88 @@
 raiders.Warrior{
-	hp: 150
-	damage: 10
-	deltahp: 50
-	deltadamage: 4
-	regenhp: 8
-	attackspeed: 280
-	armor: 6
-	deltaarmor: 3
-	movenentspeed: 3
+	hp = 150
+	damage = 10
+	deltahp = 50
+	deltadamage = 4
+	regenhp = 8
+	attackspeed = 280
+	armor = 6
+	deltaarmor = 3
+	movenentspeed = 3
 }
 raiders.Archer{
-	hp: 80
-	damage: 20
-	deltahp: 30
-	deltadamage: 6
-	regenhp: 5
-	attackspeed: 250
-	armor: 5
-	deltaarmor: 2
-	movenentspeed: 4
+	hp = 80
+	damage = 20
+	deltahp = 30
+	deltadamage = 6
+	regenhp = 5
+	attackspeed = 250
+	armor = 5
+	deltaarmor = 2
+	movenentspeed = 4
 }
 raiders.Priest{
-	hp: 80
-	damage: 15
-	deltahp: 30
-	deltadamage: 6
-	regenhp: 8
-	attackspeed: 300
-	armor: 4
-	deltaarmor: 2
-	movenentspeed: 3
+	hp = 80
+	damage = 15
+	deltahp = 30
+	deltadamage = 6
+	regenhp = 8
+	attackspeed = 300
+	armor = 4
+	deltaarmor = 2
+	movenentspeed = 3
 }
 raiders.Assasin{
-	hp: 100
-	damage: 20
-	deltahp: 40
-	deltadamage: 8
-	regenhp: 5
-	attackspeed: 220
-	armor: 5
-	deltaarmor: 3
-	movenentspeed: 4
+	hp = 100
+	damage = 20
+	deltahp = 40
+	deltadamage = 8
+	regenhp = 5
+	attackspeed = 220
+	armor = 5
+	deltaarmor = 3
+	movenentspeed = 4
 }
 Player{
-	hp: 580
-	damage: 40
-	deltahp: 100
-	deltadamage: 13
-	regenhp: 10
-	attackspeed: 250
-	armor: 8
-	deltaarmor: 5
-	movenentspeed: 3
+	hp = 580
+	damage = 40
+	deltahp = 100
+	deltadamage = 13
+	regenhp = 10
+	attackspeed = 250
+	armor = 8
+	deltaarmor = 5
+	movenentspeed = 3
 }
 Mob{
-	hp: 120
-	damage: 12
-	deltahp: 20
-	deltadamage: 4
-	regenhp: 3
-	attackspeed: 250
-	armor: 5
-	deltaarmor: 1
-	movenentspeed: 4
+	hp = 120
+	damage = 12
+	deltahp = 20
+	deltadamage = 4
+	regenhp = 3
+	attackspeed = 250
+	armor = 5
+	deltaarmor = 1
+	movenentspeed = 4
 }
 Slime{
-	hp: 80
-	damage: 7
-	deltahp: 20
-	deltadamage: 3
-	regenhp: 3
-	attackspeed: 250
-	armor: 1
-	deltaarmor: 1
-	movenentspeed: 2
+	hp = 80
+	damage = 7
+	deltahp = 20
+	deltadamage = 3
+	regenhp = 3
+	attackspeed = 250
+	armor = 1
+	deltaarmor = 1
+	movenentspeed = 2
 }
 Pet{
-	hp: 50
-	damage: 8
-	deltahp: 20
-	deltadamage: 4
-	regenhp: 3
-	attackspeed: 250
-	armor: 3
-	deltaarmor: 1
-	movenentspeed: 4
+	hp = 50
+	damage = 8
+	deltahp = 20
+	deltadamage = 4
+	regenhp = 3
+	attackspeed = 250
+	armor = 3
+	deltaarmor = 1
+	movenentspeed = 4
 }

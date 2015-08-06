@@ -66,7 +66,7 @@ public class Dungeon extends Scene implements Serializable {
     public Player player;
     public Entity underMouse;
     File maps[] = new File("maps").listFiles();
-    public Terrain terrain = new Terrain(this, "maps/test.map" + maps[Main.RANDOM.nextInt(maps.length)].getName());
+    public Terrain terrain = new Terrain(this, "maps/" + maps[Main.RANDOM.nextInt(maps.length)].getName());
     public Particle[] particles = new Particle[256];
     public int longtim = 0, wave = 0, target = 0;
     private boolean wavetimer, frezedMouse;

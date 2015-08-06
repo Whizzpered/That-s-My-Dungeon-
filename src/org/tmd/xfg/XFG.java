@@ -75,6 +75,17 @@ public class XFG extends ArrayList<XObject> {
         parse(xfgNotation);
     }
 
+    public boolean containsName(String name) {
+        for (int i = 0; i < size(); i++) {
+            if (get(i).name != null) {
+                if (get(i).name.equals(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean contains(String name) {
         for (int i = 0; i < size(); i++) {
             if (get(i).name != null) {
