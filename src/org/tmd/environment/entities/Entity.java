@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
+import org.tmd.environment.entities.items.Effect;
 import org.tmd.environment.entities.items.Modificator;
 import org.tmd.environment.particles.BloodParticle;
 import org.tmd.environment.particles.FloatingText;
@@ -58,8 +59,9 @@ public class Entity implements Comparable<Entity>, Serializable {
     public boolean clickable, entried, standing;
     protected Counter counter = new Counter(500);
     public String nickmame;
-    public ArrayList<Modificator> effTypes = new ArrayList<Modificator>();
-    public ArrayList<Float> effects = new ArrayList<Float>();
+    public ArrayList<Modificator> modificatorTypes = new ArrayList<Modificator>();
+    public ArrayList<Float> modificators = new ArrayList<Float>();
+    public ArrayList<Effect> effects = new ArrayList<Effect>();
 
     public String getName() {
         return GameLocale.get(name);
@@ -100,9 +102,9 @@ public class Entity implements Comparable<Entity>, Serializable {
 
     public float getMaxHP() {
         int i = 0;
-        for (int k = 0; k < effTypes.size(); k++) {
-            if (effTypes.get(k).name().equals("HP")) {
-                i += effects.get(k);
+        for (int k = 0; k < modificatorTypes.size(); k++) {
+            if (modificatorTypes.get(k).name().equals("HP")) {
+                i += modificators.get(k);
             }
         }
         return maxhp + deltahp * level + i;
@@ -110,9 +112,9 @@ public class Entity implements Comparable<Entity>, Serializable {
 
     public double getDMG() {
         int i = 0;
-        for (int k = 0; k < effTypes.size(); k++) {
-            if (effTypes.get(k).name().equals("DAMAGE")) {
-                i += effects.get(k);
+        for (int k = 0; k < modificatorTypes.size(); k++) {
+            if (modificatorTypes.get(k).name().equals("DAMAGE")) {
+                i += modificators.get(k);
             }
         }
         return attackDamage + attackDeltaDamage * level + i;
@@ -120,9 +122,9 @@ public class Entity implements Comparable<Entity>, Serializable {
 
     public float getArmor() {
         int i = 0;
-        for (int k = 0; k < effTypes.size(); k++) {
-            if (effTypes.get(k).name().equals("ARMOR")) {
-                i += effects.get(k);
+        for (int k = 0; k < modificatorTypes.size(); k++) {
+            if (modificatorTypes.get(k).name().equals("ARMOR")) {
+                i += modificators.get(k);
             }
         }
         return armor + i;
@@ -130,9 +132,9 @@ public class Entity implements Comparable<Entity>, Serializable {
 
     public float getRegen() {
         float i = 0;
-        for (int k = 0; k < effTypes.size(); k++) {
-            if (effTypes.get(k).name().equals("REGENHP")) {
-                i += effects.get(k);
+        for (int k = 0; k < modificatorTypes.size(); k++) {
+            if (modificatorTypes.get(k).name().equals("REGENHP")) {
+                i += modificators.get(k);
             }
         }
         return regenhp + i;
@@ -302,6 +304,9 @@ public class Entity implements Comparable<Entity>, Serializable {
     }
 
     public void tick() {
+        for (int i = 0; i < effects.size(); i++) {
+            effects.get(i).tick();
+        }
         if (hp > 0) {
             if (attackReload > 0) {
                 attackReload--;

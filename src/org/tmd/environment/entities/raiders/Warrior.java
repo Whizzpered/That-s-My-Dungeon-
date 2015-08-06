@@ -59,10 +59,10 @@ public class Warrior extends Raider {
             abils[1] = new Passive(thisClass) {
                 @Override
                 public void cast(int level, Entity ent) {
-                    by.effTypes.add(Modificator.REGENHP);
-                    by.effects.add(0.03f + level * 0.03f);
-                    by.effTypes.add(Modificator.ARMOR);
-                    by.effects.add(2f + level * 2f);
+                    by.modificatorTypes.add(Modificator.REGENHP);
+                    by.modificators.add(0.03f + level * 0.03f);
+                    by.modificatorTypes.add(Modificator.ARMOR);
+                    by.modificators.add(2f + level * 2f);
                 }
             };
         }
@@ -72,10 +72,10 @@ public class Warrior extends Raider {
                 public void cast(int level, Entity ent) {
                     conting = 150;
                     this.cd = this.cooldown;
-                    by.effTypes.add(Modificator.DAMAGE);
-                    by.effects.add(3f + level * 2f);
-                    by.effTypes.add(Modificator.MOVESPEED);
-                    by.effects.add(1f + level);
+                    by.modificatorTypes.add(Modificator.DAMAGE);
+                    by.modificators.add(3f + level * 2f);
+                    by.modificatorTypes.add(Modificator.MOVESPEED);
+                    by.modificators.add(1f + level);
                 }
 
                 public void exduration() {
