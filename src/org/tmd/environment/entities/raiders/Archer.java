@@ -47,8 +47,8 @@ public class Archer extends Raider {
             abils[1] = new Active(thisClass, 600) {
                 @Override
                 public void cast(int level, Entity ent) {
-                    focus.effTypes.add(Modificator.ARMOR);
-                    focus.effects.add(-1f - level);
+                    focus.modificatorTypes.add(Modificator.ARMOR);
+                    focus.modificators.add(-1f - level);
                 }
             };
         }
@@ -56,10 +56,10 @@ public class Archer extends Raider {
             abils[2] = new Passive(thisClass) {
                 @Override
                 public void cast(int level, Entity ent) {
-                    by.effTypes.add(Modificator.ARMOR);
-                    by.effects.add(3f + level * 2f);
-                    by.effTypes.add(Modificator.DAMAGE);
-                    by.effects.add(4f + level * 2f);
+                    by.modificatorTypes.add(Modificator.ARMOR);
+                    by.modificators.add(3f + level * 2f);
+                    by.modificatorTypes.add(Modificator.DAMAGE);
+                    by.modificators.add(4f + level * 2f);
                 }
             };
         }
