@@ -22,6 +22,7 @@ public class Slime extends Pet {
         range = 400;
         level = owner.level;
         initAbils();
+        faction = 1;
     }
 
     @Override
