@@ -46,13 +46,7 @@ public class Pet extends Entity {
 
     }
 
-    @Override
-    public void walk(double x, double y) {
-        if (Main.RANDOM.nextInt(10) == 0) {
-            dungeon.addParticle(new SlimeTrace(x, y));
-        }
-        super.walk(x, y);
-    }
+    
 
     @Override
     public void tick() {
