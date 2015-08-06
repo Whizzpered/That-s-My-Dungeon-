@@ -103,7 +103,7 @@ public class Inventory extends Scene {
 
             @Override
             public void click() {
-                currentScene = Declaration.dialog;
+                currentScene = Declaration.dungeon;
             }
 
         });

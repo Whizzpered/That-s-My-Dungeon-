@@ -70,7 +70,7 @@ public class Training extends Scene {
             
             @Override
             public void click() {
-                currentScene = Declaration.dialog;
+                currentScene = Declaration.dungeon;
             }
             
         });
