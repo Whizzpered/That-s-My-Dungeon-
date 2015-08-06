@@ -26,7 +26,7 @@ public class ToolTip implements Serializable{
     }
 
     public void render() {
-        int x = (int) (Mouse.x >= Display.getHeight() / 2 ? Mouse.x : Mouse.x - width);
+        int x = (int) (Mouse.x <= Display.getHeight() / 2 ? Mouse.x : Mouse.x - width);
         int y = (int) (Mouse.y <= Display.getHeight() / 2 ? Mouse.y : Mouse.y - height);
         Frame.defaultFrame.render(x, y, width, height);
         Main.defaultFont.drawString(mess, x + 10, y + 5, Color.white);

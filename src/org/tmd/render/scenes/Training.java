@@ -12,6 +12,7 @@ import org.tmd.main.Main;
 import org.tmd.render.Color;
 import org.tmd.render.gui.AbilityTrain;
 import org.tmd.render.gui.Align;
+import org.tmd.render.gui.Button;
 import static org.tmd.render.scenes.Scene.currentScene;
 
 /**
@@ -60,6 +61,19 @@ public class Training extends Scene {
                 }
             }
         }
+        gui.add(new Button("exit", 25, -25, 150, 50){
+
+            @Override
+            public void init() {
+                verticalAlign = Align.DOWN;
+            }
+            
+            @Override
+            public void click() {
+                currentScene = Declaration.dialog;
+            }
+            
+        });
     }
 
     @Override

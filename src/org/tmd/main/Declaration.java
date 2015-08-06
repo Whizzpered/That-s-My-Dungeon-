@@ -70,7 +70,7 @@ public class Declaration {
 
         @Override
         public void parserAction(Dungeon dungeon, double x, double y) {
-            NPC npc = new NPC(x, y, "creatures/seller/anim", "seller", "seller");
+            NPC npc = new NPC(x, y, "creatures/seller/anim", "seller", shop);
             npc.dungeon = dungeon;
             dungeon.entities.add(npc);
         }
@@ -80,7 +80,7 @@ public class Declaration {
 
         @Override
         public void parserAction(Dungeon dungeon, double x, double y) {
-            NPC npc = new NPC(x, y, "creatures/sensei/anim", "sensei", "sensei");
+            NPC npc = new NPC(x, y, "creatures/sensei/anim", "sensei", training);
             npc.dungeon = dungeon;
             dungeon.entities.add(npc);
         }

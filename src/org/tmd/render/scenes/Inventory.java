@@ -6,6 +6,7 @@
 package org.tmd.render.scenes;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.tmd.environment.entities.items.ItemType;
@@ -16,6 +17,7 @@ import org.tmd.main.Declaration;
 import org.tmd.main.Main;
 import org.tmd.render.Color;
 import org.tmd.render.gui.Align;
+import org.tmd.render.gui.Button;
 import org.tmd.render.gui.Mouse;
 import org.tmd.render.gui.Slot;
 
@@ -92,6 +94,19 @@ public class Inventory extends Scene {
             });
         }
         gui.addAll(slots);
+        gui.add(new Button("exit", 25, -25, 150, 50) {
+
+            @Override
+            public void init() {
+                verticalAlign = Align.DOWN;
+            }
+
+            @Override
+            public void click() {
+                currentScene = Declaration.dialog;
+            }
+
+        });
     }
 
     @Override

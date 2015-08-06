@@ -8,6 +8,7 @@ package org.tmd.environment.entities;
 import static java.lang.Math.*;
 import org.tmd.render.Animation;
 import org.tmd.render.scenes.Dialog;
+import org.tmd.render.scenes.Scene;
 
 /**
  *
@@ -16,6 +17,7 @@ import org.tmd.render.scenes.Dialog;
 public class NPC extends Entity {
 
     Animation sprite;
+    Scene scene;
     String dialog;
 
     public NPC(double x, double y, String sprite, String name, String dialog) {
@@ -24,7 +26,19 @@ public class NPC extends Entity {
         this.name = name;
         this.sprite.delay = 250;
         this.dialog = dialog;
-        maxhp = (float)Double.MAX_VALUE;
+        maxhp = (float) Double.MAX_VALUE;
+        phantom = true;
+        level = 9001;
+        clickable = true;
+    }
+
+    public NPC(double x, double y, String sprite, String name, Scene scene) {
+        super(x, y);
+        this.sprite = new Animation(sprite);
+        this.name = name;
+        this.sprite.delay = 250;
+        this.scene = scene;
+        maxhp = (float) Double.MAX_VALUE;
         phantom = true;
         level = 9001;
         clickable = true;
@@ -36,7 +50,11 @@ public class NPC extends Entity {
             dungeon.player.attackReload = 10;
             if (sqrt(pow(dungeon.player.x - x, 2) + pow(dungeon.player.y - y, 2)) < 150) {
                 dungeon.player.focus = null;
-                Dialog.set(dialog);
+                if (dialog != null) {
+                    Dialog.set(dialog);
+                } else if (scene != null) {
+                    Scene.currentScene = scene;
+                }
             }
         }
 
