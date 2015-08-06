@@ -27,6 +27,7 @@ import org.tmd.render.Image;
 import org.tmd.render.Side;
 import org.tmd.render.Sprite;
 import org.tmd.render.scenes.Dungeon;
+import org.tmd.xfg.XObject;
 
 /**
  *
@@ -38,7 +39,7 @@ public class Entity implements Comparable<Entity>, Serializable {
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
     public double x, y, size = 75, width = 128, height = 48, distance;
-    public float armor, deltahp = 25, hp = 105, maxhp = 100, speed = 2;
+    public float armor, deltaarmor, deltahp = 25, hp = 105, maxhp = 100, speed = 2;
     public float regenhp = 0.01f;
     protected double targetX = -1, targetY = -1;
     private Point[] way;
@@ -127,7 +128,7 @@ public class Entity implements Comparable<Entity>, Serializable {
                 i += modificators.get(k);
             }
         }
-        return armor + i;
+        return armor + deltaarmor * level + i;
     }
 
     public float getRegen() {
@@ -153,6 +154,22 @@ public class Entity implements Comparable<Entity>, Serializable {
     public Entity(double x, double y) {
         this.x = x;
         this.y = y;
+        String name = getClass().getName().replace("org.tmd.environment.entities.", "");
+        if (Main.stats.get(name).isEmpty()) {
+            XObject o = Main.stats.get(name);
+            this.hp = this.maxhp = o.get("hp").getFloat();
+            this.deltahp = o.get("deltahp").getFloat();
+            this.attackDamage = o.get("damage").getFloat();
+            this.attackDeltaDamage = o.get("deltadamage").getFloat();
+            this.regenhp = o.get("regenhp").getFloat();
+            this.attackReloadTime = o.get("attackspeed").getInteger();
+            this.armor = o.get("armor").getFloat();
+            this.deltaarmor = o.get("deltaarmor").getFloat();
+            this.speed = o.get("movementspeed").getFloat();
+        } else {
+            System.out.println(name);
+            System.out.println("!!!");
+        }
     }
 
     public void alive() {
@@ -445,7 +462,7 @@ public class Entity implements Comparable<Entity>, Serializable {
         if (Main.RANDOM.nextBoolean()) {
             dungeon.addParticle(new BloodParticle(x, y - 35));
         }
-        
+
         dungeon.addParticle(new FloatingText((int) x, (int) y - 35, "- " + (int) damage, Color.red));
         if (hp < 0) {
             if (headType >= 0 && Main.RANDOM.nextBoolean()) {
