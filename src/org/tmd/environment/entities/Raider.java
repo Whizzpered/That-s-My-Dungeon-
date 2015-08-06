@@ -41,11 +41,6 @@ public class Raider extends Entity {
         minimapIcon = new Image("minimap/warrior.png");
         name = "raider";
         width = 96;
-        maxhp = 20;
-        deltahp = 15;
-        attackDamage = 2;
-        attackDeltaDamage = 2;
-        faction = 2;
         headType = 0;
         clickable = true;
         counter.period = 400;

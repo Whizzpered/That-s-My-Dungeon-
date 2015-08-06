@@ -36,8 +36,6 @@ public class Player extends Entity {
         minimapIcon = new Image("minimap/player.png");
         name = "Player";
         attackType = "hit_big_clutches";
-        faction = 1;
-        regenhp = 0.05f;
         headType = 1;
         level = 1;
     }

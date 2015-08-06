@@ -17,17 +17,10 @@ public class Slime extends Pet {
     public Slime(double x, double y, int level, Entity owner) {
         super(x, y, "slime", level, owner);
         this.level = level;
-        maxhp = 30;
-        deltahp = 20;
-        attackDamage = 4;
-        attackDeltaDamage = 3;
         clickable = true;
         this.owner = owner;
-        faction = 1;
-        speed = 1;
         range = 400;
         level = owner.level;
-        this.attackDistance = (int) width / 2;
         initAbils();
     }
 

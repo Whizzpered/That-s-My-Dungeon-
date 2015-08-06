@@ -32,7 +32,6 @@ public class Pet extends Entity {
         this.owner = owner;
         range = 400;
         level = owner.level;
-        this.attackDistance = (int) width / 2;
         initAbils();
     }
 
