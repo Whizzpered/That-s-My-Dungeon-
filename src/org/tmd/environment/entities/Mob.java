@@ -35,6 +35,7 @@ public class Mob extends Entity {
         minimapIcon = new Image("minimap/monkey.png");
         attackType = "hit_clutches";
         range = 400;
+        faction = 1;
         name = "monkey";
     }
 

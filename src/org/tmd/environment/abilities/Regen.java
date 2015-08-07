@@ -15,8 +15,6 @@ import org.tmd.main.Declaration;
  * @author Whizzpered
  */
 public class Regen extends Active {
-
-    int index = 0;
     
     public Regen() {
         super(Declaration.dungeon.player, 500);
@@ -24,8 +22,6 @@ public class Regen extends Active {
 
     public void cast(int level, Entity by) {
         conting = 200;
-        final int lvl = level;
-        index = by.modificators.size();
         by.effects.add(new Effect(conting, level, by) {
             
             @Override

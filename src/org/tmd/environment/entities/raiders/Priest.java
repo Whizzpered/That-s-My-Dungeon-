@@ -11,6 +11,7 @@ import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Pet;
 import org.tmd.environment.entities.Raider;
+import org.tmd.environment.entities.items.Effect;
 import org.tmd.environment.entities.items.Modificator;
 import org.tmd.environment.particles.FloatingText;
 import org.tmd.main.Main;
@@ -74,13 +75,22 @@ public class Priest extends Raider {
                     for (Entity ent : dungeon.getEntities()) {
                         if (ent instanceof Raider
                                 || (ent instanceof Pet && ((Pet) ent).owner instanceof Raider)) {
-                            if (ent.hp < ent.getMaxHP()) {
-                                ent.hp += 0.02 + level / 100;
-                            }
+                            ent.effects.add(new Effect(1, level, thisClass) {
+
+                                @Override
+                                public void apply() {
+                                    this.owner.regenhp += 0.03f + 0.02f * coefficient;
+                                }
+
+                                @Override
+                                public void unapply() {
+                                }
+                            });
                         }
                     }
                 }
 
+                @Override
                 public void tick() {
                     cast(thisClass.level, thisClass);
                 }
@@ -113,6 +123,9 @@ public class Priest extends Raider {
     public void abilities() {
         if (abils[0].isReady()) {
             ((Active) abils[0]).cast(level, thisClass);
+        }
+        if (level > 4 && dungeon.getRaiders().length < 8) {
+            ((Active)abils[2]).cast(level, thisClass);
         }
     }
 

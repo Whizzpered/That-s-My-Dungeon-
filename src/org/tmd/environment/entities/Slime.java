@@ -19,6 +19,7 @@ public class Slime extends Pet {
         this.level = level;
         clickable = true;
         this.owner = owner;
+        faction = 1;
         range = 400;
         level = owner.level;
         initAbils();

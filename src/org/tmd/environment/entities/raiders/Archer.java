@@ -12,6 +12,7 @@ import org.tmd.environment.abilities.Target;
 import org.tmd.environment.entities.Bullet;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Raider;
+import org.tmd.environment.entities.items.Effect;
 import org.tmd.environment.entities.items.Modificator;
 import org.tmd.main.Sounds;
 import org.tmd.render.Image;
@@ -47,21 +48,34 @@ public class Archer extends Raider {
             abils[1] = new Active(thisClass, 600) {
                 @Override
                 public void cast(int level, Entity ent) {
-                    focus.modificatorTypes.add(Modificator.ARMOR);
-                    focus.modificators.add(-1f - level);
+                    effects.add(new Effect(400, level, thisClass) {
+
+                        @Override
+                        public void apply() {
+                            focus.armor -= 1f + coefficient;
+                        }
+
+                        @Override
+                        public void unapply() {
+                            focus.armor += 1f + coefficient;
+                        }
+                    });
                 }
             };
         }
         if (level > 5) {
-            abils[2] = new Passive(thisClass) {
+            effects.add(new Effect(thisClass, level, this) {
+
                 @Override
-                public void cast(int level, Entity ent) {
-                    by.modificatorTypes.add(Modificator.ARMOR);
-                    by.modificators.add(3f + level * 2f);
-                    by.modificatorTypes.add(Modificator.DAMAGE);
-                    by.modificators.add(4f + level * 2f);
+                public void apply() {
+                    this.owner.attackDamage += 1f + 2f * coefficient;
+                    this.owner.armor += 2f + 2f * coefficient;
                 }
-            };
+
+                @Override
+                public void unapply() {
+                }
+            });
         }
     }
 

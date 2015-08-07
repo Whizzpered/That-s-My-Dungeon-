@@ -37,6 +37,7 @@ public class Player extends Entity {
         name = "Player";
         attackType = "hit_big_clutches";
         headType = 1;
+        faction = 1;
         level = 1;
     }
 

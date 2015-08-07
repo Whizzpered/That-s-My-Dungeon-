@@ -6,7 +6,7 @@
 package org.tmd.environment.abilities;
 
 import org.tmd.environment.entities.Entity;
-import org.tmd.environment.entities.Pet;
+import org.tmd.environment.entities.Slime;
 import org.tmd.main.Declaration;
 
 /**
@@ -20,6 +20,6 @@ public class Summon extends Active {
     }
 
     public void cast(int level, Entity by) {
-        by.dungeon.entities.add(new Pet(by.x, by.y, "slime", level, by));
+        by.dungeon.entities.add(new Slime(by.x, by.y, level, by));
     }
 }

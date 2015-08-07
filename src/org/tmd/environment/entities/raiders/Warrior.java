@@ -8,6 +8,7 @@ package org.tmd.environment.entities.raiders;
 import org.tmd.environment.abilities.Active;
 import org.tmd.environment.abilities.Passive;
 import org.tmd.environment.entities.*;
+import org.tmd.environment.entities.items.Effect;
 import org.tmd.environment.entities.items.Modificator;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
@@ -56,15 +57,17 @@ public class Warrior extends Raider {
         };
 
         if (level > 2) {
-            abils[1] = new Passive(thisClass) {
-                @Override
-                public void cast(int level, Entity ent) {
-                    by.modificatorTypes.add(Modificator.REGENHP);
-                    by.modificators.add(0.03f + level * 0.03f);
-                    by.modificatorTypes.add(Modificator.ARMOR);
-                    by.modificators.add(2f + level * 2f);
-                }
-            };
+            effects.add(new Effect(thisClass, level, this) {
+
+                    @Override
+                    public void apply() {
+                        this.owner.regenhp += 0.05f + 0.03f * coefficient;
+                    }
+
+                    @Override
+                    public void unapply() {
+                    }
+                });
         }
         if (level > 4) {
             abils[2] = new Active(thisClass, 900) {
@@ -72,14 +75,30 @@ public class Warrior extends Raider {
                 public void cast(int level, Entity ent) {
                     conting = 150;
                     this.cd = this.cooldown;
-                    by.modificatorTypes.add(Modificator.DAMAGE);
-                    by.modificators.add(3f + level * 2f);
-                    by.modificatorTypes.add(Modificator.MOVESPEED);
-                    by.modificators.add(1f + level);
-                }
+                    by.effects.add(new Effect(conting, level, by) {
 
-                public void exduration() {
-                    //тут надо удалить эффекты выше
+                        @Override
+                        public void apply() {
+                            by.attackDamage += 3f + coefficient * 2f;
+                        }
+
+                        @Override
+                        public void unapply() {
+                            by.regenhp -= 3f + coefficient * 2f;
+                        }
+                    });
+                    by.effects.add(new Effect(conting, level, by) {
+
+                        @Override
+                        public void apply() {
+                            by.speed += 1f + coefficient;
+                        }
+
+                        @Override
+                        public void unapply() {
+                            by.speed -= 1f + coefficient;
+                        }
+                    });
                 }
             };
         }
@@ -93,6 +112,9 @@ public class Warrior extends Raider {
             if (dist < 500 && dungeon.player.agro == null) {
                 ((Active) (abils[0])).cast(level, thisClass);
             }
+        }
+        if(abils[2] != null && abils[2].isReady() && focus != null){
+            ((Active)abils[2]).cast(level, thisClass);
         }
     }
 
