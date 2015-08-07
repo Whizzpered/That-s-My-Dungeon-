@@ -12,7 +12,6 @@ import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Pet;
 import org.tmd.environment.entities.Raider;
 import org.tmd.environment.entities.items.Effect;
-import org.tmd.environment.entities.items.Modificator;
 import org.tmd.environment.particles.FloatingText;
 import org.tmd.main.Main;
 import org.tmd.main.Sounds;
@@ -36,7 +35,7 @@ public class Priest extends Raider {
 
     @Override
     public void initAbilities() {
-        abils[0] = new Active(thisClass, 200) {
+        abils[0] = new Active(thisClass, 10) {
             public void heal(Entity r) {
                 r.hp += level * 10;
                 if (r.hp > r.maxhp) {
@@ -79,11 +78,12 @@ public class Priest extends Raider {
 
                                 @Override
                                 public void apply() {
-                                    this.owner.regenhp += 0.03f + 0.02f * coefficient;
+                                    this.target.regenhp += 2f + coefficient;
                                 }
 
                                 @Override
                                 public void unapply() {
+                                    this.target.regenhp -= 2f + coefficient;
                                 }
                             });
                         }
@@ -97,9 +97,10 @@ public class Priest extends Raider {
             };
         }
         if (level > 4) {
-            abils[2] = new Active(thisClass, 900) {
+            abils[2] = new Active(thisClass, 30) {
                 @Override
                 public void cast(int level, Entity ent) {
+                    this.cd = this.cooldown;
                     switch (Main.RANDOM.nextInt(4)) {
                         case (0):
                             dungeon.entities.add(new Warrior(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y, dungeon.wave));
@@ -124,8 +125,8 @@ public class Priest extends Raider {
         if (abils[0].isReady()) {
             ((Active) abils[0]).cast(level, thisClass);
         }
-        if (level > 4 && dungeon.getRaiders().length < 8) {
-            ((Active)abils[2]).cast(level, thisClass);
+        if (level > 4 && abils[2].isReady() && dungeon.getRaiders().length < 8) {
+            ((Active) abils[2]).cast(level, thisClass);
         }
     }
 

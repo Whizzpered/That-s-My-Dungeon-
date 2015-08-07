@@ -6,10 +6,8 @@
 package org.tmd.environment.entities.raiders;
 
 import org.tmd.environment.abilities.Active;
-import org.tmd.environment.abilities.Passive;
 import org.tmd.environment.entities.*;
 import org.tmd.environment.entities.items.Effect;
-import org.tmd.environment.entities.items.Modificator;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 
@@ -32,12 +30,12 @@ public class Warrior extends Raider {
 
     @Override
     public void initAbilities() {
-        abils[0] = new Active(thisClass, 900) {
+        abils[0] = new Active(thisClass, 18) {
             @Override
             public void cast(int level, Entity ent) {
                 dungeon.player.agro = thisClass;
                 dungeon.player.focus = thisClass;
-                conting = 150;
+                conting = 10;
                 this.cd = this.cooldown;
             }
 
@@ -59,21 +57,21 @@ public class Warrior extends Raider {
         if (level > 2) {
             effects.add(new Effect(thisClass, level, this) {
 
-                    @Override
-                    public void apply() {
-                        this.owner.regenhp += 0.05f + 0.03f * coefficient;
-                    }
+                @Override
+                public void apply() {
+                    this.owner.regenhp += 0.05f + 0.03f * coefficient;
+                }
 
-                    @Override
-                    public void unapply() {
-                    }
-                });
+                @Override
+                public void unapply() {
+                }
+            });
         }
         if (level > 4) {
-            abils[2] = new Active(thisClass, 900) {
+            abils[2] = new Active(thisClass, 18) {
                 @Override
                 public void cast(int level, Entity ent) {
-                    conting = 150;
+                    conting = 10;
                     this.cd = this.cooldown;
                     by.effects.add(new Effect(conting, level, by) {
 
@@ -113,8 +111,8 @@ public class Warrior extends Raider {
                 ((Active) (abils[0])).cast(level, thisClass);
             }
         }
-        if(abils[2] != null && abils[2].isReady() && focus != null){
-            ((Active)abils[2]).cast(level, thisClass);
+        if (level > 4 && abils[2] != null && abils[2].isReady() && focus != null) {
+            ((Active) abils[2]).cast(level, thisClass);
         }
     }
 

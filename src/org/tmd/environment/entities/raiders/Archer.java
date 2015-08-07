@@ -37,7 +37,7 @@ public class Archer extends Raider {
         abils[0] = new Target(thisClass, 400) {
             @Override
             public void cast(int level, Point target) {
-                cd = cooldown;
+                this.cd = this.cooldown;
                 for (int i = 0; i < 3; i++) {
                     dungeon.entities.add(new Bullet(x, y + 32 * (i - 1), thisClass, target.x, target.y));
                 }
@@ -48,6 +48,7 @@ public class Archer extends Raider {
             abils[1] = new Active(thisClass, 600) {
                 @Override
                 public void cast(int level, Entity ent) {
+                    this.cd = this.cooldown;
                     effects.add(new Effect(400, level, thisClass) {
 
                         @Override
@@ -83,6 +84,9 @@ public class Archer extends Raider {
     public void abilities() {
         if (abils[0].isReady()) {
             ((Target) abils[0]).cast(level, new Point(dungeon.player.x, dungeon.player.y));
+        }
+        if (level > 2 && abils[1].isReady() && focus != null) {
+            ((Active) abils[1]).cast(level, thisClass);
         }
     }
 

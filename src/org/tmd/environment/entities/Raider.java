@@ -18,6 +18,7 @@ import org.tmd.render.Animation;
 import org.tmd.render.Color;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
+import org.tmd.render.gui.AbilityButton;
 import org.tmd.render.gui.Chat;
 
 /**
@@ -32,7 +33,7 @@ public class Raider extends Entity {
     public Condition condition = JOINED;
     public Item[] weared = new Item[4];
     public Raider thisClass = this;
-    public Ability[] abils = new Ability[1];
+    public Ability[] abils = new Ability[3];
 
     public Raider(double x, double y, int level) {
         super(x, y);
@@ -140,9 +141,9 @@ public class Raider extends Entity {
             }
         }
         dungeon.chat.addMessage(this, Chat.messageType.TYPE_NOTANKS);
-        if (attackDistance > width) {
-            attackDistance = (int) width;
-        }
+        //if (attackDistance > width) {
+        //attackDistance = (int) width;
+        //}
         condition = NOTANKS;
     }
 
@@ -218,6 +219,21 @@ public class Raider extends Entity {
             }
             Image g = ghost.images[i];
             g.draw(x - g.width, y - g.height * 2, g.width * 2, g.height * 2);
+        }
+    }
+
+    @Override
+    public void longTick() {
+        super.longTick();
+        for (Ability abil : abils) {
+            if (abil != null) {
+                if (abil.cd > 0) {
+                    abil.cd--;
+                }
+                if (abil.conting > 0) {
+                    abil.conting--;
+                }
+            }
         }
     }
 

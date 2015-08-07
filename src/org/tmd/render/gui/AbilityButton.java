@@ -54,7 +54,7 @@ public class AbilityButton extends Button {
     @Override
     public void click() {
         System.out.println(abil.getClass().getName());
-        if (enabled) {
+        if (enabled && !Declaration.dungeon.player.dead) {
             if (abil instanceof Active) {
                 ((Active) abil).cast(level, Declaration.dungeon.player);
                 enabled = false;
@@ -78,9 +78,7 @@ public class AbilityButton extends Button {
 
     public void tick() {
         abil.cd = cooldown;
-        if (cooldown > 0) {
-            cooldown--;
-        } else {
+        if (cooldown <= 0) {
             enabled = true;
         }
         abil.tick();

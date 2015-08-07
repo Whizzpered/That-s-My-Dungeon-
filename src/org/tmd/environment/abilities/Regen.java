@@ -17,7 +17,7 @@ import org.tmd.main.Declaration;
 public class Regen extends Active {
     
     public Regen() {
-        super(Declaration.dungeon.player, 500);
+        super(Declaration.dungeon.player, 20);
     }
 
     public void cast(int level, Entity by) {

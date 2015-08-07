@@ -378,9 +378,6 @@ public class Entity implements Comparable<Entity>, Serializable {
                     }
                 }
             }
-            if (hp < getMaxHP()) {
-                hp += getRegen();
-            }
             if (hp > getMaxHP()) {
                 hp = getMaxHP();
             }
@@ -427,7 +424,9 @@ public class Entity implements Comparable<Entity>, Serializable {
     }
 
     public void longTick() {
-
+        if (!dead && hp < getMaxHP()) {
+            hp += getRegen();
+        }
     }
 
     public void render() {

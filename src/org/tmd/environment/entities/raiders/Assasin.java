@@ -32,11 +32,11 @@ public class Assasin extends Raider {
 
     @Override
     public void initAbilities() {
-        abils[0] = new Active(thisClass, 600) {
+        abils[0] = new Active(thisClass, 30) {
             @Override
             public void cast(int level, Entity owner) {
                 this.cd = this.cooldown;
-                this.conting = 100 + 50 * level;
+                this.conting = 2 +  level;
                 by.effects.add(new Effect(conting, level, by) {
 
                     @Override
@@ -52,10 +52,10 @@ public class Assasin extends Raider {
             }
         };
         if (level > 2) {
-            abils[1] = new Active(thisClass, 800) {
+            abils[1] = new Active(thisClass, 40) {
                 @Override
                 public void cast(int level, Entity by) {
-                    conting = 150;
+                    conting = 3;
                     this.cd = this.cooldown;
                     focus.effects.add(new Effect(conting, level, by) {
 
@@ -73,10 +73,10 @@ public class Assasin extends Raider {
             };
         }
         if (level > 4) {
-            abils[2] = new Active(thisClass, 900) {
+            abils[2] = new Active(thisClass, 30) {
                 @Override
                 public void cast(int level, Entity by) {
-                    conting = 330;
+                    conting = 20;
                     this.cd = this.cooldown;
                     pet = new Pet(thisClass.x, thisClass.y, "dog", (int)(level / 2), thisClass);
                     dungeon.entities.add(pet);

@@ -27,11 +27,7 @@ public abstract class Ability implements Serializable {
     }
 
     public void tick() {
-        if (cd > 0) {
-            cd--;
-        }
         if (conting > 0) {
-            conting--;
             duration();
         } else {
             exduration();

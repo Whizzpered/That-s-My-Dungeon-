@@ -18,7 +18,7 @@ import org.tmd.main.Sounds;
 public class AOE extends Target{
 
     public AOE() {
-        super(Declaration.dungeon.player, 100);
+        super(Declaration.dungeon.player, 20);
     }
 
     @Override

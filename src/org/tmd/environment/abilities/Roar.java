@@ -6,8 +6,6 @@
 package org.tmd.environment.abilities;
 
 import org.tmd.environment.Point;
-import org.tmd.environment.entities.Bullet;
-import org.tmd.environment.entities.BulletRoar;
 import org.tmd.environment.entities.Entity;
 import org.tmd.environment.particles.RoarWave;
 import org.tmd.environment.particles.SuperRoarWave;
@@ -26,7 +24,7 @@ public class Roar extends Target {
     double deltaDistance = 50;
 
     public Roar() {
-        super(Declaration.dungeon.player, 100);
+        super(Declaration.dungeon.player, 20);
     }
 
     @Override

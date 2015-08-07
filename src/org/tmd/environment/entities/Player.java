@@ -44,11 +44,27 @@ public class Player extends Entity {
     @Override
     public void tick() {
         super.tick();
-        for (int i = 0; i < abilities.size(); i++) {
-            abilities.get(i).tick();
+        for (AbilityButton abilitie : abilities) {
+            abilitie.tick();
         }
-        if(agro != null){
+        if (agro != null) {
             focus = agro;
+        }
+    }
+
+    @Override
+    public void longTick() {
+        super.longTick();
+        for (AbilityButton abilitie : abilities) {
+            if (abilitie.abil.cd > 0) {
+                abilitie.abil.cd--;
+            }
+            if (abilitie.abil.conting > 0) {
+                abilitie.abil.conting--;
+            }
+            if (abilitie.cooldown > 0) {
+                abilitie.cooldown--;
+            }
         }
     }
 
@@ -104,6 +120,12 @@ public class Player extends Entity {
         super.attackMethod(e);
     }
 
+    @Override
+    public void dead() {
+        focus = null;
+        agro = null;
+    }
+    
     @Override
     public boolean hit(double damage, Entity from) {
         if (Main.RANDOM.nextInt(10) == 0) {

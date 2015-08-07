@@ -73,7 +73,7 @@ public class Main {
             }
         }
     };
-    public static Timer longTimer = new Timer(1000, Main.longTimerListener),
+    public static Timer longTimer = new Timer(500, Main.longTimerListener),
             tickTimer1 = new Timer(10, Main.tickTimerListener),
             tickTimer2 = new Timer(10, Main.tickTimerListener);
     private static Object Serialize;

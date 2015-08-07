@@ -6,6 +6,7 @@
 package org.tmd.environment.abilities;
 
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.entities.Pet;
 import org.tmd.environment.entities.Slime;
 import org.tmd.main.Declaration;
 
@@ -15,11 +16,20 @@ import org.tmd.main.Declaration;
  */
 public class Summon extends Active {
 
+    public Pet pet;
+    
     public Summon() {
-        super(Declaration.dungeon.player, 200);
+        super(Declaration.dungeon.player, 20);
     }
 
     public void cast(int level, Entity by) {
-        by.dungeon.entities.add(new Slime(by.x, by.y, level, by));
+        pet = new Slime(by.x, by.y, level, by);
+        by.dungeon.entities.add(pet);
+        conting = 14;
+    }
+
+    @Override
+    public void exduration() {
+        by.dungeon.entities.remove(pet);
     }
 }

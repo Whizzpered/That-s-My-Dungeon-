@@ -66,8 +66,8 @@ public class Dungeon extends Scene implements Serializable {
     public Player player;
     public Entity underMouse;
     File maps[] = new File("maps").listFiles();
-    public Terrain terrain = new Terrain(this, "maps/" + maps[Main.RANDOM.nextInt(maps.length)].getName());
-    public Particle[] particles = new Particle[256];
+    public Terrain terrain = new Terrain(this, "maps/test.map" /*+ maps[Main.RANDOM.nextInt(maps.length)].getName()*/);
+    public Particle[] particles = new Particle[512];
     public int longtim = 0, wave = 0, target = 0;
     private boolean wavetimer, frezedMouse;
     public int quake = 0;
@@ -262,7 +262,7 @@ public class Dungeon extends Scene implements Serializable {
                 }
             }
             if (!wavetimer) {
-                longtim = 10;
+                longtim = 20;
                 wavetimer = true;
             }
         } catch (Exception e) {
@@ -360,9 +360,9 @@ public class Dungeon extends Scene implements Serializable {
             } else {
                 wave++;
                 Nicknames.free();
-                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                //entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                //entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                //entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 wavetimer = false;
             }
