@@ -8,6 +8,7 @@ package org.tmd.environment.entities;
 import java.io.Serializable;
 import static java.lang.Math.*;
 import java.util.ArrayList;
+import org.json.simple.JSONObject;
 import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
@@ -154,18 +155,18 @@ public class Entity implements Comparable<Entity>, Serializable {
     public Entity(double x, double y) {
         this.x = x;
         this.y = y;
-        String name = getClass().getName().replace("org.tmd.environment.entities.", "");
-        if (Main.stats.get(name).isEmpty()) {
-            XObject o = Main.stats.get(name);
-            this.hp = this.maxhp = o.get("hp").getFloat();
-            this.deltahp = o.get("deltahp").getFloat();
-            this.attackDamage = o.get("damage").getFloat();
-            this.attackDeltaDamage = o.get("deltadamage").getFloat();
-            this.regenhp = o.get("regenhp").getFloat();
-            this.attackReloadTime = o.get("attackspeed").getInteger();
-            this.armor = o.get("armor").getFloat();
-            this.deltaarmor = o.get("deltaarmor").getFloat();
-            this.speed = o.get("movementspeed").getFloat();
+        String name = getClass().getName().replaceAll("org.tmd.environment.entities.", "");
+        if (Main.stats.get(name) != null) {
+            JSONObject o = (JSONObject) Main.stats.get(name);
+            this.hp = this.maxhp = Float.parseFloat(o.get("hp").toString());
+            this.deltahp = Float.parseFloat(o.get("deltahp").toString());
+            this.attackDamage = Float.parseFloat(o.get("damage").toString());
+            this.attackDeltaDamage = Float.parseFloat(o.get("deltadamage").toString());
+            this.regenhp = Float.parseFloat(o.get("regenhp").toString());
+            this.attackReloadTime = Integer.parseInt(o.get("attackspeed").toString());
+            this.armor = Float.parseFloat(o.get("armor").toString());
+            this.deltaarmor = Float.parseFloat(o.get("deltaarmor").toString());
+            this.speed = Float.parseFloat(o.get("movementspeed").toString());
         } else {
             System.out.println(name);
             System.out.println("!!!");

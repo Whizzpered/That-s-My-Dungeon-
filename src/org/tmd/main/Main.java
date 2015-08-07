@@ -17,10 +17,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -43,7 +46,7 @@ import org.tmd.xfg.*;
 public class Main {
 
     public static final Random RANDOM = new Random();
-    public static XFG conf, stats;
+    public static XFG conf;  public static JSONObject stats;
     private static boolean exit;
     private static Image logo;
     public static Graphics g = new Graphics();
@@ -119,7 +122,13 @@ public class Main {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
             Sounds.startBackgroundLoad();
-            stats = new XFG("res/text/stats.xfg");
+            String statsString = new String();
+            Scanner scanner = new Scanner(new File("res/text/stats.json"));
+            while(scanner.hasNextLine()){
+                statsString += scanner.nextLine();
+            }
+            System.out.println(statsString);
+            stats = (JSONObject) JSONValue.parse(statsString);
             GameLocale.load(conf.get("locale").getString());
             Display.setDisplayMode(new DisplayMode(conf.get("width").getInteger(), conf.get("height").getInteger()));
             Display.setTitle("That's My Dungeon!");
@@ -148,6 +157,8 @@ public class Main {
             Display.destroy();
             JOptionPane.showMessageDialog(null, "Error!\n" + e);
             System.exit(1);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             Textures.load();

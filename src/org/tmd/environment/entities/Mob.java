@@ -36,7 +36,6 @@ public class Mob extends Entity {
         attackType = "hit_clutches";
         range = 400;
         name = "monkey";
-        faction = 1;
     }
 
     @Override

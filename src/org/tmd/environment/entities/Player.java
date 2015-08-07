@@ -38,7 +38,6 @@ public class Player extends Entity {
         attackType = "hit_big_clutches";
         headType = 1;
         level = 1;
-        faction = 1;
     }
 
     @Override
