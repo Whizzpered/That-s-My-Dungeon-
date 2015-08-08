@@ -11,6 +11,8 @@ import org.tmd.environment.entities.Entity;
 import org.tmd.environment.entities.Pet;
 import org.tmd.environment.entities.Raider;
 import org.tmd.environment.entities.items.Effect;
+import org.tmd.environment.particles.FloatingText;
+import org.tmd.render.Color;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
 
@@ -25,7 +27,8 @@ public class Assasin extends Raider {
     public Assasin(double x, double y, int lvl) {
         super(x, y, lvl);
         detectDistance = 400;
-        attackDistance = 96;
+        attackDistance = (int) (size / 2 + dungeon.player.size / 2 + 10);
+        System.out.println(attackDistance + "   "+ size + "    " + dungeon.player.size);
         spriteStanding = new Sprite("creatures/pries");
         minimapIcon = new Image("minimap/warrior.png");
     }
@@ -36,8 +39,8 @@ public class Assasin extends Raider {
             @Override
             public void cast(int level, Entity owner) {
                 this.cd = this.cooldown;
-                this.conting = 2 +  level;
-                by.effects.add(new Effect(conting, level, by) {
+                this.conting = 2 + level;
+                by.effects.add(new Effect(conting * 50, level, by) {
 
                     @Override
                     public void apply() {
@@ -57,11 +60,12 @@ public class Assasin extends Raider {
                 public void cast(int level, Entity by) {
                     conting = 3;
                     this.cd = this.cooldown;
-                    focus.effects.add(new Effect(conting, level, by) {
+                    focus.effects.add(new Effect(conting * 50, level, by) {
 
                         @Override
                         public void apply() {
                             focus.hp -= thisClass.level * 0.5f;
+                            dungeon.addParticle(new FloatingText((int) focus.x, (int) focus.y - 35, "- " + (float) thisClass.level * 0.5f, Color.orange));
                         }
 
                         @Override
@@ -78,7 +82,7 @@ public class Assasin extends Raider {
                 public void cast(int level, Entity by) {
                     conting = 20;
                     this.cd = this.cooldown;
-                    pet = new Pet(thisClass.x, thisClass.y, "dog", (int)(level / 2), thisClass);
+                    pet = new Pet(thisClass.x, thisClass.y, "dog", (int) (level / 2), thisClass);
                     dungeon.entities.add(pet);
                 }
 
@@ -94,12 +98,15 @@ public class Assasin extends Raider {
     public void abilities() {
         if ((condition == Condition.BATTLE || condition == Condition.NOTANKS) && abils[0].isReady()) {
             ((Active) abils[0]).cast(level, thisClass);
+            System.out.println("ABIL1");
         }
-        if(level>2 && abils[1].isReady() && focus != null){
-            ((Active)abils[1]).cast(level, thisClass);
+        if (abils[1] != null && abils[1].isReady() && focus != null) {
+            ((Active) abils[1]).cast(level, thisClass);
+            System.out.println("ABIL2");
         }
-        if(level > 5 && abils[2].isReady()){
-            ((Active)abils[2]).cast(level, thisClass);
+        if (abils[2] != null && abils[2].isReady()) {
+            ((Active) abils[2]).cast(level, thisClass);
+            System.out.println("ABIL3");
         }
     }
 

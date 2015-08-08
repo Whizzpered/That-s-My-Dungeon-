@@ -9,7 +9,6 @@
         "armor": 6,
         "deltaarmor": 3,
         "movementspeed": 3,
-        "attackrange": 64
     },
     "raiders.Archer": {
         "hp": 80,
@@ -21,7 +20,6 @@
         "armor": 5,
         "deltaarmor": 2,
         "movementspeed": 4,
-        "attackrange": 384
     },
     "raiders.Priest": {
         "hp": 80,
@@ -33,7 +31,6 @@
         "armor": 1,
         "deltaarmor": 2,
         "movementspeed": 3,
-        "attackrange": 384
     },
     "raiders.Assasin": {
         "hp": 100,
@@ -45,7 +42,6 @@
         "armor": 5,
         "deltaarmor": 3,
         "movementspeed": 4,
-        "attackrange": 64
     },
     "Player": {
         "hp": 580,
@@ -57,7 +53,6 @@
         "armor": 8,
         "deltaarmor": 5,
         "movementspeed": 3,
-        "attackrange": 128
     },
     "Mob": {
         "hp": 120,
@@ -69,7 +64,6 @@
         "armor": 5,
         "deltaarmor": 1,
         "movementspeed": 4,
-        "attackrange": 96
     },
     "Slime": {
         "hp": 80,
@@ -81,7 +75,6 @@
         "armor": 1,
         "deltaarmor": 1,
         "movementspeed": 2,
-        "attackrange": 64
     },
     "Pet": {
         "hp": 50,
@@ -93,6 +86,5 @@
         "armor": 3,
         "deltaarmor": 1,
         "movementspeed": 4,
-        "attackrange": 64
     }
 }

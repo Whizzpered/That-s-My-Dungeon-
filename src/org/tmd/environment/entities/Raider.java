@@ -18,7 +18,6 @@ import org.tmd.render.Animation;
 import org.tmd.render.Color;
 import org.tmd.render.Image;
 import org.tmd.render.Sprite;
-import org.tmd.render.gui.AbilityButton;
 import org.tmd.render.gui.Chat;
 
 /**
@@ -29,7 +28,7 @@ public class Raider extends Entity {
 
     Animation ghost = new Animation("creatures/ghost");
     int deathtimer = 800;
-    boolean hasMoney = true;
+    boolean hasMoney = true, won;
     public Condition condition = JOINED;
     public Item[] weared = new Item[4];
     public Raider thisClass = this;
@@ -42,6 +41,7 @@ public class Raider extends Entity {
         minimapIcon = new Image("minimap/warrior.png");
         name = "raider";
         width = 96;
+        faction = 2;
         headType = 0;
         clickable = true;
         counter.period = 400;
@@ -141,9 +141,9 @@ public class Raider extends Entity {
             }
         }
         dungeon.chat.addMessage(this, Chat.messageType.TYPE_NOTANKS);
-        //if (attackDistance > width) {
-        //attackDistance = (int) width;
-        //}
+        if (attackDistance > (size / 2 + dungeon.player.size / 2 + 10)) {
+            attackDistance = (int) (size / 2 + dungeon.player.size / 2 + 10);
+        }
         condition = NOTANKS;
     }
 
@@ -152,8 +152,11 @@ public class Raider extends Entity {
     }
 
     public void won() {
-        dungeon.chat.addMessage(this, Chat.messageType.TYPE_HEAL);
-        goTo(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y);
+        if (!won) {
+            dungeon.chat.addMessage(this, Chat.messageType.TYPE_BATTLE);
+            goTo(dungeon.raidersRespawnPoint.x, dungeon.raidersRespawnPoint.y);
+            won = true;
+        }
     }
 
     public void died() {

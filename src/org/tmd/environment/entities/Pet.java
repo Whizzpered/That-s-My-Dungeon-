@@ -69,7 +69,7 @@ public class Pet extends Entity {
     public void patrool() {
         if (focus == null) {
             for (Entity e : dungeon.getEntities()) {
-                if (e instanceof Raider && !e.dead) {
+                if (!e.dead && e.faction != owner.faction) {
                     double dist = Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
                     if (dist <= range) {
                         focus = e;

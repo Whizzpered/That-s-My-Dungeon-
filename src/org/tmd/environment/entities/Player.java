@@ -39,6 +39,7 @@ public class Player extends Entity {
         headType = 1;
         faction = 1;
         level = 1;
+        attackDistance = 96;
     }
 
     @Override
