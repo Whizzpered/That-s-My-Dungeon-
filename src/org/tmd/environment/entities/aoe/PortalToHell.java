@@ -7,8 +7,11 @@ package org.tmd.environment.entities.aoe;
 
 import org.tmd.environment.entities.AreaOfEffect;
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.particles.FloatingText;
 import org.tmd.environment.particles.Hell;
+import org.tmd.main.Declaration;
 import org.tmd.main.Main;
+import org.tmd.render.Color;
 
 /**
  *
@@ -41,11 +44,12 @@ public class PortalToHell extends AreaOfEffect {
 
     @Override
     public void cast(Entity e) {
-        e.hit(1, by);
+        e.hp -= 0.75 + 0.5 * level;
+        Declaration.dungeon.addParticle(new FloatingText((int) x, (int) y - 35, "- " + (int) 0.75 + 0.5 * level, Color.orange));
     }
 
     @Override
     public void render() {
-        
+
     }
 }

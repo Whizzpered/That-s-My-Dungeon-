@@ -38,18 +38,6 @@ public class Shop extends Inventory {
 
             });
         }
-        gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
-            @Override
-            public void init() {
-                horisontalAlign = Align.RIGHT;
-                verticalAlign = Align.TOP;
-            }
-
-            @Override
-            public String getText() {
-                return super.getText() + ": " + player.money;
-            }
-        });
         storeSlots.get(0).item = new Item("hat", Declaration.dungeon.wave);
         storeSlots.get(0).item.price = Declaration.dungeon.wave * 2;
         storeSlots.get(0).item.type = ItemType.HEAD;

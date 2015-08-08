@@ -445,18 +445,6 @@ public class Dungeon extends Scene implements Serializable {
                     cameraTarget = getRaiders()[target];
                 }
             }
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
-            if (pressed) {
-                currentScene = Declaration.inventory;
-            }
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            if (pressed) {
-                currentScene = Declaration.shop;
-            }
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
-            if (pressed) {
-                currentScene = Declaration.training;
-            }
         } else {
             pressed = true;
         }
@@ -498,8 +486,11 @@ public class Dungeon extends Scene implements Serializable {
                 wave++;
                 Nicknames.free();
                 entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 wavetimer = false;
             }
@@ -543,6 +534,54 @@ public class Dungeon extends Scene implements Serializable {
                 horisontalAlign = Align.RIGHT;
                 verticalAlign = Align.TOP;
             }
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.expa;
+            }
+        });
+        Declaration.inventory.gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
+
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.money;
+            }
+        });
+        Declaration.inventory.gui.add(new Label("Points" + player.expa, -20, 30, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
+
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.expa;
+            }
+        });
+        Declaration.shop.gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
+
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.money;
+            }
+        });
+        Declaration.training.gui.add(new Label("Points" + player.expa, -20, 30, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
+
             @Override
             public String getText() {
                 return super.getText() + ": " + player.expa;

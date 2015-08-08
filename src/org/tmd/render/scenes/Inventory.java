@@ -46,35 +46,6 @@ public class Inventory extends Scene {
             });
             slots.get(slots.size() - 1).type = ItemType.values()[i];
         }
-        gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
-            @Override
-            public void init() {
-                horisontalAlign = Align.RIGHT;
-                verticalAlign = Align.TOP;
-            }
-
-            @Override
-            public String getText() {
-                return super.getText() + ": " + player.money;
-            }
-        });
-        gui.add(new Label("Points" + player.expa, -20, 30, Color.white) {
-            @Override
-            public void init() {
-                horisontalAlign = Align.RIGHT;
-                verticalAlign = Align.TOP;
-            }
-
-            @Override
-            public String getText() {
-                return super.getText() + ": " + player.expa;
-            }
-        });
-
-        for (int i = 0; i < 4; i++) {
-            slots.get(i).item.type = ItemType.values()[i];
-        }
-
         for (int i = 0; i < 4; i++) {
             slots.add(new Slot(64 + 96 * i, 32) {
 

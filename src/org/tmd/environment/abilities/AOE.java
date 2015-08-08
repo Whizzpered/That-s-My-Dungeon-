@@ -6,10 +6,8 @@
 package org.tmd.environment.abilities;
 
 import org.tmd.environment.Point;
-import org.tmd.environment.entities.BulletRoar;
 import org.tmd.environment.entities.aoe.PortalToHell;
 import org.tmd.main.Declaration;
-import org.tmd.main.Sounds;
 
 /**
  *

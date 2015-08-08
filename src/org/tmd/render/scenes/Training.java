@@ -46,17 +46,6 @@ public class Training extends Scene {
                 }
             }
         }
-        gui.add(new Label("Points" + Declaration.dungeon.player.expa, -20, 30, Color.white) {
-            @Override
-            public void init() {
-                horisontalAlign = Align.RIGHT;
-                verticalAlign = Align.TOP;
-            }
-            @Override
-            public String getText() {
-                return super.getText() + ": " + Declaration.dungeon.player.expa;
-            }
-        });
         for (int i = 1; i < lines.length; i += 2) {
             String[] ab = lines[i].split(",");
             for (int j = 0; j < ab.length; j++) {

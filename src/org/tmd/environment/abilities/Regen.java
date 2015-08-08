@@ -21,17 +21,20 @@ public class Regen extends Active {
     }
 
     public void cast(int level, Entity by) {
+        if(level > 2){
+            by.hp += by.getMaxHP()/3;
+        }
         conting = 200;
         by.effects.add(new Effect(conting, level, by) {
             
             @Override
             public void apply() {
-                target.regenhp += 0.05f + 0.03f * coefficient;
+                target.regenhp += 6f + 2f * coefficient;
             }
             
             @Override
             public void unapply() {
-                target.regenhp -= 0.05f + 0.03f * coefficient;
+                target.regenhp -= 6f + 2f * coefficient;
             }
         });
     }

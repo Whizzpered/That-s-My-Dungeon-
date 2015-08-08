@@ -7,10 +7,12 @@ package org.tmd.environment.abilities;
 
 import org.tmd.environment.Point;
 import org.tmd.environment.entities.Entity;
+import org.tmd.environment.particles.FloatingText;
 import org.tmd.environment.particles.RoarWave;
 import org.tmd.environment.particles.SuperRoarWave;
 import org.tmd.main.Declaration;
 import org.tmd.main.Sounds;
+import org.tmd.render.Color;
 
 /**
  *
@@ -46,11 +48,13 @@ public class Roar extends Target {
             if (e.faction == 2) {
                 if (Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2)) <= d
                         && Math.sqrt(Math.pow(by.x - e.x, 2) + Math.pow(by.y - e.y, 2)) <= d) {
-                    e.hit(damage + deltaDamage * level, by);
+                    e.hp -= damage + deltaDamage * level;
+                    Declaration.dungeon.addParticle(new FloatingText((int) x, (int) y - 35, "- " + (int) damage + deltaDamage * level, Color.orange));
                 }
                 if (level > 2) {
                     if (Math.sqrt(Math.pow(by.x - e.x, 2) + Math.pow(by.y - e.y, 2)) <= d) {
-                        e.hit(damage + deltaDamage * level, by);
+                        e.hp -= damage + deltaDamage * level;
+                        Declaration.dungeon.addParticle(new FloatingText((int) x, (int) y - 35, "- " + (int) damage + deltaDamage * level, Color.orange));
                     }
                 }
             }

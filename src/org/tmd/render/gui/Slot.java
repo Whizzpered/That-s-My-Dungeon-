@@ -65,13 +65,13 @@ public class Slot extends Button {
                 String itemType = item.type.name().toLowerCase();
                 String description = "";
                 for (Modificator mod : item.modificators) {
-                    description += GameLocale.get(mod.name()) + "1337" + '\n';
+                    description += GameLocale.get(mod.name()) + item.modificatorsvalue.get(item.modificators.indexOf(mod)) + '\n';
                 }
                 Scene.currentScene.currentTip = new ToolTip(GameLocale.get(itemType) + '\n' + '\n' + description);
             }
         }
         if (type != null) {
-            Main.defaultFont.drawString(type.name(), (int) (x + width / 3), (int) y, Color.yellow);
+            Main.defaultFont.drawString(type.name(), (int) (getX() + width / 3), (int) getY(), Color.yellow);
         }
     }
 
