@@ -38,6 +38,7 @@ public class Label extends Element {
         return GameLocale.get(string);
     }
 
+    @Override
     public void render() {
         int x = 0;
         if (icon != null) {

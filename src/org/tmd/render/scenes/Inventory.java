@@ -18,6 +18,7 @@ import org.tmd.main.Main;
 import org.tmd.render.Color;
 import org.tmd.render.gui.Align;
 import org.tmd.render.gui.Button;
+import org.tmd.render.gui.Label;
 import org.tmd.render.gui.Mouse;
 import org.tmd.render.gui.Slot;
 
@@ -45,16 +46,31 @@ public class Inventory extends Scene {
             });
             slots.get(slots.size() - 1).type = ItemType.values()[i];
         }
+        gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
 
-        slots.get(0).item = new Item("hat", 1);
-        slots.get(0).item.modificators.add(Modificator.ARMOR);
-        slots.get(0).item.modificators.add(Modificator.ATTACKSPEED);
-        slots.get(1).item = new Item("arms", 1);
-        slots.get(1).item.modificators.add(Modificator.ARMOR);
-        slots.get(2).item = new Item("braces", 1);
-        slots.get(2).item.modificators.add(Modificator.ARMOR);
-        slots.get(3).item = new Item("pants", 1);
-        slots.get(3).item.modificators.add(Modificator.ARMOR);
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.money;
+            }
+        });
+        gui.add(new Label("Points" + player.expa, -20, 30, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
+
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.expa;
+            }
+        });
+
         for (int i = 0; i < 4; i++) {
             slots.get(i).item.type = ItemType.values()[i];
         }

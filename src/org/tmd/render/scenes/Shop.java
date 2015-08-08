@@ -10,7 +10,9 @@ import org.lwjgl.input.Keyboard;
 import org.tmd.environment.entities.items.Item;
 import org.tmd.environment.entities.items.ItemType;
 import org.tmd.main.Declaration;
+import org.tmd.render.Color;
 import org.tmd.render.gui.Align;
+import org.tmd.render.gui.Label;
 import org.tmd.render.gui.StoreSlot;
 import static org.tmd.render.scenes.Scene.currentScene;
 
@@ -36,7 +38,18 @@ public class Shop extends Inventory {
 
             });
         }
+        gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
 
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.money;
+            }
+        });
         storeSlots.get(0).item = new Item("hat", Declaration.dungeon.wave);
         storeSlots.get(0).item.price = Declaration.dungeon.wave * 2;
         storeSlots.get(0).item.type = ItemType.HEAD;
@@ -52,7 +65,7 @@ public class Shop extends Inventory {
         storeSlots.get(3).item = new Item("pants", Declaration.dungeon.wave);
         storeSlots.get(3).item.price = Declaration.dungeon.wave * 2;
         storeSlots.get(3).item.type = ItemType.LEGS;
-        
+
         gui.addAll(Declaration.inventory.gui);
         gui.addAll(storeSlots);
     }

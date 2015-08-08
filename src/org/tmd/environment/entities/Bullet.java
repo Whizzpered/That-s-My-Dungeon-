@@ -41,8 +41,13 @@ public class Bullet extends Entity {
     }
 
     @Override
+    public float getSpeed(){
+        return speed;
+    }
+    
+    @Override
     public void tick() {
-        move(speed * Math.cos(angle), speed * Math.sin(angle));
+        move(getSpeed() * Math.cos(angle), getSpeed() * Math.sin(angle));
         if (focus != null) {
             angle = Math.atan2((focus.y - y), (focus.x - x));
             double dist = Math.sqrt(Math.pow(x - focus.x, 2) + Math.pow(y - focus.y, 2));

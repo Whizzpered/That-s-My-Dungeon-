@@ -30,7 +30,6 @@ public class Raider extends Entity {
     int deathtimer = 800;
     boolean hasMoney = true, won;
     public Condition condition = JOINED;
-    public Item[] weared = new Item[4];
     public Raider thisClass = this;
     public Ability[] abils = new Ability[3];
 

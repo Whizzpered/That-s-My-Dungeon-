@@ -13,6 +13,7 @@ import org.tmd.render.Color;
 import org.tmd.environment.Block;
 import org.tmd.environment.Point;
 import org.tmd.environment.entities.items.Effect;
+import org.tmd.environment.entities.items.Item;
 import org.tmd.environment.entities.items.Modificator;
 import org.tmd.environment.particles.BloodParticle;
 import org.tmd.environment.particles.FloatingText;
@@ -61,8 +62,7 @@ public class Entity implements Comparable<Entity>, Serializable {
     public boolean clickable, entried, standing;
     protected Counter counter = new Counter(500);
     public String nickmame;
-    public ArrayList<Modificator> modificatorTypes = new ArrayList<Modificator>();
-    public ArrayList<Float> modificators = new ArrayList<Float>();
+    public Item[] weared = new Item[4];
     public ArrayList<Effect> effects = new ArrayList<Effect>();
 
     public String getName() {
@@ -104,9 +104,13 @@ public class Entity implements Comparable<Entity>, Serializable {
 
     public float getMaxHP() {
         int i = 0;
-        for (int k = 0; k < modificatorTypes.size(); k++) {
-            if (modificatorTypes.get(k).name().equals("HP")) {
-                i += modificators.get(k);
+        for (Item it : weared) {
+            if (it != null) {
+                for (Modificator mod : it.modificators) {
+                    if (mod.name().equals("HP")) {
+                        i += it.modificatorsvalue.get(it.modificators.indexOf(mod));
+                    }
+                }
             }
         }
         return maxhp + deltahp * level + i;
@@ -114,9 +118,13 @@ public class Entity implements Comparable<Entity>, Serializable {
 
     public double getDMG() {
         int i = 0;
-        for (int k = 0; k < modificatorTypes.size(); k++) {
-            if (modificatorTypes.get(k).name().equals("DAMAGE")) {
-                i += modificators.get(k);
+        for (Item it : weared) {
+            if (it != null) {
+                for (Modificator mod : it.modificators) {
+                    if (mod.name().equals("DAMAGE")) {
+                        i += it.modificatorsvalue.get(it.modificators.indexOf(mod));
+                    }
+                }
             }
         }
         return attackDamage + attackDeltaDamage * level + i;
@@ -124,22 +132,44 @@ public class Entity implements Comparable<Entity>, Serializable {
 
     public float getArmor() {
         int i = 0;
-        for (int k = 0; k < modificatorTypes.size(); k++) {
-            if (modificatorTypes.get(k).name().equals("ARMOR")) {
-                i += modificators.get(k);
+        for (Item it : weared) {
+            if (it != null) {
+                for (Modificator mod : it.modificators) {
+                    if (mod.name().equals("ARMOR")) {
+                        i += it.modificatorsvalue.get(it.modificators.indexOf(mod));
+                    }
+                }
             }
         }
         return armor + deltaarmor * level + i;
     }
 
     public float getRegen() {
-        float i = 0;
-        for (int k = 0; k < modificatorTypes.size(); k++) {
-            if (modificatorTypes.get(k).name().equals("REGENHP")) {
-                i += modificators.get(k);
+        int i = 0;
+        for (Item it : weared) {
+            if (it != null) {
+                for (Modificator mod : it.modificators) {
+                    if (mod.name().equals("REGENHP")) {
+                        i += it.modificatorsvalue.get(it.modificators.indexOf(mod));
+                    }
+                }
             }
         }
         return regenhp + i;
+    }
+
+    public float getSpeed() {
+        int i = 0;
+        for (Item it : weared) {
+            if (it != null) {
+                for (Modificator mod : it.modificators) {
+                    if (mod.name().equals("MOVESPEED")) {
+                        i += it.modificatorsvalue.get(it.modificators.indexOf(mod));
+                    }
+                }
+            }
+        }
+        return speed + i;
     }
 
     private int sign(double a) {
@@ -334,7 +364,7 @@ public class Entity implements Comparable<Entity>, Serializable {
                 int currentWaypoint = this.currentWaypoint;
                 if (way != null && currentWaypoint < way.length) {
                     standing = false;
-                    walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed, sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * speed);
+                    walk(cos(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * getSpeed(), sin(atan2(way[currentWaypoint].y - y, way[currentWaypoint].x - x)) * getSpeed());
                     if (sqrt(pow(x - way[currentWaypoint].x, 2) + pow(y - way[currentWaypoint].y, 2)) <= 50) {
                         currentWaypoint++;
                         if (currentWaypoint == way.length) {
@@ -353,8 +383,8 @@ public class Entity implements Comparable<Entity>, Serializable {
                     }
                 } else if (targetX != -1) {
                     standing = false;
-                    walk(cos(atan2(targetY - y, targetX - x)) * speed, sin(atan2(targetY - y, targetX - x)) * speed);
-                    if (sqrt(pow(x - targetX, 2) + pow(y - targetY, 2)) <= speed * 2) {
+                    walk(cos(atan2(targetY - y, targetX - x)) * getSpeed(), sin(atan2(targetY - y, targetX - x)) * getSpeed());
+                    if (sqrt(pow(x - targetX, 2) + pow(y - targetY, 2)) <= getSpeed() * 2) {
                         targetX = -1;
                         targetY = -1;
                         standing = true;
@@ -374,10 +404,10 @@ public class Entity implements Comparable<Entity>, Serializable {
                     if (d < (e.size + size) / 2 && e.faction == faction) {
                         double a = atan2(e.y - y, e.x - x);
                         if (e.faction == faction) {
-                            e.move(cos(a) * e.speed / 2, sin(a) * e.speed / 2);
-                            move(-cos(a) * speed / 2, -sin(a) * speed / 2);
-                        }else{
-                            move(-cos(a) * speed, -sin(a) * speed);
+                            e.move(cos(a) * e.getSpeed() / 2, sin(a) * e.getSpeed() / 2);
+                            move(-cos(a) * getSpeed() / 2, -sin(a) * getSpeed() / 2);
+                        } else {
+                            move(-cos(a) * getSpeed(), -sin(a) * getSpeed());
                         }
                     }
                 }

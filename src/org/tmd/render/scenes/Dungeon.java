@@ -497,10 +497,10 @@ public class Dungeon extends Scene implements Serializable {
             } else {
                 wave++;
                 Nicknames.free();
-                //entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, 5));
-                //entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
-                //entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Warrior(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Assasin(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Archer(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                entities.add(new Priest(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
                 wavetimer = false;
             }
         }
@@ -524,6 +524,30 @@ public class Dungeon extends Scene implements Serializable {
         entities.add(player);
         Declaration.inventory.player = player;
         gui.add(new AbilitiesPanel());
+
+        gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
+
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.money;
+            }
+        });
+        gui.add(new Label("Points" + player.expa, -20, 30, Color.white) {
+            @Override
+            public void init() {
+                horisontalAlign = Align.RIGHT;
+                verticalAlign = Align.TOP;
+            }
+            @Override
+            public String getText() {
+                return super.getText() + ": " + player.expa;
+            }
+        });
     }
 
     public void deserialized() {
@@ -560,16 +584,19 @@ public class Dungeon extends Scene implements Serializable {
                     ex.printStackTrace();
                 }
             }
+            terrain.renderTops(floor);
             for (int i = 0; i < particles.length; i++) {
                 if (particles[i] != null) {
                     particles[i].renderEntity();
                 }
             }
-            terrain.renderTops(floor);
+
             shadow.draw(cameraTarget.x - Display.getWidth() - 50, cameraTarget.y - Display.getHeight() - 50, Display.getWidth() * 2, Display.getHeight() * 2);
         }
         GL11.glTranslated(-cam.x, -cam.y, 0);
     }
+
+    boolean mpressed;
 
     @Override
     public void handle() {
@@ -611,12 +638,12 @@ public class Dungeon extends Scene implements Serializable {
             }
         } else {
             if (Mouse.left) {
-                if (pressed) {
+                if (mpressed) {
                     addParticle(new FloatingText((int) (Mouse.x - cam.x), (int) (Mouse.y - cam.y), "GET ME TO THIS MOTHERFUCKER", Color.red));
-                    pressed = false;
+                    mpressed = false;
                 }
             } else {
-                pressed = true;
+                mpressed = true;
             }
         }
     }

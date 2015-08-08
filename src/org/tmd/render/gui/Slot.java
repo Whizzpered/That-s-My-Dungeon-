@@ -10,6 +10,8 @@ import org.tmd.environment.entities.items.Item;
 import org.tmd.environment.entities.items.Modificator;
 import org.tmd.main.Declaration;
 import org.tmd.main.GameLocale;
+import org.tmd.main.Main;
+import org.tmd.render.Color;
 import org.tmd.render.scenes.Scene;
 
 /**
@@ -67,6 +69,9 @@ public class Slot extends Button {
                 }
                 Scene.currentScene.currentTip = new ToolTip(GameLocale.get(itemType) + '\n' + '\n' + description);
             }
+        }
+        if (type != null) {
+            Main.defaultFont.drawString(type.name(), (int) (x + width / 3), (int) y, Color.yellow);
         }
     }
 
