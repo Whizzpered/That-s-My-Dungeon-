@@ -46,19 +46,6 @@ public class Inventory extends Scene {
             slots.get(slots.size() - 1).type = ItemType.values()[i];
         }
 
-        slots.get(0).item = new Item("hat", 1);
-        slots.get(0).item.modificators.add(Modificator.ARMOR);
-        slots.get(0).item.modificators.add(Modificator.ATTACKSPEED);
-        slots.get(1).item = new Item("arms", 1);
-        slots.get(1).item.modificators.add(Modificator.ARMOR);
-        slots.get(2).item = new Item("braces", 1);
-        slots.get(2).item.modificators.add(Modificator.ARMOR);
-        slots.get(3).item = new Item("pants", 1);
-        slots.get(3).item.modificators.add(Modificator.ARMOR);
-        for (int i = 0; i < 4; i++) {
-            slots.get(i).item.type = ItemType.values()[i];
-        }
-
         for (int i = 0; i < 4; i++) {
             slots.add(new Slot(64 + 96 * i, 32) {
 
