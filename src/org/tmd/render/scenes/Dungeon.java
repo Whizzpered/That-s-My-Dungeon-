@@ -516,7 +516,7 @@ public class Dungeon extends Scene implements Serializable {
         Declaration.inventory.player = player;
         gui.add(new AbilitiesPanel());
 
-        gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
+        gui.add(new Label("Gold" + player.money, -50, 5, Color.white) {
             @Override
             public void init() {
                 horisontalAlign = Align.RIGHT;
@@ -528,7 +528,7 @@ public class Dungeon extends Scene implements Serializable {
                 return super.getText() + ": " + player.money;
             }
         });
-        gui.add(new Label("Points" + player.expa, -20, 30, Color.white) {
+        gui.add(new Label("Points" + player.expa, -50, 30, Color.white) {
             @Override
             public void init() {
                 horisontalAlign = Align.RIGHT;
@@ -539,7 +539,7 @@ public class Dungeon extends Scene implements Serializable {
                 return super.getText() + ": " + player.expa;
             }
         });
-        Declaration.inventory.gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
+        Declaration.inventory.gui.add(new Label("Gold" + player.money, -50, 5, Color.white) {
             @Override
             public void init() {
                 horisontalAlign = Align.RIGHT;
@@ -551,7 +551,7 @@ public class Dungeon extends Scene implements Serializable {
                 return super.getText() + ": " + player.money;
             }
         });
-        Declaration.inventory.gui.add(new Label("Points" + player.expa, -20, 30, Color.white) {
+        Declaration.inventory.gui.add(new Label("Points" + player.expa, -50, 30, Color.white) {
             @Override
             public void init() {
                 horisontalAlign = Align.RIGHT;
@@ -563,7 +563,7 @@ public class Dungeon extends Scene implements Serializable {
                 return super.getText() + ": " + player.expa;
             }
         });
-        Declaration.shop.gui.add(new Label("Gold" + player.money, -20, 5, Color.white) {
+        Declaration.shop.gui.add(new Label("Gold" + player.money, -50, 5, Color.white) {
             @Override
             public void init() {
                 horisontalAlign = Align.RIGHT;
@@ -575,7 +575,7 @@ public class Dungeon extends Scene implements Serializable {
                 return super.getText() + ": " + player.money;
             }
         });
-        Declaration.training.gui.add(new Label("Points" + player.expa, -20, 30, Color.white) {
+        Declaration.training.gui.add(new Label("Points" + player.expa, -50, 30, Color.white) {
             @Override
             public void init() {
                 horisontalAlign = Align.RIGHT;

@@ -45,7 +45,7 @@ public class PortalToHell extends AreaOfEffect {
     @Override
     public void cast(Entity e) {
         e.hp -= 0.75 + 0.5 * level;
-        Declaration.dungeon.addParticle(new FloatingText((int) x, (int) y - 35, "- " + (int) 0.75 + 0.5 * level, Color.orange));
+        Declaration.dungeon.addParticle(new FloatingText((int) e.x, (int) e.y - 35, "- " + (int) 0.75 + 0.5 * level, Color.orange));
     }
 
     @Override
