@@ -373,8 +373,12 @@ public class Entity implements Comparable<Entity>, Serializable {
                     double d = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
                     if (d < (e.size + size) / 2) {
                         double a = atan2(e.y - y, e.x - x);
-                        e.move(cos(a) * e.speed / 2, sin(a) * e.speed / 2);
-                        move(-cos(a) * speed / 2, -sin(a) * speed / 2);
+                        if (e.faction == faction) {
+                            e.move(cos(a) * e.speed / 2, sin(a) * e.speed / 2);
+                            move(-cos(a) * speed / 2, -sin(a) * speed / 2);
+                        }else{
+                            move(-cos(a) * speed, -sin(a) * speed);
+                        }
                     }
                 }
             }
