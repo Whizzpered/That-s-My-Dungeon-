@@ -40,7 +40,7 @@ public class Entity implements Comparable<Entity>, Serializable {
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
     public double x, y, size = 75, width = 128, height = 48, distance;
-    public float armor, deltaarmor, deltahp = 25, hp = 105, maxhp = 100, speed = 2;
+    public float armor, deltaarmor, deltahp = 0, hp = 10, maxhp = 10, speed = 2;
     public float regenhp = 0.01f;
     protected double targetX = -1, targetY = -1;
     private Point[] way;
@@ -51,8 +51,8 @@ public class Entity implements Comparable<Entity>, Serializable {
     public Side side = Side.FRONT;
     public int faction;
     public boolean phantom = false, dead;
-    public float attackDamage = 10, attackDeltaDamage = 2;
-    public int attackDistance = 128, detectDistance;
+    public float attackDamage = 0, attackDeltaDamage = 0;
+    public int attackDistance = 135, detectDistance;
     public int headType = -1;
     public String attackType = "hit_sword";
     public int attackReloadTime = 100;

@@ -85,9 +85,7 @@ public class Dungeon extends Scene implements Serializable {
 
     public Panel statsPanel = new Panel(0, 0, 256, 256) {
 
-        Label name;
-        Label health;
-        Label souls;
+        Label name, health, souls, attack, armor;
 
         @Override
         public void init() {
@@ -98,14 +96,9 @@ public class Dungeon extends Scene implements Serializable {
 
                 @Override
                 public void render() {
-                    string = underMouse.getName();
-                    if (underMouse.level > 0) {
-                        // String of = underMouse.level + " " + GameLocale.get("level");
-                        //Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
-                        // Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
-                    }
-                    if (underMouse.attackDamage > 0) {
-                        String of = GameLocale.get("damage") + " " + underMouse.getDMG();
+                    string = player.getName();
+                    if (player.level > 0) {
+                        String of = player.level + " " + GameLocale.get("level");
                         Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
                         Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
                     }
@@ -119,28 +112,22 @@ public class Dungeon extends Scene implements Serializable {
                 @Override
                 public void render() {
                     super.render();
-                    if (underMouse.maxhp != Double.MAX_VALUE) {
-                        double d = underMouse.hp;
-                        double m = underMouse.getMaxHP();
-                        String of = (int) d + "/" + (int) m;
-                        Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
-                        Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
-                        Main.g.setColor(org.newdawn.slick.Color.green);
-                        d = d / m * 200;
-                        if (d < 0) {
-                            d = 0;
-                        }
-                        if (d > 200) {
-                            d = 200;
-                        }
-                        Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
-                        end.draw((int) d + 18, (int) getY() + 36);
-                        Frame.glassFrame.render(16, getY() + 32, 224, 33);
-                    } else {
-                        String of = GameLocale.get("invulnerable");
-                        Main.defaultFont.drawStringAtCenter(of, 128, (int) getY() + 26, Color.black);
-                        Main.defaultFont.drawStringAtCenter(of, 128, (int) getY() + 28, color);
+                    double d = player.hp;
+                    double m = player.getMaxHP();
+                    String of = (int) d + "/" + (int) m;
+                    Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
+                    Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
+                    Main.g.setColor(org.newdawn.slick.Color.green);
+                    d = d / m * 200;
+                    if (d < 0) {
+                        d = 0;
                     }
+                    if (d > 200) {
+                        d = 200;
+                    }
+                    Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
+                    end.draw((int) d + 18, (int) getY() + 36);
+                    Frame.glassFrame.render(16, getY() + 32, 224, 33);
                 }
 
             };
@@ -148,7 +135,7 @@ public class Dungeon extends Scene implements Serializable {
 
                 @Override
                 public void render() {
-                    if (underMouse != player) {
+                    if (player != player) {
                         return;
                     }
                     super.render();
@@ -171,15 +158,164 @@ public class Dungeon extends Scene implements Serializable {
                 }
 
             };
+            attack = new Label("Damage", 25, 180, Color.white) {
 
+                @Override
+                public void render() {
+                    if (player.getDMG() > 0) {
+                        super.render();
+                        String of = player.getDMG() + "";
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
+                        Main.g.setColor(org.newdawn.slick.Color.green);
+                    }
+                }
+
+            };
+            armor = new Label("Armor", 25, 210, Color.white) {
+
+                @Override
+                public void render() {
+                    if (player.getArmor() > 0) {
+                        super.render();
+                        String of = player.getArmor() + "";
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
+                        Main.g.setColor(org.newdawn.slick.Color.green);
+                    }
+                }
+
+            };
             add(name);
-            add(health);
             add(souls);
+            add(health);
+            add(attack);
+            add(armor);
         }
 
         @Override
         public void render() {
 
+            super.render();
+        }
+
+    };
+
+    public Panel underMousePanel = new Panel(0, 0, 256, 256) {
+
+        Label name, health, souls, attack, armor;
+
+        @Override
+        public void init() {
+            horisontalAlign = Align.LEFT;
+            verticalAlign = Align.TOP;
+            final Image end = new Image("gui/lifebar.png");
+            name = new Label("", 16, 8, Color.white) {
+
+                @Override
+                public void render() {
+                    if (underMouse == null) {
+                        return;
+                    }
+                    string = underMouse.getName();
+                    if (underMouse.level > 0) {
+                        String of = underMouse.level + " " + GameLocale.get("level");
+                        Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
+                    }
+                    /*
+                     if (underMouse.getDMG() > 0) {
+                     String of = GameLocale.get("damage") + " " + underMouse.getDMG();
+                     Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
+                     Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
+                     }
+                     */
+                    super.render();
+                }
+
+            };
+            health = new Label("gui/icons/hp.png", "Health", 16, 36, Color.white) {
+
+                @Override
+                public void render() {
+                    if (underMouse == null) {
+                        return;
+                    }
+                    if (underMouse.maxhp != Float.MAX_VALUE) {
+                        double d = underMouse.hp;
+                        double m = underMouse.getMaxHP();
+                        String of = (int) d + "/" + (int) m;
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
+                        Main.g.setColor(org.newdawn.slick.Color.green);
+                        d = d / m * 200;
+                        if (d < 0) {
+                            d = 0;
+                        }
+                        if (d > 200) {
+                            d = 200;
+                        }
+                        Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
+                        end.draw((int) d + 18, (int) getY() + 36);
+                        Frame.glassFrame.render(16, getY() + 32, 224, 33);
+                        super.render();
+                    } else {
+                        String of = GameLocale.get("invulnerable");
+                        Main.defaultFont.drawStringAtCenter(of, 128, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringAtCenter(of, 128, (int) getY() + 2, color);
+                    }
+                }
+
+            };
+            attack = new Label("Damage", 25, 180, Color.white) {
+
+                @Override
+                public void render() {
+                    if (underMouse == null) {
+                        return;
+                    }
+                    if (underMouse.getDMG() > 0) {
+                        super.render();
+                        String of = underMouse.getDMG() + "";
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
+                        Main.g.setColor(org.newdawn.slick.Color.green);
+                    }
+                }
+
+            };
+            armor = new Label("Armor", 25, 210, Color.white) {
+
+                @Override
+                public void render() {
+                    if (underMouse == null) {
+                        return;
+                    }
+                    if (underMouse.getArmor() > 0) {
+                        super.render();
+                        String of = underMouse.getArmor() + "";
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
+                        Main.g.setColor(org.newdawn.slick.Color.green);
+                    }
+                }
+
+            };
+            add(name);
+            add(health);
+            add(attack);
+            add(armor);
+            visible = false;
+        }
+
+        @Override
+        public boolean handle() {
+            visible = underMouse != null;
+            return super.handle();
+        }
+
+        @Override
+        public void render() {
             super.render();
         }
 
@@ -216,13 +352,14 @@ public class Dungeon extends Scene implements Serializable {
     }
 
     public void addParticle(Particle p) {
-        int most_oldest = 0; int oldness = 5000;
+        int most_oldest = 0;
+        int oldness = 5000;
         for (int i = 0; i < particles.length; i++) {
             if (particles[i] == null) {
                 particles[i] = p;
                 return;
-            }else{
-                if(oldness > particles[i].timer){
+            } else {
+                if (oldness > particles[i].timer) {
                     oldness = particles[i].timer;
                     most_oldest = i;
                 }
@@ -379,6 +516,7 @@ public class Dungeon extends Scene implements Serializable {
         gui.add(miniMap);
         gui.add(chat);
         gui.add(statsPanel);
+        gui.add(underMousePanel);
         cameraTarget = underMouse = player = new Player(playerRespawnPoint.x, playerRespawnPoint.y);
         for (Point p : minionsRespawnPoints) {
             entities.add(new Mob(p.x, p.y));
@@ -435,7 +573,7 @@ public class Dungeon extends Scene implements Serializable {
 
     @Override
     public void handle() {
-        underMouse = player;
+        underMouse = null;
         buttons();
         if (player.castAbility != null) {
             if (Mouse.left) {
@@ -468,7 +606,7 @@ public class Dungeon extends Scene implements Serializable {
 
         if (player.agro == null) {
 
-            if (underMouse != player && underMouse.clickable && Mouse.left) {
+            if (underMouse != null && underMouse.clickable && Mouse.left) {
                 underMouse.click();
             }
         } else {

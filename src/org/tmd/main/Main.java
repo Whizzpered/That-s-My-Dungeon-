@@ -199,11 +199,11 @@ public class Main {
                 glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
                 logo.draw((Display.getWidth() - logo.getWidth()) / 2, (Display.getHeight() - logo.getHeight()) / 2);
                 defaultFont.drawString(LoadTask.tasks.get(0).text, 16, displayHeight - 60, Color.white);
-                g.setColor(new Color(154, 185, 233).slickColor());
+                g.setColor(new Color(223, 223, 225).slickColor());
                 g.fillRect(16, displayHeight - 27, (float) (displayWidth - 32), 14);
-                g.setColor(new Color(6, 18, 39).slickColor());
+                g.setColor(new Color(0, 0, 0).slickColor());
                 g.fillRect(20, displayHeight - 23, (float) (displayWidth - 40), 6);
-                g.setColor(Color.white.slickColor());
+                g.setColor(new Color(255, 255, 255).slickColor());
                 g.fillRect(21, displayHeight - 22, (float) (displayWidth - 42) * (1 - (float) LoadTask.tasks.size() / allTasks), 4);
                 Display.update();
                 LoadTask.tasks.get(0).load();

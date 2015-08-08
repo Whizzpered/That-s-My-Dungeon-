@@ -24,7 +24,7 @@ public class Gate extends Entity{
         width = 40;
         height = 300;
         minimapIcon = null;
-        maxhp = (float)Double.MAX_VALUE;
+        maxhp = Float.MAX_VALUE;
         name = "gate";
         opened = true;
     }

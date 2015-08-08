@@ -26,7 +26,7 @@ import static org.tmd.render.scenes.Scene.currentScene;
 public class MainMenu extends Scene {
 
     Image background = new Image("gui/background.jpg");
-    Image logo = new Image("gui/small_logo.png");
+    Image logo = (Main.RANDOM.nextInt(10) != 0) ? new Image("gui/small_logo.png") : new Image("gui/small_logo_pesakh.png");
 
     Button continueButton = new Button("continue", 0, 200, 300, 50) {
 
@@ -99,7 +99,7 @@ public class MainMenu extends Scene {
             verticalAlign = Align.DOWN;
         }
     };
-    
+
     @Override
     public void init() {
         gui.add(continueButton);
@@ -121,7 +121,7 @@ public class MainMenu extends Scene {
             pressed = true;
         }
     }
-    
+
     @Override
     public void render() {
         if (Declaration.dungeon != null) {

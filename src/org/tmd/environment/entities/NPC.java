@@ -26,7 +26,7 @@ public class NPC extends Entity {
         this.name = name;
         this.sprite.delay = 250;
         this.dialog = dialog;
-        maxhp = (float) Double.MAX_VALUE;
+        maxhp = Float.MAX_VALUE;
         phantom = true;
         level = 9001;
         clickable = true;
@@ -38,7 +38,7 @@ public class NPC extends Entity {
         this.name = name;
         this.sprite.delay = 250;
         this.scene = scene;
-        maxhp = (float) Double.MAX_VALUE;
+        maxhp = Float.MAX_VALUE;
         phantom = true;
         level = 9001;
         clickable = true;

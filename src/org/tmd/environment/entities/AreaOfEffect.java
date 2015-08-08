@@ -22,7 +22,7 @@ public class AreaOfEffect extends Entity {
         this.timer = timer;
         this.delay = delay;
         phantom = true;
-        this.maxhp = (float)Double.MAX_VALUE;
+        this.maxhp = Float.MAX_VALUE;
         this.size = 0;
     }
 
@@ -32,7 +32,7 @@ public class AreaOfEffect extends Entity {
         this.timer = timer;
         this.delay = 1;
         phantom = true;
-        this.maxhp = (float)Double.MAX_VALUE;
+        this.maxhp = Float.MAX_VALUE;
         this.size = 0;
     }
 

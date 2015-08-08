@@ -24,7 +24,7 @@ public class Coin extends Entity {
         double a = Main.RANDOM.nextDouble() * 6.28;
         minimapIcon = null;
         name = "coin";
-        maxhp = (float)Double.MAX_VALUE;
+        maxhp = Float.MAX_VALUE;
         width = 32;
         vx = cos(a) * 3;
         vy = sin(a) * 3;
