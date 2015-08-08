@@ -47,8 +47,8 @@ public class AbilityTrain extends Button {
     public void click() {
         descrip = false;
         if (!activated) {
-            if (Declaration.dungeon.player.expa >= level) {
-                Declaration.dungeon.player.expa -= level;
+            if (Declaration.dungeon.player.expa >= 1) {
+                Declaration.dungeon.player.expa -= 1;
                 if (left != null) {
                     left.enabled = true;
                 }

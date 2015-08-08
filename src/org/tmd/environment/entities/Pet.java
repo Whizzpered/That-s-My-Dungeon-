@@ -30,6 +30,7 @@ public class Pet extends Entity {
         this.level = level;
         clickable = true;
         this.owner = owner;
+        attackDistance = 96;
         range = 400;
         level = owner.level;
         initAbils();
@@ -69,7 +70,7 @@ public class Pet extends Entity {
     public void patrool() {
         if (focus == null) {
             for (Entity e : dungeon.getEntities()) {
-                if (!e.dead && e.faction != owner.faction) {
+                if (!e.dead && e.faction == 3 - owner.faction) {
                     double dist = Math.sqrt(Math.pow(x - e.x, 2) + Math.pow(y - e.y, 2));
                     if (dist <= range) {
                         focus = e;

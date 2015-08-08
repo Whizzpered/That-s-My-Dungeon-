@@ -127,7 +127,7 @@ public class Main {
             while(scanner.hasNextLine()){
                 statsString += scanner.nextLine();
             }
-            System.out.println(statsString);
+            //System.out.println(statsString);
             stats = (JSONObject) JSONValue.parse(statsString);
             GameLocale.load(conf.get("locale").getString());
             Display.setDisplayMode(new DisplayMode(conf.get("width").getInteger(), conf.get("height").getInteger()));

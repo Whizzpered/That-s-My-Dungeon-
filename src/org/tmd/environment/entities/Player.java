@@ -24,7 +24,7 @@ public class Player extends Entity {
 
     public Image deadSprite = new Image("creatures/player/dead.png");
 
-    public int souls, neededSouls = 12, money, expa = 2;
+    public int souls, neededSouls = 12, money, expa = 3;
     
     public Inventory inventory = Declaration.inventory;
     public AbilityButton castAbility;
@@ -39,7 +39,7 @@ public class Player extends Entity {
         headType = 1;
         faction = 1;
         level = 1;
-        attackDistance = 96;
+        attackDistance = 128;
     }
 
     @Override
@@ -82,7 +82,6 @@ public class Player extends Entity {
         while (souls >= neededSouls) {
             souls -= neededSouls;
             level++;
-            expa++;
             dungeon.addParticle(new LevelUp(this));
             for (Entity e : dungeon.entities) {
                 if (e instanceof Mob) {

@@ -23,8 +23,10 @@ public class PortalToHell extends AreaOfEffect {
 
     public PortalToHell(double x, double y, int level, Entity by) {
         super(x, y, 200 + level * 50, 255, 5);
+        this.level = level;
         isometric = true;
         this.by = by;
+        
     }
 
     @Override
