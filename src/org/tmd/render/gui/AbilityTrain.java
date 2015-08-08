@@ -47,26 +47,31 @@ public class AbilityTrain extends Button {
     public void click() {
         descrip = false;
         if (!activated) {
-            if (left != null) {
-                left.enabled = true;
-            }
-            if (center != null) {
-                center.enabled = true;
-            }
-            if (right != null) {
-                right.enabled = true;
-            }
-            levelUpTimer = 255;
-            activated = true;
-            Player p = Declaration.dungeon.player;
-            for (int i = 0; i < p.abilities.size(); i++) {
-                if (p.abilities.get(i).text.equals(text)) {
-                    p.abilities.get(i).level = level;
-                    p.abilities.get(i).abilityIcon = ability;
-                    return;
+            if (Declaration.dungeon.player.expa >= level) {
+                Declaration.dungeon.player.expa -= level;
+                if (left != null) {
+                    left.enabled = true;
                 }
+                if (center != null) {
+                    center.enabled = true;
+                }
+                if (right != null) {
+                    right.enabled = true;
+                }
+                levelUpTimer = 255;
+                activated = true;
+                Player p = Declaration.dungeon.player;
+                for (int i = 0; i < p.abilities.size(); i++) {
+                    if (p.abilities.get(i).text.equals(text)) {
+                        if (p.abilities.get(i).level < level) {
+                            p.abilities.get(i).level = level;
+                            p.abilities.get(i).abilityIcon = ability;
+                        }
+                        return;
+                    }
+                }
+                p.abilities.add(new AbilityButton(text));
             }
-            p.abilities.add(new AbilityButton(text));
         }
     }
 
@@ -99,7 +104,7 @@ public class AbilityTrain extends Button {
                 grayArrowRight.draw(getX() + width - 16, getY() + height);
             }
         }
-        if (enabled) {
+        if (enabled && Declaration.dungeon.player.expa >= level) {
             Frame.glassFrame.render(getX(), getY(), width, height);
         } else {
             Frame.grayFrame.render(getX(), getY(), width, height);
@@ -116,5 +121,5 @@ public class AbilityTrain extends Button {
             Scene.currentScene.currentTip = new ToolTip(GameLocale.get(text) + '\n' + '\n' + GameLocale.get(description) + '\n' + GameLocale.get(mod) + level * 12);
         }
     }
-    
+
 }
